@@ -1,48 +1,143 @@
 :host {
-  display: block;
-  height: 100%;
-  width: 100%;
-}
-
-.console {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: #050505 !important;
-  font-family: monospace;
-  border-left: 1px solid #1a1a1a;
+  font-family: 'IBM Plex Mono', monospace;
+  background: #1b271b;
+  color: #41ff00;
+}
+
+.console-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 14px;
+  border-bottom: 1px solid #1a2e1a;
+  flex-shrink: 0;
+  background: #060c06;
+}
+
+.console-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #41ff00;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.console-status {
+  font-size: 10px;
+  color: #1f6b1f;
+  letter-spacing: 0.06em;
 }
 
 .console-output {
   flex: 1;
   overflow-y: auto;
   padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.192) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
 }
 
-.console-text {
-  color: #00ff9c;
-  font-size: 1rem;
-  text-shadow: 0 0 5px rgba(0, 255, 156, 0.4);
+.console-boot {
+  color: #8455e0;
+  font-size: 11px;
+  line-height: 1.8;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #1a2e1a;
+  letter-spacing: 0.04em;
+}
+
+.console-line {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 12px;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+}
+
+.console-line.active {
+  opacity: 1;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .console-time {
-  color: #abc2cf;
-  font-weight: bold;
+  color: #8455e0;
+  flex-shrink: 0;
+  font-size: 12px;
+  min-width: 70px;
+
+  letter-spacing: -0.5px;
 }
 
 .console-agent {
-  color: #abc2cf;
-  font-weight: bold;
+  flex-shrink: 0;
+  min-width: 52px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+    color: #41ff00;
+
 }
 
-.console-output::after {
-  content: '▌';
-  color: #00ff9c;
+.console-sep {
+  color: #8455e0;
+  flex-shrink: 0;
+}
+
+.console-text {
+  color: #41ff00;
+  opacity: 0.9;
+  font-size: 13px;
+  letter-spacing: -0.5px;
+  font-family: 'Modern Dos', monospace;
+}
+
+.console-code {
+  display: block;
+  margin-top: 5px;
+  padding: 6px 10px;
+  background: #050a057c;
+  border-left: 2px solid #1f6b1f;
+  font-size: 11px;
+  color: #41ff00;
+  white-space: pre;
+  letter-spacing: 0.03em;
+  line-height: 1.6;
+}
+
+.console-cursor {
   display: inline-block;
-  animation: blink 1s infinite;
+  margin-top: 1rem;
+  width: 5px;
+  height: 20px;
+  background: #41ff00;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }

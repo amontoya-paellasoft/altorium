@@ -1,21 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MOCK_AGENTS, MOCK_MESSAGES } from '../../mock/mock-data';
-import { DatePipe } from '@angular/common';
+import { DatePipe, UpperCasePipe } from '@angular/common';
+import { ChatService } from '../../services/chat-service';
+
 
 @Component({
   selector: 'app-chat',
   standalone: true,
   templateUrl: './chat.html',
-  imports: [DatePipe],
+  imports: [DatePipe, UpperCasePipe],
   styleUrl: './chat.css'
 })
 export class Chat {
-  messages = MOCK_MESSAGES.map(m => ({ id: m.id,
-    agentId: m.agentId, text: m.text, timestamp: m.timeStamp
-  }));
+  private chatServ : ChatService = inject(ChatService);
 
-agentsMap = new Map(
-  MOCK_AGENTS.map(a => [a.id, a])
-);
+  messages: any[] = [];
+
+  ngOnInit() {
+    this.chatServ.messages$.subscribe(m => {
+      this.messages = m;
+    })
+    this.chatServ.startSimulation();
+  }
+
 
 }

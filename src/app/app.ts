@@ -9,31 +9,8 @@ import { ControlPanel } from './components/control-panel/control-panel';
   selector: 'app-root',
   standalone: true,
   imports: [Header, AgentMap, Chat, ControlPanel],
-  template: `
-    <div class="workspace">
-      <app-header />
-      <app-agent-map />
-      <app-chat />
-      <app-control-panel />
-    </div>
-  `,
-  styles: [`
-    .workspace {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 46px 1fr auto;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    app-header {
-      grid-column: 1 / -1;
-    }
-
-    app-control-panel {
-      grid-column: 1 / -1;
-    }
-  `]
+  templateUrl: './app.html',
+  styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('Glitch');
