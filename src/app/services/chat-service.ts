@@ -124,9 +124,9 @@ export class ChatService {
   }
 
   reiniciar(): void {
-  this.indiceActual = 0;
-  this.mensajesSubject.next([]);
-  this.agenteActId.set(null);
-  this.iniciarSimulacion();
-}
+    this.indiceActual = 0;
+    this.mensajesSubject.next([]);
+    this.agenteActId.set(null);
+    this.iniciarSimulacion();
+  }
 }

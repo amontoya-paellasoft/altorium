@@ -7,7 +7,7 @@ import { WorkspaceService } from '../../services/workspace-service';
   template: `<div class="panel">
     <span class="panel-title">PANEL DE CONTROL</span
     ><button class="btn-action" (click)="ws.reiniciar()">[ RESTART ]</button>
-    <button class="btn-kill" (click)="ws.cerrarTodas()">[ TERMINATE ALL PROCESSES ]</button>
+    <button class="btn-kill" (click)="ws.cerrarTodas()">[ CLOSE ALL WINDOWS ]</button>
   </div>`,
   styles: [
     `
