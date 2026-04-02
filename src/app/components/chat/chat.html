@@ -2,22 +2,28 @@
   <span class="console-title">
     ▌ {{ agentId ? 'AGENT CONSOLE :: ' + agentId : 'SYSTEM CONSOLE' }}
   </span>
-  <span class="console-status">{{ messagesAgent().length }} MESSAGES LOGGED</span>
+  <span class="console-status">{{ messages.length }} MESSAGES LOGGED</span>
 </div>
 
 <div class="console-output" #scrollContainer>
   <div class="console-boot">
-    <span>IBM AS/400 · {{ agentId ? 'AGENT' : '' }} SYSTEM v2.1</span><br/>
-    <span>LOADING {{ agentId ? 'PRIVATE COMMUNICATION' : 'SYSTEM' }} MODULE...</span><br/>
-    <span>─────────────────────────────────────</span>
+    <span>IBM AS/400 · {{ agentId ? 'AGENT' : '' }} SYSTEM v2.1</span><br />
+    <span>LOADING {{ agentId ? 'PRIVATE' : 'PUBLIC' }} CHANNEL...</span>
+    <p>─────────────────────────────────────</p>
   </div>
 
-  @for (m of messagesAgent(); track m.id) {
-    <div class="console-line">
-      <span class="console-time">{{ m.timeStamp | date:'HH:mm:ss' }}</span>
-      @if (!agentId) {
-        <span class="console-agent">{{ m.agentId | uppercase }}</span>
-      }
+  @for (m of messages; track m.id) {
+    <div class="console-line" [class.private]="m.visibility === 'private'">
+      <span class="console-time">{{ m.timeStamp | date: 'HH:mm:ss' }}</span>
+
+      <span class="console-agent">{{ m.from | uppercase }}</span>
+      <span class="console-arrow">
+        {{ m.visibility === 'private' ? '--->' : '->' }}
+      </span>
+      <span class="console-agent console-to">
+        {{ m.to === 'all' ? 'ALL' : (m.to | uppercase) }}
+      </span>
+
       <span class="console-sep">»</span>
       <span class="console-text">{{ m.text | uppercase }}</span>
     </div>
@@ -32,4 +38,18 @@
   }
 
   <span class="console-cursor"></span>
+</div>
+
+<div class="console-input-bar">
+  <span class="input-prompt">>></span>
+  <input
+    #inputRef
+    class="console-input"
+    type="text"
+    [(ngModel)]="userInput"
+    (keydown.enter)="sendUserMessage()"
+    placeholder="WRITE A MESSAGE..."
+    autocomplete="off"
+  />
+  <button class="input-send" (click)="sendUserMessage()">SEND ↵</button>
 </div>

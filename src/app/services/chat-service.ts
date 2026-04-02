@@ -1,100 +1,275 @@
-import { Injectable, signal } from '@angular/core';
-import { interval, Subscription } from 'rxjs';
+import { inject, Injectable, NgZone, signal } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { interval } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { MOCK_MESSAGES } from '../mock/mock-data';
+import {
+  MOCK_CONVERSATIONS,
+  MOCK_MESSAGES,
+  MOCK_REACCIONES_PUBLICAS,
+  MOCK_USER_REACCIONES,
+} from '../mock/mock-data';
 import { MessageInterface } from '../models/message-interface';
+import { ConversationInterface } from '../models/conversation-interface';
 
 @Injectable({ providedIn: 'root' })
 export class ChatService {
+  private ngZone = inject(NgZone);
 
-  mensajes = signal<MessageInterface[]>([]);
+  // Estado interno
+
+  // Bloquea enviarSiguienteMensaje cuando el usuario está interactuando
+  private simulacionPausada = false;
+
+  // Cuántas veces ha escrito el usuario en cada conversación privada
+  private contadorInsistencia: Record<string, number> = {};
+
+  // Stream principal  todas las conversaciones con sus mensajes
+  private conversacionesSubject = new BehaviorSubject<ConversationInterface[]>(
+    MOCK_CONVERSATIONS.map((conv) => ({ ...conv, messages: [] })),
+  );
+  conversaciones$ = this.conversacionesSubject.asObservable();
+
+  // Signal que indica qué agente está escribiendo ahora mismo
   public agenteActId = signal<string | null>(null);
 
+  // Índice del próximo mensaje mock a enviar
   private indiceActual = 0;
-  private subs: Subscription[] = [];
+
+  // Mensajes ordenados por timestamp  así la simulación
+
+  private mensajesOrdenados = [...MOCK_MESSAGES].sort(
+    (a, b) => a.timeStamp.getTime() - b.timeStamp.getTime(),
+  );
+
+
+  enviarMensajeUsuario(text: string, contexto: string): void {
+    this.simulacionPausada = true;
+
+    const esPrivado = contexto !== 'general';
+
+    const convId = esPrivado ? this.resolverConvId(contexto) : 'general';
+
+    const msgUsuario: MessageInterface = {
+      id: Date.now(),
+      from: 'user',
+      to: esPrivado ? contexto : 'all',
+      visibility: esPrivado ? 'private' : 'public',
+      text,
+      timeStamp: new Date(),
+    };
+    this.agregarMensajeAConversacion(msgUsuario);
+
+    if (esPrivado) {
+      this.reaccionarEnPrivado(convId);
+      setTimeout(() => {
+        this.simulacionPausada = false;
+        this.enviarSiguienteMensaje();
+      }, 4000);
+    } else {
+      this.reaccionarEnPublico();
+      setTimeout(() => {
+        this.simulacionPausada = false;
+        this.enviarSiguienteMensaje();
+      }, 3500);
+    }
+  }
+
+  // Dado un agentId, encuentra la conversación privada donde participa
+
+  private resolverConvId(agentId: string): string {
+    const conv = this.conversacionesSubject.value.find(
+      (c) => c.type === 'private' && c.participants.includes(agentId),
+    );
+    return conv?.id ?? 'general';
+  }
+
+  // Reacción cuando el usuario irrumpe en un canal privado
+  private reaccionarEnPrivado(convId: string): void {
+    const reacciones = MOCK_USER_REACCIONES[convId];
+    if (!reacciones) return;
+
+    const conv = this.getConversacion(convId);
+    if (!conv) return;
+
+    const [agente1, agente2] = conv.participants;
+    const veces = this.contadorInsistencia[convId] ?? 0;
+
+    if (veces === 0) {
+      const txt1 = reacciones.agente1[0];
+      const txt2 = reacciones.agente2[0];
+      // Agente1 reacciona a los 800ms
+      setTimeout(() => this.inyectarMensaje(agente1, agente2, txt1, 'private', convId), 800);
+      // Agente2 responde a los 2400ms  da tiempo al teletipo de agente1
+      setTimeout(() => this.inyectarMensaje(agente2, agente1, txt2, 'private', convId), 2400);
+    } else {
+      // Insistencia  coge el mensaje según cuántas veces lleva el usuario
+      // Si se acaba el pool, repite el último
+      const pool = reacciones.insistencia;
+      const idx = Math.min(veces - 1, pool.length - 1);
+      setTimeout(() => this.inyectarMensaje(agente1, agente2, pool[idx], 'private', convId), 800);
+    }
+
+    this.contadorInsistencia[convId] = veces + 1;
+  }
+
+  // Reacción cuando el usuario escribe en el canal general
+  private reaccionarEnPublico(): void {
+    const agentes = Object.keys(MOCK_REACCIONES_PUBLICAS);
+    const agente = agentes[Math.floor(Math.random() * agentes.length)];
+    const pool = MOCK_REACCIONES_PUBLICAS[agente];
+    const txt = pool[Math.floor(Math.random() * pool.length)];
+    setTimeout(() => this.inyectarMensaje(agente, 'all', txt, 'public', 'general'), 800);
+  }
+
+  // Crea un mensaje vacío, lo añade al stream, y lo rellena
+  private inyectarMensaje(
+    from: string,
+    to: string,
+    text: string,
+    visibility: 'public' | 'private',
+    convId: string,
+  ): void {
+    const mensaje: MessageInterface = {
+      id: Date.now() + Math.random(),
+      from,
+      to,
+      visibility,
+      text: '',
+      timeStamp: new Date(),
+    };
+
+    this.agregarMensajeAConversacion(mensaje);
+    this.agenteActId.set(from);
+
+    this.ngZone.run(() => {
+      interval(35)
+        .pipe(
+          map((i) => text.substring(0, i + 1)),
+          take(text.length),
+        )
+        .subscribe({
+          next: (t) => {
+            mensaje.text = t;
+            this.conversacionesSubject.next([...this.conversacionesSubject.value]);
+          },
+          complete: () => {
+            setTimeout(() => this.agenteActId.set(null), 500);
+          },
+        });
+    });
+  }
+
+  // Métodos públicos
+  getConversacion(id: string): ConversationInterface | undefined {
+    return this.conversacionesSubject.value.find((c) => c.id === id);
+  }
+
+  getConversacionesDeAgente(agentId: string): ConversationInterface[] {
+    return this.conversacionesSubject.value.filter((c) => c.participants.includes(agentId));
+  }
+
+  getMensajesPublicos(): MessageInterface[] {
+    return this.getConversacion('general')?.messages ?? [];
+  }
+
+  getMensajesPrivados(agentId: string): MessageInterface[] {
+    return this.conversacionesSubject.value
+      .filter((c) => c.type === 'private' && c.participants.includes(agentId))
+      .flatMap((c) => c.messages);
+  }
+
+  // Simulación automática
 
   iniciarSimulacion(): void {
     this.enviarSiguienteMensaje();
   }
 
+  // Se detiene si la simulación está pausada o si se acabaron los mensajes
   private enviarSiguienteMensaje(): void {
-    if (this.indiceActual >= MOCK_MESSAGES.length) return;
+    if (this.simulacionPausada) return;
+    if (this.indiceActual >= this.mensajesOrdenados.length) return;
 
-    const original = MOCK_MESSAGES[this.indiceActual];
+    const original = this.mensajesOrdenados[this.indiceActual];
     const mensaje: MessageInterface = { ...original, text: '' };
 
-    this.mensajes.update(msgs => [...msgs, mensaje]);
+    this.agregarMensajeAConversacion(mensaje);
     this.indiceActual++;
-    this.agenteActId.set(original.agentId);
+    this.agenteActId.set(original.from);
 
-    this.escribirMensaje(mensaje, original.text, original.agentId, () => {
-      setTimeout(
-        () => this.enviarSiguienteMensaje(),
-        this.obtenerDelayAgente(original.agentId)
-      );
+    this.escribirMensaje(mensaje, original.text, original.from, () => {
+      // Cuando termina el teletipo, esperamos el delay del agente y enviamos el siguiente
+      setTimeout(() => this.enviarSiguienteMensaje(), this.obtenerDelay(original.from));
     });
   }
 
+  // Añade un mensaje a la conversación correcta
+  private agregarMensajeAConversacion(mensaje: MessageInterface): void {
+  const convs = this.conversacionesSubject.value;
+
+  const actualizadas = convs.map((conv) => {
+    const pertenece =
+      conv.type === 'public'
+        ? mensaje.visibility === 'public'
+        : mensaje.visibility === 'private' &&
+          conv.participants.includes(mensaje.to) &&
+          (conv.participants.includes(mensaje.from) || mensaje.from === 'user');
+
+    if (!pertenece) return conv;
+
+    // Si el mensaje ya existe en la conversación, no lo añadas de nuevo
+    const yaExiste = conv.messages.some(m => m.id === mensaje.id);
+    if (yaExiste) return conv;
+
+    return { ...conv, messages: [...conv.messages, mensaje] };
+  });
+
+  this.conversacionesSubject.next(actualizadas);
+}
+
+  // Teletipo: escribe char a char
   private escribirMensaje(
     mensaje: MessageInterface,
     textoCompleto: string,
     agentId: string,
-    callback: () => void
+    callback: () => void,
   ): void {
-    const velocidad = this.obtenerVelocidad(agentId);
-
-    const sub = interval(velocidad)
-      .pipe(
-        map(i => textoCompleto.substring(0, i + 1)),
-        take(textoCompleto.length)
-      )
-      .subscribe({
-        next: (texto) => {
-          this.mensajes.update(msgs =>
-            msgs.map(m =>
-              m.id === mensaje.id
-                ? { ...m, text: texto }
-                : m
-            )
-          );
-        },
-        complete: () => {
-          setTimeout(() => {
-            this.agenteActId.set(null);
-            callback();
-          }, 500);
-        }
-      });
-
-    this.subs.push(sub);
+    this.ngZone.run(() => {
+      interval(this.obtenerVelocidad(agentId))
+        .pipe(
+          map((i) => textoCompleto.substring(0, i + 1)),
+          take(textoCompleto.length),
+        )
+        .subscribe({
+          next: (texto) => {
+            mensaje.text = texto;
+            this.conversacionesSubject.next([...this.conversacionesSubject.value]);
+          },
+          complete: () => {
+            setTimeout(() => {
+              this.agenteActId.set(null);
+              callback();
+            }, 500);
+          },
+        });
+    });
   }
 
   reiniciar(): void {
-    this.subs.forEach(s => s.unsubscribe());
-    this.subs = [];
     this.indiceActual = 0;
-    this.mensajes.set([]);
     this.agenteActId.set(null);
+    this.contadorInsistencia = {};
+    this.simulacionPausada = false;
+    this.conversacionesSubject.next(MOCK_CONVERSATIONS.map((c) => ({ ...c, messages: [] })));
     this.iniciarSimulacion();
   }
 
   private obtenerVelocidad(agentId: string): number {
-    const velocidades: Record<string, number> = {
-      pm: 40,
-      fe: 25,
-      be: 30,
-      qa: 20
-    };
-    return velocidades[agentId] ?? 30;
+    const v: Record<string, number> = { pm: 40, fe: 25, be: 30, qa: 20, di: 35 };
+    return v[agentId] ?? 30;
   }
 
-  private obtenerDelayAgente(agentId: string): number {
-    const delays: Record<string, number> = {
-      pm: 1200,
-      fe: 700,
-      be: 900,
-      qa: 600
-    };
-    return delays[agentId] ?? 1000;
+  private obtenerDelay(agentId: string): number {
+    const d: Record<string, number> = { pm: 1200, fe: 700, be: 900, qa: 600, di: 800 };
+    return d[agentId] ?? 1000;
   }
 }

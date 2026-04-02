@@ -1,8 +1,9 @@
 export interface MessageInterface {
   id: number
-  agentId: string
+  from: string
+  to: string
+  visibility: 'public' | 'private'
   text: string
   code?: string
-  isUser: boolean
   timeStamp: Date
 }

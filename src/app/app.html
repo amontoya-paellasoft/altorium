@@ -1,16 +1,16 @@
 <div class="app-container">
-      <app-header />
-      <div class="main-content">
-        <div class="left-panel">
-          <app-agent-map />
-        </div>
-        <div class="right-panel">
-          <app-chat />
-        </div>
-      </div>
-      <app-control-panel />
+  <app-header />
+  <div class="main-content">
+    <div class="left-panel">
+      <app-agent-map />
     </div>
+    <div class="right-panel">
+      <app-chat />
+    </div>
+  </div>
+  <app-control-panel />
 
-    @for (agentId of ws.ventanasAbiertas(); track agentId) {
-  <app-floating-window [agentId]="agentId"></app-floating-window>
-}
+  @for (agentId of ws.ventanasAbiertas(); track agentId) {
+    <app-floating-window [agentId]="agentId" />
+  }
+</div>

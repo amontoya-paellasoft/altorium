@@ -5,10 +5,10 @@ import { ChatService } from './chat-service';
   providedIn: 'root',
 })
 export class WorkspaceService {
-  public chatServ : ChatService = inject(ChatService);
+  public chatServ: ChatService = inject(ChatService);
   public ventanasAbiertas = signal<string[]>([]);
 
-  abrir({ agentId }: { agentId: string; }) {
+  abrir({ agentId }: { agentId: string }) {
     if (!this.ventanasAbiertas().includes(agentId)) {
       this.ventanasAbiertas.update((ids) => [...ids, agentId]);
     }
@@ -19,21 +19,20 @@ export class WorkspaceService {
   }
 
   focus(agentId: string) {
-    this.ventanasAbiertas.update(ids => {
+    this.ventanasAbiertas.update((ids) => {
       // 1. Quitamos el ID de donde esté
-      const filtrados = ids.filter(id => id !== agentId);
+      const filtrados = ids.filter((id) => id !== agentId);
       // 2. Lo volvemos a meter al final
       return [...filtrados, agentId];
     });
   }
 
-  cerrarTodas(){
+  cerrarTodas() {
     this.ventanasAbiertas.set([]);
   }
 
-  reiniciar(): void{
+  reiniciar(): void {
     this.cerrarTodas();
     this.chatServ.reiniciar();
   }
-
 }
