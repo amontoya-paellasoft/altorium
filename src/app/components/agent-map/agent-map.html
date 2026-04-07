@@ -1,117 +1,159 @@
 <div class="graph-container">
   <ngx-graph
+    layout="dagre"
     [nodes]="nodes"
     [links]="links"
-    layout="dagre"
     [autoZoom]="true"
     [autoCenter]="true"
     [animate]="true"
     [minZoomLevel]="0.5"
     [maxZoomLevel]="2"
     [layoutSettings]="layoutSettings"
+    (graphChange)="onGraphChange($event)"
   >
-
     <ng-template #defsTemplate>
       <svg:filter id="glowGold" x="-40%" y="-40%" width="180%" height="180%">
-        <svg:feGaussianBlur stdDeviation="3" result="blur"/>
+        <svg:feGaussianBlur stdDeviation="3" result="blur" />
         <svg:feMerge>
-          <svg:feMergeNode in="blur"/>
-          <svg:feMergeNode in="SourceGraphic"/>
+          <svg:feMergeNode in="blur" />
+          <svg:feMergeNode in="SourceGraphic" />
         </svg:feMerge>
       </svg:filter>
     </ng-template>
 
     <ng-template #nodeTemplate let-node>
       <svg:g class="node-container" (click)="onNodeClick(node)">
-
         <!-- clipPath único por nodo usando node.id -->
         <svg:defs>
-  <svg:clipPath [attr.id]="'clip-' + node.id">
-    <svg:rect width="200" height="75" rx="8"/>
-  </svg:clipPath>
-</svg:defs>
-        <!-- halo activo -->
-        @if (isNodeActive(node.id)) {
-          <svg:rect
-            x="-5" y="-5"
-            width="200" height="85"
-            rx="18"
-            fill="#D4AF37"
-            opacity="0.12"
-          />
+          <svg:clipPath [attr.id]="'clip-' + node.id">
+            <svg:rect width="200" height="60" rx="7" />
+          </svg:clipPath>
+        </svg:defs>
+        <!-- halo está hablando (from) -->
+        @if (isNodeSpeaking(node.id)) {
+          <svg:rect x="-5" y="-5" width="210" height="70" rx="8" fill="#D4AF37" opacity="0.15" />
         }
+
+        <!-- halo está recibiendo (to)
+        @if (isNodeListening(node.id)) {
+          <svg:rect x="-5" y="-5" width="210" height="70" rx="8" fill="#6B9E68" opacity="0.10" />
+        }
+        -->
 
         <!-- cuerpo del nodo -->
         <svg:rect
-          width="200" height="75 " rx="8"
+          width="200"
+          height="60"
+          rx="7"
           fill="#FFFBF0"
-          [attr.stroke]="isNodeActive(node.id) ? '#C9A227' : '#D4C4A0'"
-          [attr.stroke-width]="isNodeActive(node.id) ? '1.5' : '1'"
+          [attr.stroke]="
+            isNodeSpeaking(node.id) ? '#C9A227' : isNodeListening(node.id) ? '#6B9E68' : '#D4C4A0'
+          "
+          [attr.stroke-width]="isNodeSpeaking(node.id) || isNodeListening(node.id) ? '1.5' : '1'"
         />
 
-        <!-- acento lateral -->
+        <!-- color lateral -->
         <svg:rect
-          width="7" height="75"
+          width="7"
+          height="60"
           [attr.clip-path]="'url(#clip-' + node.id + ')'"
-          [attr.fill]="node.data.status === 'en línea' ? '#6B9E68' :
-                       node.data.status === 'ocupado'  ? '#C9882A' : '#B4B2A9'"
+          [attr.fill]="
+            node.data.status === 'en línea'
+              ? '#6B9E68'
+              : node.data.status === 'ocupado'
+                ? '#C9882A'
+                : '#B4B2A9'
+          "
         />
 
         <!-- badge -->
         <svg:rect
-          x="140" y="20"
-          width="50" height="16" rx="8"
-          [attr.fill]="node.data.status === 'en línea' ? '#EAF3DE' :
-                       node.data.status === 'ocupado'  ? '#FAEEDA' : '#F1EFE8'"
-          [attr.stroke]="node.data.status === 'en línea' ? '#97C459' :
-                         node.data.status === 'ocupado'  ? '#EF9F27' : '#B4B2A9'"
+          x="135"
+          y="10"
+          width="60"
+          height="16"
+          rx="8"
+          [attr.fill]="
+            node.data.status === 'en línea'
+              ? '#EAF3DE'
+              : node.data.status === 'ocupado'
+                ? '#FAEEDA'
+                : '#F1EFE8'
+          "
+          [attr.stroke]="
+            node.data.status === 'en línea'
+              ? '#97C459'
+              : node.data.status === 'ocupado'
+                ? '#EF9F27'
+                : '#B4B2A9'
+          "
           stroke-width="0.5"
         />
         <!-- dot del badge -->
         <svg:circle
-          cx="145" cy="28" r="3"
-          [attr.fill]="node.data.status === 'en línea' ? '#4A8A47' :
-                       node.data.status === 'ocupado'  ? '#C9882A' : '#888780'"
+          cx="145"
+          cy="18"
+          r="3"
+          [attr.fill]="
+            node.data.status === 'en línea'
+              ? '#4A8A47'
+              : node.data.status === 'ocupado'
+                ? '#C9882A'
+                : '#888780'
+          "
         />
         <!-- texto del badge -->
         <svg:text
-          x="170" y="28"
+          x="170"
+          y="18"
           text-anchor="middle"
           dominant-baseline="middle"
           font-size="7"
           font-family="'Segoe UI', sans-serif"
           letter-spacing="0.01rem"
-          [attr.fill]="node.data.status === 'en línea' ? '#27500A' :
-                       node.data.status === 'ocupado'  ? '#633806' : '#5F5E5A'"
-        >{{ node.data.status | lowercase }}</svg:text>
+          [attr.fill]="
+            node.data.status === 'en línea'
+              ? '#27500A'
+              : node.data.status === 'ocupado'
+                ? '#633806'
+                : '#5F5E5A'
+          "
+        >
+          {{ node.data.status | lowercase }}
+        </svg:text>
 
         <!-- emoji -->
-        <svg:text x="16" y="54" font-size="18">{{ node.data.emoji }}</svg:text>
+        <svg:text x="11" y="24" font-size="18">{{ node.data.emoji }}</svg:text>
 
         <!-- nombre -->
         <svg:text
-          x="50" y="40"
+          x="40"
+          y="23"
           font-weight="600"
           font-size="12"
           font-family="'Segoe UI', sans-serif"
           [attr.fill]="isNodeActive(node.id) ? '#5C3D00' : '#3D3020'"
-        >{{ node.label }}</svg:text>
+        >
+          {{ node.label }}
+        </svg:text>
 
         <!-- rol -->
         <svg:text
-          x="50" y="57"
+          x="40"
+          y="45"
           fill="#9B7A4A"
           font-size="9"
           font-family="'Segoe UI', sans-serif"
-          letter-spacing="0.08em"
-        >{{ node.data.role | uppercase }}</svg:text>
-
+          letter-spacing="0.08"
+        >
+          {{ node.data.role | uppercase }}
+        </svg:text>
       </svg:g>
     </ng-template>
 
     <ng-template #linkTemplate let-link>
       <svg:g class="edge">
-
+        <!-- línea base -->
         <svg:path
           [attr.stroke]="isLinkActive(link) ? '#C9A227' : '#C4A882'"
           [attr.stroke-width]="isLinkActive(link) ? '2' : '1.2'"
@@ -130,22 +172,26 @@
           />
         }
 
-        <svg:path
-          class="flow-line"
-          stroke="#C4A882"
-          stroke-width="1"
-          fill="none"
-          [attr.d]="link.line"
-        />
-
+        @if (!hayMensajeActivo()) {
+          <svg:path
+            class="flow-line"
+            stroke="#C4A882"
+            stroke-width="1"
+            fill="none"
+            [attr.d]="link.line"
+          />
+        }
       </svg:g>
     </ng-template>
 
     <ng-template #linkLabelTemplate let-link>
       <svg:g class="link-label">
         <svg:rect
-          x="-20" y="-8"
-          width="40" height="14" rx="3"
+          x="-20"
+          y="-8"
+          width="40"
+          height="14"
+          rx="3"
           fill="#FFF8E8"
           stroke="#D4C4A0"
           stroke-width="0.5"
@@ -157,9 +203,29 @@
           font-size="8"
           font-family="'Segoe UI', sans-serif"
           letter-spacing="0.05em"
-        >{{ link.label }}</svg:text>
+        >
+          {{ link.label }}
+        </svg:text>
       </svg:g>
     </ng-template>
-
   </ngx-graph>
+
+  <!-- capa msgsAll encima -->
+  <svg class="msgsAll-layer">
+    @for (targetId of enviarMsgsAll(); track targetId) {
+      @if (nodePositions[mensajeActivo()!.from] && nodePositions[targetId]) {
+        <line
+          [attr.x1]="nodePositions[mensajeActivo()!.from].x"
+          [attr.y1]="nodePositions[mensajeActivo()!.from].y"
+          [attr.x2]="nodePositions[targetId].x"
+          [attr.y2]="nodePositions[targetId].y"
+          stroke="#D4AF37"
+          stroke-width="1.5"
+          stroke-dasharray="4 4"
+          stroke-opacity="0.5"
+          class="msgsAll-line"
+        />
+      }
+    }
+  </svg>
 </div>

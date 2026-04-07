@@ -4,13 +4,7 @@ import { ConversationInterface } from '../models/conversation-interface';
 
 export const MOCK_AGENTS: AgentInterface[] = [
   {
-    id: 'pm',
-    name: 'P. Manager',
-    role: 'Coordinación',
-    emoji: '🏛️',
-    status: 'ocupado',
-    bg: 'white',
-  },
+    id: 'pm', name: 'P. Manager', role: 'Coordinación', emoji: '🏛️', status: 'ocupado', bg: 'white' },
   { id: 'di', name: 'Diseñador', role: 'Diseño', emoji: '✨', status: 'en línea', bg: 'pink' },
   { id: 'fe', name: 'FrontEnd Dev', role: 'UI/UI', emoji: '🔍', status: 'ausente', bg: 'black' },
   { id: 'be', name: 'BackEnd Dev', role: 'Node/API', emoji: '🧪', status: 'ocupado', bg: 'orange' },
@@ -236,6 +230,7 @@ export const MOCK_LINKS = [
   { source: 'di', target: 'be', label: 'guia' },
   { source: 'fe', target: 'qa', label: 'entrega' },
   { source: 'be', target: 'qa', label: 'entrega' },
+  { source: 'be', target: 'fe', label: 'api' },
 ];
 
 export const MOCK_USER_REACCIONES: Record<

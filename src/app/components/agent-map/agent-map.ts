@@ -13,18 +13,33 @@ import { ChatService } from '../../services/chat-service';
   styleUrl: './agent-map.css',
 })
 export class AgentMap {
-  ws = inject(WorkspaceService);
-  chatServ = inject(ChatService);
+  ws: WorkspaceService = inject(WorkspaceService);
+  chatServ: ChatService = inject(ChatService);
+
+  agenteActivo = computed(() => this.chatServ.agenteActId());
+  mensajeActivo = computed(() => this.chatServ.mensajeActivo());
+  hayMensajeActivo = computed(() => this.mensajeActivo() !== null);
+  enviarMsgsAll = computed(() => {
+    const msg = this.mensajeActivo();
+    if (!msg || msg.to !== 'all') return [];
+    // Todos los nodos excepto el emisor
+    return this.nodes.filter((n) => n.id !== msg.from).map((n) => n.id);
+  });
+
+  nodePositions: Record<string, { x: number; y: number }> = {};
 
   nodes = MOCK_AGENTS.map((agent) => ({
     id: agent.id,
     label: agent.name,
     data: { role: agent.role, emoji: agent.emoji, status: agent.status },
-    dimension: { width: 200, height: 50 }
+    dimension: { width: 200, height: 50 },
   }));
-  links = MOCK_LINKS;
 
-  agenteActivo = computed(() => this.chatServ.agenteActId());
+  links = MOCK_LINKS.map((link) => ({
+    source: link.source,
+    target: link.target,
+    label: link.label,
+  }));
 
   public layoutSettings = {
     orientation: 'TB',
@@ -34,17 +49,45 @@ export class AgentMap {
     marginy: 10,
   };
 
+  // Interacción entre nodos
+  isNodeSpeaking(nodeId: string): boolean {
+    return this.mensajeActivo()?.from === nodeId;
+  }
+
+  isNodeListening(nodeId: string): boolean {
+    const msg = this.mensajeActivo();
+
+    if (!msg || msg.to === 'all') return false; // msg públicos para todos
+    return msg.to === nodeId;
+  }
+
   isNodeActive(nodeId: string): boolean {
     return this.agenteActivo() === nodeId;
   }
 
   isLinkActive(link: any): boolean {
-    const activo = this.agenteActivo();
-    if (!activo) return false;
-    return link.source === activo || link.target === activo;
+    const msg = this.mensajeActivo();
+    if (!msg) return false;
+
+    if (msg.to === 'all') {
+      return link.source === msg.from;
+    }
+
+    return false;
   }
 
   onNodeClick(node: any): void {
     this.ws.abrir({ agentId: node.id });
+  }
+
+  onGraphChange(graph: any): void {
+    graph.nodes?.forEach((n: any) => {
+      if (n.position) {
+        this.nodePositions[n.id] = {
+          x: n.position.x + 100, // centro del nodo (width/2)
+          y: n.position.y + 25, // centro del nodo (height/2)
+        };
+      }
+    });
   }
 }

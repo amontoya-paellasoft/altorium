@@ -1,4 +1,4 @@
-import { inject, Injectable, NgZone, signal } from '@angular/core';
+import { computed, inject, Injectable, NgZone, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { interval } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -13,34 +13,28 @@ import { ConversationInterface } from '../models/conversation-interface';
 
 @Injectable({ providedIn: 'root' })
 export class ChatService {
-  private ngZone = inject(NgZone);
+  private ngZone: NgZone = inject(NgZone);
 
   // Estado interno
 
-  // Bloquea enviarSiguienteMensaje cuando el usuario está interactuando
   private simulacionPausada = false;
-
-  // Cuántas veces ha escrito el usuario en cada conversación privada
   private contadorInsistencia: Record<string, number> = {};
-
-  // Stream principal  todas las conversaciones con sus mensajes
   private conversacionesSubject = new BehaviorSubject<ConversationInterface[]>(
     MOCK_CONVERSATIONS.map((conv) => ({ ...conv, messages: [] })),
   );
   conversaciones$ = this.conversacionesSubject.asObservable();
 
-  // Signal que indica qué agente está escribiendo ahora mismo
-  public agenteActId = signal<string | null>(null);
+  public mensajeActivo = signal<{ from: string; to: string } | null>(null);
+  public agenteActId = computed(() => this.mensajeActivo()?.from ?? null);
 
   // Índice del próximo mensaje mock a enviar
   private indiceActual = 0;
-
-  // Mensajes ordenados por timestamp  así la simulación
 
   private mensajesOrdenados = [...MOCK_MESSAGES].sort(
     (a, b) => a.timeStamp.getTime() - b.timeStamp.getTime(),
   );
 
+  // MÉTODOS
 
   enviarMensajeUsuario(text: string, contexto: string): void {
     this.simulacionPausada = true;
@@ -139,8 +133,7 @@ export class ChatService {
     };
 
     this.agregarMensajeAConversacion(mensaje);
-    this.agenteActId.set(from);
-
+    this.mensajeActivo.set({ from, to });
     this.ngZone.run(() => {
       interval(35)
         .pipe(
@@ -153,7 +146,7 @@ export class ChatService {
             this.conversacionesSubject.next([...this.conversacionesSubject.value]);
           },
           complete: () => {
-            setTimeout(() => this.agenteActId.set(null), 500);
+            setTimeout(() => this.mensajeActivo.set(null), 500);
           },
         });
     });
@@ -194,8 +187,7 @@ export class ChatService {
 
     this.agregarMensajeAConversacion(mensaje);
     this.indiceActual++;
-    this.agenteActId.set(original.from);
-
+    this.mensajeActivo.set({ from: original.from, to: original.to });
     this.escribirMensaje(mensaje, original.text, original.from, () => {
       // Cuando termina el teletipo, esperamos el delay del agente y enviamos el siguiente
       setTimeout(() => this.enviarSiguienteMensaje(), this.obtenerDelay(original.from));
@@ -204,27 +196,27 @@ export class ChatService {
 
   // Añade un mensaje a la conversación correcta
   private agregarMensajeAConversacion(mensaje: MessageInterface): void {
-  const convs = this.conversacionesSubject.value;
+    const convs = this.conversacionesSubject.value;
 
-  const actualizadas = convs.map((conv) => {
-    const pertenece =
-      conv.type === 'public'
-        ? mensaje.visibility === 'public'
-        : mensaje.visibility === 'private' &&
-          conv.participants.includes(mensaje.to) &&
-          (conv.participants.includes(mensaje.from) || mensaje.from === 'user');
+    const actualizadas = convs.map((conv) => {
+      const pertenece =
+        conv.type === 'public'
+          ? mensaje.visibility === 'public'
+          : mensaje.visibility === 'private' &&
+            conv.participants.includes(mensaje.to) &&
+            (conv.participants.includes(mensaje.from) || mensaje.from === 'user');
 
-    if (!pertenece) return conv;
+      if (!pertenece) return conv;
 
-    // Si el mensaje ya existe en la conversación, no lo añadas de nuevo
-    const yaExiste = conv.messages.some(m => m.id === mensaje.id);
-    if (yaExiste) return conv;
+      // Si el mensaje ya existe en la conversación, no lo añadas de nuevo
+      const yaExiste = conv.messages.some((m) => m.id === mensaje.id);
+      if (yaExiste) return conv;
 
-    return { ...conv, messages: [...conv.messages, mensaje] };
-  });
+      return { ...conv, messages: [...conv.messages, mensaje] };
+    });
 
-  this.conversacionesSubject.next(actualizadas);
-}
+    this.conversacionesSubject.next(actualizadas);
+  }
 
   // Teletipo: escribe char a char
   private escribirMensaje(
@@ -246,7 +238,7 @@ export class ChatService {
           },
           complete: () => {
             setTimeout(() => {
-              this.agenteActId.set(null);
+              this.mensajeActivo.set(null);
               callback();
             }, 500);
           },
@@ -256,7 +248,7 @@ export class ChatService {
 
   reiniciar(): void {
     this.indiceActual = 0;
-    this.agenteActId.set(null);
+    this.mensajeActivo.set(null);
     this.contadorInsistencia = {};
     this.simulacionPausada = false;
     this.conversacionesSubject.next(MOCK_CONVERSATIONS.map((c) => ({ ...c, messages: [] })));
