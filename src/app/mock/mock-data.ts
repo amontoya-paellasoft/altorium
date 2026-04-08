@@ -9,6 +9,7 @@ export const MOCK_AGENTS: AgentInterface[] = [
   { id: 'fe', name: 'FrontEnd Dev', role: 'UI/UI', emoji: '🔍', status: 'ausente', bg: 'black' },
   { id: 'be', name: 'BackEnd Dev', role: 'Node/API', emoji: '🧪', status: 'ocupado', bg: 'orange' },
   { id: 'qa', name: 'QA', role: 'Test', emoji: '🦄', status: 'en línea', bg: 'blue' },
+  { id: 'us', name: 'User', role: 'Guest', emoji: '👤', status: 'en línea', bg: 'darkpink'}
 ];
 
 export const MOCK_MESSAGES: MessageInterface[] = [

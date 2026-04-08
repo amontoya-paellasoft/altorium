@@ -75,4 +75,8 @@ export class Chat implements OnInit, OnChanges {
       } catch {}
     }, 10);
   }
+
+  isEscribiendo(): boolean {
+    return this.chatSvc.mensajeActivo() !== null;
+  }
 }

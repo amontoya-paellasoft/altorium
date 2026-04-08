@@ -14,4 +14,6 @@ export interface NodePosition {
   x: number;
   y: number;
   data: { role: string; emoji: string; status: string };
+  w?: number;
+  h?: number;
 }

@@ -17,6 +17,13 @@ body {
 @font-face {
   font-family: 'IBMPlex';
   src: url('/fonts/ibm-plexmono-regular.ttf');
-  font-weight: bold;
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ModernDos';
+  src: url('/fonts/modern-dos.ttf');
+  font-weight: normal;
   font-style: normal;
 }

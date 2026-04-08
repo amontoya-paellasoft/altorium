@@ -25,7 +25,12 @@
       </span>
 
       <span class="console-sep">»</span>
-      <span class="console-text">{{ m.text | uppercase }}</span>
+      <span class="console-text"
+        >{{ m.text }}
+        @if ($last && isEscribiendo()) {
+          <span class="console-cursor"></span>
+        }
+      </span>
     </div>
     @if (m.code) {
       <pre class="console-code">{{ m.code }}</pre>
@@ -37,7 +42,6 @@
     </div>
   }
 
-  <span class="console-cursor"></span>
 </div>
 
 <div class="console-input-bar">

@@ -34,6 +34,9 @@ export class ChatService {
     (a, b) => a.timeStamp.getTime() - b.timeStamp.getTime(),
   );
 
+  private readonly USER_ID = 'us';
+
+
   // MÉTODOS
 
   enviarMensajeUsuario(text: string, contexto: string): void {
@@ -45,23 +48,26 @@ export class ChatService {
 
     const msgUsuario: MessageInterface = {
       id: Date.now(),
-      from: 'user',
+      from: this.USER_ID,
       to: esPrivado ? contexto : 'all',
       visibility: esPrivado ? 'private' : 'public',
       text,
       timeStamp: new Date(),
     };
+    this.mensajeActivo.set({ from: this.USER_ID, to: esPrivado ? contexto : 'all'});
     this.agregarMensajeAConversacion(msgUsuario);
 
     if (esPrivado) {
       this.reaccionarEnPrivado(convId);
       setTimeout(() => {
+        this.mensajeActivo.set(null);
         this.simulacionPausada = false;
         this.enviarSiguienteMensaje();
       }, 4000);
     } else {
       this.reaccionarEnPublico();
       setTimeout(() => {
+        this.mensajeActivo.set(null);
         this.simulacionPausada = false;
         this.enviarSiguienteMensaje();
       }, 3500);
@@ -204,7 +210,7 @@ export class ChatService {
           ? mensaje.visibility === 'public'
           : mensaje.visibility === 'private' &&
             conv.participants.includes(mensaje.to) &&
-            (conv.participants.includes(mensaje.from) || mensaje.from === 'user');
+            (conv.participants.includes(mensaje.from) || mensaje.from === this.USER_ID);
 
       if (!pertenece) return conv;
 

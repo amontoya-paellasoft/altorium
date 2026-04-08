@@ -29,6 +29,8 @@ export class AgentMap {
   // PM centro, resto en órbita
   readonly NODE_W = 160;
   readonly NODE_H = 56;
+  readonly NODE_W_USER = 200;
+  readonly NODE_H_USER = 80;
 
   nodes: NodePosition[] = MOCK_AGENTS.map((agent) => {
     const positions: Record<string, { x: number; y: number }> = {
@@ -36,7 +38,8 @@ export class AgentMap {
       di: { x: 260, y: 60 }, // arriba
       fe: { x: 60, y: 232 }, // izquierda
       be: { x: 460, y: 232 }, // derecha
-      qa: { x: 260, y: 404 }, // abajo
+      qa: { x: 390, y: 404 }, // abajo
+      us: { x: 130, y: 380 },
     };
     return {
       id: agent.id,
@@ -44,6 +47,8 @@ export class AgentMap {
       x: positions[agent.id].x,
       y: positions[agent.id].y,
       data: { role: agent.role, emoji: agent.emoji, status: agent.status },
+      w: agent.id === 'us' ? this.NODE_W_USER : this.NODE_W,
+      h: agent.id === 'us' ? this.NODE_H_USER : this.NODE_H,
     };
   });
 
@@ -51,10 +56,11 @@ export class AgentMap {
 
   // Centro de un nodo
   cx(node: NodePosition): number {
-    return node.x + this.NODE_W / 2;
+    return node.x + (node.w ?? this.NODE_W) / 2;
   }
+
   cy(node: NodePosition): number {
-    return node.y + this.NODE_H / 2;
+    return node.y + (node.h ?? this.NODE_H) / 2;
   }
 
   getNode(id: string): NodePosition | undefined {
@@ -108,6 +114,10 @@ export class AgentMap {
     const msg = this.mensajeActivo();
     if (!msg || msg.to === 'all') return false;
     return msg.to === nodeId;
+  }
+
+  isConsoleOpen(nodeId: string): boolean {
+    return this.ws.ventanasAbiertas().includes(nodeId);
   }
 
   // Targets del broadcast
