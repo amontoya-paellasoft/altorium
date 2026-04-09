@@ -7,17 +7,23 @@
 }
 
 .main-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   overflow: hidden;
+
 }
 
-.left-panel {
-  border-right: 1px solid rgba(212, 175, 55, 0.2);
-  overflow: hidden;
+::ng-deep .as-split-gutter {
+  background-color: #0a0a0a !important;
+  transition: background-color 0.15s;
 }
 
-.right-panel {
-  background: #050505;
-  overflow: hidden;
+::ng-deep .as-split-gutter:hover {
+  background-color: rgba(212, 175, 55, 0.3) !important;
+}
+
+::ng-deep .as-split-gutter .as-split-gutter-icon {
+  background-image: none !important;
+  width: 2px !important;
+  height: 40px !important;
+  background-color: rgba(212, 175, 55, 0.2);
+  border-radius: 2px;
 }

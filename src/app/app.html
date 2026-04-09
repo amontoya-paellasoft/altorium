@@ -1,13 +1,13 @@
 <div class="app-container">
   <app-header />
-  <div class="main-content">
-    <div class="left-panel">
+  <as-split direction="horizontal" class="main-content" (dragEnd)="onSplitFin($event)">
+    <as-split-area [size]="50" [minSize]="25">
       <app-agent-map />
-    </div>
-    <div class="right-panel">
+    </as-split-area>
+    <as-split-area [size]="50" [minSize]="50">
       <app-chat />
-    </div>
-  </div>
+    </as-split-area>
+  </as-split>
   <app-control-panel />
 
   @for (agentId of ws.ventanasAbiertas(); track agentId) {

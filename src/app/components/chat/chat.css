@@ -69,7 +69,7 @@
 
 
 .console-time {
-  color: #538DFE;
+  color: #01FF00;
   flex-shrink: 0;
   font-size: 0.9rem;
   font-family: 'ModernDos', monospace;
@@ -86,7 +86,7 @@
 }
 
 .console-sep {
-  color: #538DFE;
+  color: #01FF00;
   flex-shrink: 0;
   font-weight: bold;
   font-size: 1.1rem;
@@ -133,7 +133,7 @@
 }
 
 .console-line.private {
-  border-left: 2px solid #538DFE;
+  border-left: 2px solid #01FF00;
   padding-left: 6px;
 }
 

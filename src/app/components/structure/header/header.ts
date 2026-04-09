@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
   template: `
     <header class="topbar">
       <span class="status-led"></span>
-      <span class="topbar-title">ESTADO</span>
-      <span class="topbar-sub">Simulación chat multiagentes IA</span>
+      <span class="topbar-title">GLITCH</span>
+      <span class="topbar-sub">Simulación de trabajo entre agentes IA</span>
       <span class="sprint-badge">Sprint 1</span>
     </header>
   `,
@@ -16,8 +16,8 @@ import { Component } from '@angular/core';
     .topbar {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 0 16px;
+      gap: 0.5rem;
+      padding: 0.7rem 1rem;
       border-bottom: 0.5px solid var(--border);
       background: var(--surface);
     }
@@ -27,7 +27,7 @@ import { Component } from '@angular/core';
       background: #3fc87a;
     }
     .topbar-title { font-size: 13px; font-weight: 600; }
-    .topbar-sub { font-size: 12px; color: var(--text3); }
+    .topbar-sub { font-size: 12px; color: var(--text3); font-style: italic; }
     .sprint-badge {
       margin-left: auto;
       font-size: 11px; font-weight: 500;
