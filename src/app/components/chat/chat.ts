@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { ChatService } from '../../services/chat-service';
+import { SimulationService } from '../../services/simulation-service';
 import { MessageInterface } from '../../models/message-interface';
 import { FormsModule } from '@angular/forms';
 
@@ -27,10 +28,12 @@ export class Chat implements OnInit, OnChanges {
   @ViewChild('inputRef') private inputRef!: ElementRef;
 
   private chatSvc = inject(ChatService);
+  private simulationSvc = inject(SimulationService);
   private cdr = inject(ChangeDetectorRef);
 
   messages: MessageInterface[] = [];
   userInput: string = '';
+  filtro: 'todo' | 'pub' | 'priv' = 'todo';
 
   ngOnInit(): void {
     this.chatSvc.conversaciones$.subscribe(() => {
@@ -40,7 +43,15 @@ export class Chat implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['agentId']) this.filtrarMensajes();
+    if (changes['agentId']) {
+      this.filtro = 'todo';
+      this.filtrarMensajes();
+    }
+  }
+
+  setFiltro(filtro: 'todo' | 'pub' | 'priv'): void {
+    this.filtro = filtro;
+    this.filtrarMensajes();
   }
 
   sendUserMessage(): void {
@@ -49,19 +60,22 @@ export class Chat implements OnInit, OnChanges {
     if (!text) return;
 
     this.userInput = '';
-    this.chatSvc.enviarMensajeUsuario(text, this.agentId || 'general');
+    this.simulationSvc.enviarMensajeUsuario(text, this.agentId || 'general');
     this.inputRef.nativeElement.focus();
   }
 
   private filtrarMensajes(): void {
     if (!this.agentId) {
-      // Consola general
       this.messages = this.chatSvc.getMensajesPublicos();
     } else {
-      // Ventana privada
-      this.messages = this.chatSvc
-        .getMensajesPrivados(this.agentId)
-        .sort((a, b) => a.timeStamp.getTime() - b.timeStamp.getTime());
+      const todos = this.chatSvc.getMensajesDeAgente(this.agentId);
+      if (this.filtro === 'pub') {
+        this.messages = todos.filter((m) => m.visibility === 'public');
+      } else if (this.filtro === 'priv') {
+        this.messages = todos.filter((m) => m.visibility === 'private');
+      } else {
+        this.messages = todos;
+      }
     }
 
     this.scrollToBottom();

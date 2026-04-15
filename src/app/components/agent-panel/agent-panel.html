@@ -1,0 +1,52 @@
+<div class="panel-frame" cdkDrag (mousedown)="ws.focus(agentId())" (click)="$event.stopPropagation()">
+
+  <!-- header -->
+  <div class="panel-header" cdkDragHandle>
+    <span class="panel-title">
+      [ AGENT DETAIL :: {{ agentId() | uppercase }} ]
+    </span>
+    <button class="close-btn" (click)="cerrar()">✕</button>
+  </div>
+
+  <!-- info agente -->
+  <div class="panel-info">
+    <div class="agent-hero">
+      <span class="agent-emoji">{{ agente()?.emoji }}</span>
+      <div>
+        <div class="agent-name">{{ agente()?.name }}</div>
+        <div class="agent-role">{{ agente()?.role | uppercase }}</div>
+      </div>
+      <div class="agent-status">
+        <span class="status-dot"
+          [class.online]="agente()?.status === 'en línea'"
+          [class.busy]="agente()?.status === 'ocupado'"
+          [class.away]="agente()?.status === 'ausente'">
+        </span>
+        <span class="status-text">{{ agente()?.status | uppercase }}</span>
+      </div>
+    </div>
+
+    <div class="divider">─────────────────────────────────</div>
+
+    <!-- agentes relacionados -->
+    <div class="section-label">INTERACTÚA CON</div>
+    <div class="tags-row">
+      @for (rel of agentesRelacionados(); track rel.id) {
+        <span class="agent-tag">
+          {{ rel.agente?.emoji }} {{ rel.id | uppercase }}
+          <span class="tag-count">{{ rel.count }}</span>
+        </span>
+      } @empty {
+        <span class="empty">> SIN DATOS</span>
+      }
+    </div>
+
+    <div class="divider">─────────────────────────────────</div>
+  </div>
+
+  <!-- chat -->
+  <div class="panel-chat">
+    <app-chat [agentId]="agentId()" />
+  </div>
+
+</div>

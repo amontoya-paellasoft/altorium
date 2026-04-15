@@ -5,10 +5,18 @@
   <span class="console-status">{{ messages.length }} MESSAGES LOGGED</span>
 </div>
 
+@if (agentId) {
+  <div class="filter-bar">
+    <button class="filter-btn" [class.active]="filtro === 'todo'" (click)="setFiltro('todo')">[TODO]</button>
+    <button class="filter-btn" [class.active]="filtro === 'pub'"  (click)="setFiltro('pub')">[PUB]</button>
+    <button class="filter-btn" [class.active]="filtro === 'priv'" (click)="setFiltro('priv')">[PRIV]</button>
+  </div>
+}
+
 <div class="console-output" #scrollContainer>
   <div class="console-boot">
     <span>IBM AS/400 · {{ agentId ? 'AGENT' : '' }} SYSTEM v2.1</span><br />
-    <span>LOADING {{ agentId ? 'PRIVATE' : 'PUBLIC' }} CHANNEL...</span>
+    <span>LOADING {{ agentId ? 'AGENT LOG :: ' + filtro.toUpperCase() : 'PUBLIC CHANNEL' }}...</span>
     <p>─────────────────────────────────────</p>
   </div>
 

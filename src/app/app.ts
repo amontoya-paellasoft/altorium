@@ -5,25 +5,26 @@ import { ControlPanel } from './components/control-panel/control-panel';
 import { AngularSplitModule, SplitGutterInteractionEvent } from 'angular-split';
 import { WorkspaceService } from './services/workspace-service';
 import { FloatingWindow } from './components/floating-window/floating-window';
-import { ChatService } from './services/chat-service';
+import { SimulationService } from './services/simulation-service';
+import { AgentPanel } from "./components/agent-panel/agent-panel";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [Header, AgentMap, ControlPanel, AngularSplitModule, FloatingWindow],
+  imports: [Header, AgentMap, ControlPanel, AngularSplitModule, FloatingWindow, AgentPanel],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App implements OnInit {
   public ws: WorkspaceService = inject(WorkspaceService);
-  public chatServ: ChatService = inject(ChatService);
+  private simulationServ: SimulationService = inject(SimulationService);
   sizePaneles: number[] = [50, 50];
 
   ngOnInit() {
     const guardado = localStorage.getItem('glitch-split');
     // JSONparse convierte el string en un array [n,n]
     if (guardado) this.sizePaneles = JSON.parse(guardado);
-    this.chatServ.iniciarSimulacion();
+    this.simulationServ.iniciarSimulacion();
     this.ws.abrir({ agentId: '' });
   }
 

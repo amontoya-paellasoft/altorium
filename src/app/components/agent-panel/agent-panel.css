@@ -1,0 +1,146 @@
+:host {
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  z-index: 200;
+  display: block;
+  height: calc(100vh - 100px);
+}
+
+.panel-frame {
+  width: 28rem;
+  height: 100%;
+  background: #060c06;
+  border: 0.1rem solid #41ff00;
+  border-radius: 0.2rem;
+  font-family: 'Courier New', monospace;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #0a150a;
+  border-bottom: 1px solid #1a2e1a;
+  cursor: grab;
+}
+
+.panel-title {
+  font-size: 1rem;
+  color: #41ff00;
+  letter-spacing: 0.08em;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #ff3333;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+}
+
+.panel-info {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.panel-chat {
+  flex: 1;
+  overflow: hidden;
+  border-top: 1px solid #1a2e1a;
+}
+
+.agent-hero {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.agent-emoji { font-size: 24px; }
+
+.agent-name {
+  font-size: 14px;
+  color: #41ff00;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+}
+
+.agent-role {
+  font-size: 9px;
+  color: #1f6b1f;
+  letter-spacing: 0.1em;
+}
+
+.agent-status {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.status-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  &.online  { background: #41ff00; }
+  &.busy    { background: #C9882A; }
+  &.away    { background: #888780; }
+}
+
+.status-text {
+  font-size: 8px;
+  color: #1f6b1f;
+  letter-spacing: 0.06em;
+}
+
+.divider {
+  color: #1a2e1a;
+  font-size: 9px;
+  letter-spacing: -0.02em;
+}
+
+.section-label {
+  font-size: 9px;
+  color: #538DFE;
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+
+.log-line {
+  display: flex;
+  gap: 8px;
+  font-size: 9px;
+  color: #41ff00;
+  line-height: 1.6;
+}
+
+.log-time { color: #1f6b1f; flex-shrink: 0; }
+.log-text { color: #41ff00; }
+.empty    { color: #1f6b1f; }
+
+.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.agent-tag {
+  font-size: 8px;
+  color: #538DFE;
+  border: 1px solid #1a3a6a;
+  padding: 2px 8px;
+  border-radius: 2px;
+  background: #0d180d;
+}
+
+.tag-count {
+  color: #41ff00;
+  margin-left: 4px;
+}
+

@@ -3,7 +3,7 @@ import { MOCK_AGENTS, MOCK_LINKS } from '../../mock/mock-data';
 import { UpperCasePipe, LowerCasePipe } from '@angular/common';
 import { WorkspaceService } from '../../services/workspace-service';
 import { ChatService } from '../../services/chat-service';
-import { NodePosition } from '../../models/conversation-interface';
+import { NodePosition } from '../../models/node-position';
 
 @Component({
   selector: 'app-agent-map',
@@ -97,21 +97,21 @@ export class AgentMap {
   }
 
   // Dirección del chevron según el mensaje activo
-  getLinkDirection(sourceId: string, targetId: string): 'forward' | 'backward' | 'idle' {
+  getLinkDirection(emisorId: string, remitenteId: string): 'desde' | 'hasta' | 'ausente' {
     const msg = this.mensajeActivo();
-    if (!msg || msg.to === 'all') return 'idle';
-    if (msg.from === sourceId && msg.to === targetId) return 'forward';
-    if (msg.from === targetId && msg.to === sourceId) return 'backward';
-    return 'idle';
+    if (!msg || msg.to === 'all') return 'ausente';
+    if (msg.from === emisorId && msg.to === remitenteId) return 'desde';
+    if (msg.from === remitenteId && msg.to === emisorId) return 'hasta';
+    return 'ausente';
   }
 
-  isLinkActive(sourceId: string, targetId: string): boolean {
+  isLinkActive(emisorId: string, remitenteId: string): boolean {
     const msg = this.mensajeActivo();
     if (!msg) return false;
-    if (msg.to === 'all') return msg.from === sourceId;
+    if (msg.to === 'all') return msg.from === emisorId;
     return (
-      (msg.from === sourceId && msg.to === targetId) ||
-      (msg.from === targetId && msg.to === sourceId)
+      (msg.from === emisorId && msg.to === remitenteId) ||
+      (msg.from === remitenteId && msg.to === emisorId)
     );
   }
 
@@ -126,7 +126,7 @@ export class AgentMap {
   }
 
   isConsoleOpen(nodeId: string): boolean {
-    return this.ws.ventanasAbiertas().includes(nodeId);
+    return this.ws.ventanasAbiertas().includes(nodeId) || this.ws.agentSelec() === nodeId;
   }
 
   // Targets del broadcast
@@ -146,7 +146,7 @@ export class AgentMap {
     return { x: svgP.x, y: svgP.y };
   }
 
-  // 1 — El usuario aprieta el botón del ratón
+  // 1. El usuario aprieta el botón del ratón
   onDragInicio(event: MouseEvent, node: NodePosition): void {
     event.preventDefault();
     event.stopPropagation();
@@ -159,7 +159,7 @@ export class AgentMap {
     this.offsetY = pt.y - node.y;
   }
 
-  // 2 — El ratón se mueve (escuchado en el SVG con (mousemove))
+  // 2. El ratón se mueve (escuchado en el SVG con (mousemove))
   onDragMover(event: MouseEvent): void {
     if (this.estado !== 'arrastrando' || !this.nodoDragging) return;
 
@@ -173,7 +173,7 @@ export class AgentMap {
     }
   }
 
-  // 3 — El usuario suelta el botón
+  // 3. El usuario suelta el botón
   onDragFin(): void {
     if (this.estado !== 'arrastrando') return;
     this.estado = 'reposo';
@@ -181,9 +181,9 @@ export class AgentMap {
     this.nodoDragging = null;
   }
 
-  // 4 — Click: solo actúa si NO estábamos arrastrando
+  // 4. Click: solo actúa si NO estábamos arrastrando
   onNodeClick(node: NodePosition): void {
     if (this.estado === 'arrastrando') return;
-    this.ws.abrir({ agentId: node.id });
+    this.ws.seleccionar(node.id);
   }
 }
