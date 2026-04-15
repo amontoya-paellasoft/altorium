@@ -12,6 +12,7 @@
   overflow: hidden;
 }
 
+/* Capa en blanco para poder arrastrar los nodos*/
 .graph-container::before {
   content: "";
   position: absolute;

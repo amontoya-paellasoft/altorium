@@ -13,7 +13,7 @@ import { NodePosition } from '../../models/node-position';
   styleUrl: './agent-map.css',
 })
 export class AgentMap {
-  // Referencia al elemento <svg>
+  // el svg, para el drag necesito acceder a él directamente
   @ViewChild('svgRef') svgRef!: ElementRef<SVGSVGElement>;
 
   ws: WorkspaceService = inject(WorkspaceService);
@@ -24,18 +24,17 @@ export class AgentMap {
   enviarMsgsAll = computed(() => {
     const msg = this.mensajeActivo();
     if (!msg || msg.to !== 'all') return [];
-    // Todos los nodos excepto el emisor
+    // todos menos quien lo manda
     return this.nodes.filter((n) => n.id !== msg.from).map((n) => n.id);
   });
 
-  // Posiciones en el SVG
-  // PM centro, resto en órbita
+  // tamaños de nodo — el de usuario es más grande
   readonly NODE_W = 160;
   readonly NODE_H = 56;
   readonly NODE_W_USER = 200;
   readonly NODE_H_USER = 80;
 
-  // Estado del drag
+  // estado del drag
   private nodoDragging: NodePosition | null = null;
   private estado: 'reposo' | 'arrastrando' = 'reposo';
   private offsetX = 0;
