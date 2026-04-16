@@ -1,12 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Header } from './components/structure/header/header';
 import { AgentMap } from './components/agent-map/agent-map';
-import { ControlPanel } from './components/control-panel/control-panel';
 import { AngularSplitModule, SplitGutterInteractionEvent } from 'angular-split';
 import { WorkspaceService } from './services/workspace-service';
 import { FloatingWindow } from './components/floating-window/floating-window';
 import { SimulationService } from './services/simulation-service';
 import { AgentPanel } from "./components/agent-panel/agent-panel";
+import { ControlPanel } from './components/structure/control-panel/control-panel';
 
 @Component({
   selector: 'app-root',

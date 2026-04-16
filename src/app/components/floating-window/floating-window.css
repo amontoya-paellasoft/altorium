@@ -16,20 +16,20 @@
 
 .window-frame {
   background: #0d0d0d;
-  border: 1px solid #41ff00;
+  border: 8px solid #0d0d0d;
   border-radius: 0;
   display: flex;
   flex-direction: column;
 }
 
 .window-frame.general {
-  width: 680px;
-  height: 600px;
+  width: 45rem;
+  height: 38rem;
 }
 
 .window-frame.privada {
-  width: 580px;
-  height: 500px;
+  width: 30rem;
+  height: 35rem;
 }
 
 .window-header {
@@ -55,7 +55,7 @@
   border: none;
   color: #ff3333;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
   padding: 0 4px;
   line-height: 1;
 }

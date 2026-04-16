@@ -1,6 +1,6 @@
 
 <!-- Contenedor del mapa -->
-<div class="graph-container">
+<div class="contenedor">
 
   <!-- SVG: captura drag con mouse -->
   <svg #svgRef class="graph-svg" viewBox="0 0 680 520"
@@ -74,7 +74,7 @@
     <!-- LINKS entre nodos -->
     @for (link of links; track link.source + link.target) {
       <g class="link-group">
-        <!-- flecha solo si el link está activo (hay comunicación) -->
+        <!-- flecha solo si el link está activo -->
         @if (isLinkActive(link.source, link.target)) {
           <path
             [attr.d]="getLinkPath(link.source, link.target)"
@@ -115,14 +115,14 @@
         [attr.transform]="'translate(' + node.x + ',' + node.y + ')'"
         (click)="onNodeClick(node)"
       >
-        <!-- clip para que el acento lateral no se salga del borde redondeado -->
+        <!-- clip para que el acento lateral no se salga del borde -->
         <defs>
           <clipPath [attr.id]="'clip-' + node.id">
             <rect [attr.width]="node.w ?? NODE_W" [attr.height]="node.h ?? NODE_H" rx="7" />
           </clipPath>
         </defs>
 
-        <!-- cuerpo de la tarjeta — borde cambia según estado -->
+        <!-- cuerpo de la tarjeta -->
         <rect
           [attr.width]="node.w ?? NODE_W"
           [attr.height]="node.h ?? NODE_H"
@@ -134,7 +134,7 @@
           [attr.stroke-width]="isNodeSpeaking(node.id) || isNodeListening(node.id) ? '1.5' : '1'"
         />
 
-        <!-- acento de color lateral izquierdo: verde=online, naranja=ocupado, gris=offline, verde brillante=consola abierta -->
+        <!-- acento de color lateral izquierdo depende del estado -->
         <rect
           width="6"
           [attr.height]="node.h ?? NODE_H"
@@ -152,13 +152,13 @@
 
         <!-- badge cuando la consola del agente está abierta -->
         @if (isConsoleOpen(node.id)) {
-          <rect x="112" y="27" width="40" height="13" fill="#000" />
+          <rect x="112" y="32" width="40" height="14" fill="#000" />
           <text
             x="132"
-            y="33"
+            y="40"
             text-anchor="middle"
             dominant-baseline="middle"
-            font-size="8"
+            font-size="8.5"
             font-family="monospace"
             fill="#01FF00"
             letter-spacing="0.5"
@@ -183,8 +183,8 @@
             {{ node.data.role | uppercase }}
           </text>
         } @else {
-          <!-- nodo agente normal -->
 
+          <!-- nodo agente normal -->
           <!-- badge de estado-->
           <rect
             x="110"
@@ -255,7 +255,7 @@
             {{ node.label }}
           </text>
 
-          <!-- rol (en pequeño debajo del nombre) -->
+          <!-- rol-->
           <text
             x="36"
             y="40"
@@ -274,7 +274,7 @@
           [attr.height]="node.h ?? NODE_H"
           rx="7"
           fill="transparent"
-          class="node-hit-area"
+          class="click-area"
           (mousedown)="onDragInicio($event, node)"
         />
       </g>

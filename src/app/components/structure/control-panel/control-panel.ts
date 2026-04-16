@@ -1,10 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { WorkspaceService } from '../../services/workspace-service';
-import { SimulationService } from '../../services/simulation-service';
+import { TranslatePipe } from '@ngx-translate/core';
+import { WorkspaceService } from '../../../services/workspace-service';
+import { SimulationService } from '../../../services/simulation-service';
 
 @Component({
   selector: 'app-control-panel',
   standalone: true,
+  imports: [TranslatePipe],
   templateUrl: './control-panel.html',
   styleUrl: './control-panel.css'
 })

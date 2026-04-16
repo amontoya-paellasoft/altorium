@@ -2,10 +2,11 @@ import { Component, inject, Input } from '@angular/core';
 import { Chat } from '../chat/chat';
 import { WorkspaceService } from '../../services/workspace-service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-floating-window',
-  imports: [Chat, DragDropModule],
+  imports: [Chat, DragDropModule, TranslatePipe],
   standalone: true,
   templateUrl: './floating-window.html',
   styleUrl: './floating-window.css',

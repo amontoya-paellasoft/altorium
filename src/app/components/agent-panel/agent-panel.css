@@ -7,22 +7,22 @@
   height: calc(100vh - 100px);
 }
 
-.panel-frame {
+.panel-ventana {
   width: 28rem;
   height: 100%;
-  background: #060c06;
-  border: 0.1rem solid #41ff00;
+  background: #faf7f0;
+  border: 0.1rem solid #060c06;
   border-radius: 0.2rem;
-  font-family: 'Courier New', monospace;
   display: flex;
   flex-direction: column;
 }
 
 .panel-header {
+  font-family: 'Courier New', monospace;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 0.5rem;
   background: #0a150a;
   border-bottom: 1px solid #1a2e1a;
   cursor: grab;
@@ -49,12 +49,13 @@
   flex-direction: column;
   gap: 8px;
   flex-shrink: 0;
+  border: 0.1rem solid #060c06;
 }
 
 .panel-chat {
   flex: 1;
   overflow: hidden;
-  border-top: 1px solid #1a2e1a;
+  border: 0.5rem solid #060c06;
 }
 
 .agent-hero {
@@ -63,22 +64,23 @@
   gap: 10px;
 }
 
-.agent-emoji { font-size: 24px; }
+.agent-emoji {
+  font-size: 24px;
+}
 
 .agent-name {
   font-size: 14px;
-  color: #41ff00;
   font-weight: bold;
   letter-spacing: 0.04em;
 }
 
 .agent-role {
   font-size: 9px;
-  color: #1f6b1f;
   letter-spacing: 0.1em;
 }
 
 .agent-status {
+  margin-right: 1rem;
   margin-left: auto;
   display: flex;
   align-items: center;
@@ -86,28 +88,36 @@
 }
 
 .status-dot {
-  width: 7px; height: 7px;
+  width: 0.5rem;
+  height: 0.5rem;
   border-radius: 50%;
-  &.online  { background: #41ff00; }
-  &.busy    { background: #C9882A; }
-  &.away    { background: #888780; }
+
+  &.online {
+    background: #41ff00;
+  }
+  &.ocupado {
+    background: #c9882a;
+  }
+  &.ausente {
+    background: #888780;
+  }
 }
 
 .status-text {
-  font-size: 8px;
-  color: #1f6b1f;
-  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  color: #1a2e1a;
+  letter-spacing: 0.05rem;
 }
 
 .divider {
-  color: #1a2e1a;
-  font-size: 9px;
+  color: #c9a84c;
+  font-size: 0.8rem;
   letter-spacing: -0.02em;
 }
 
 .section-label {
   font-size: 9px;
-  color: #538DFE;
+  color: #1a2e1a;
   letter-spacing: 0.1em;
   margin-bottom: 2px;
 }
@@ -120,9 +130,16 @@
   line-height: 1.6;
 }
 
-.log-time { color: #1f6b1f; flex-shrink: 0; }
-.log-text { color: #41ff00; }
-.empty    { color: #1f6b1f; }
+.log-time {
+  color: #1f6b1f;
+  flex-shrink: 0;
+}
+.log-text {
+  color: #1f6b1f;
+}
+.empty {
+  color: #1f6b1f;
+}
 
 .tags-row {
   display: flex;
@@ -131,16 +148,14 @@
 }
 
 .agent-tag {
-  font-size: 8px;
-  color: #538DFE;
-  border: 1px solid #1a3a6a;
-  padding: 2px 8px;
-  border-radius: 2px;
-  background: #0d180d;
+  font-size: 11px;
+  color: #1a2e1a;
+  border: 2px solid #c9a84c;
+  padding: 3px 8px;
+  border-radius: 50px;
 }
 
 .tag-count {
-  color: #41ff00;
-  margin-left: 4px;
+  color: #1f6b1f;
+  margin-left: 0.5rem;
 }
-

@@ -1,1 +1,25 @@
-<p>header works!</p>
+<header class="topbar">
+  <span class="status-led"></span>
+  <span class="topbar-title">{{ 'APP_1001_TITLE' | translate }}</span>
+  <span class="topbar-sub">{{ 'APP_1002_SUBTITLE' | translate }}</span>
+
+  <div class="lang-wrapper">
+    <div class="lang-selector" [class.expanded]="isLangMenuOpen">
+      <div class="lang-current" (click)="toggleMenu()">
+        {{ idiomaActual }}
+      </div>
+
+      <div class="lang-options">
+        @for (lang of ['es', 'en']; track lang) {
+          <button
+            class="lang-btn"
+            [class.active]="idiomaActual === lang"
+            (click)="selectLanguage(lang)"
+          >
+            {{ lang }}
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,22 @@
+APP_1xxx      -> app / general
+CTRL_2xxx     -> panel de control
+MAP_3xxx      -> mapa de agentes
+AGENT_4xxx    -> panel de agente
+CONSOLE_5xxx  -> consola / chat
+INPUT_5xxx    -> inputs relacionados con consola
+WINDOW_6xxx   -> ventanas flotantes / terminal
+
+---
+
+Formato:
+[DOMINIO]_[ID]_[DESCRIPTOR]
+
+Ejemplo:
+CONSOLE_5003_LOG_COUNT
+
+---
+
+Soportar parámetros con {{ }} cuando sea necesario
+
+Ejemplo:
+CONSOLE_5001_AGENT_TITLE -> "CONSOLA DE AGENTE :: {{id}}"

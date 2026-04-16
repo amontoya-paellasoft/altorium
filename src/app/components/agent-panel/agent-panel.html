@@ -1,9 +1,13 @@
-<div class="panel-frame" cdkDrag (mousedown)="ws.focus(agentId())" (click)="$event.stopPropagation()">
-
+<div
+  class="panel-ventana"
+  cdkDrag
+  (mousedown)="ws.focus(agentId())"
+  (click)="$event.stopPropagation()"
+>
   <!-- header -->
   <div class="panel-header" cdkDragHandle>
     <span class="panel-title">
-      [ AGENT DETAIL :: {{ agentId() | uppercase }} ]
+      {{ 'AGENT_4001_DETAIL_TITLE' | translate }} {{ agentId() | uppercase }} ]
     </span>
     <button class="close-btn" (click)="cerrar()">✕</button>
   </div>
@@ -17,10 +21,12 @@
         <div class="agent-role">{{ agente()?.role | uppercase }}</div>
       </div>
       <div class="agent-status">
-        <span class="status-dot"
+        <span
+          class="status-dot"
           [class.online]="agente()?.status === 'en línea'"
-          [class.busy]="agente()?.status === 'ocupado'"
-          [class.away]="agente()?.status === 'ausente'">
+          [class.ocupado]="agente()?.status === 'ocupado'"
+          [class.ausente]="agente()?.status === 'ausente'"
+        >
         </span>
         <span class="status-text">{{ agente()?.status | uppercase }}</span>
       </div>
@@ -29,7 +35,7 @@
     <div class="divider">─────────────────────────────────</div>
 
     <!-- agentes relacionados -->
-    <div class="section-label">INTERACTÚA CON</div>
+    <div class="section-label">{{ 'AGENT_4002_INTERACT' | translate }}</div>
     <div class="tags-row">
       @for (rel of agentesRelacionados(); track rel.id) {
         <span class="agent-tag">
@@ -37,7 +43,7 @@
           <span class="tag-count">{{ rel.count }}</span>
         </span>
       } @empty {
-        <span class="empty">> SIN DATOS</span>
+        <span class="empty">{{ 'AGENT_4003_EMPTY' | translate }}</span>
       }
     </div>
 
@@ -48,5 +54,4 @@
   <div class="panel-chat">
     <app-chat [agentId]="agentId()" />
   </div>
-
 </div>

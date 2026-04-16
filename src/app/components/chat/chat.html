@@ -1,22 +1,39 @@
 <div class="console-header">
   <span class="console-title">
-    ▌ {{ agentId ? 'AGENT CONSOLE :: ' + agentId : 'SYSTEM CONSOLE' }}
+    ▌
+    {{
+      agentId
+        ? ('CONSOLE_5001_AGENT_TITLE' | translate: { id: agentId })
+        : ('CONSOLE_5002_SYSTEM_TITLE' | translate)
+    }}
   </span>
-  <span class="console-status">{{ messages.length }} MESSAGES LOGGED</span>
+  <span class="console-status"
+    >{{ messages.length }} {{ 'CONSOLE_5003_LOG_COUNT' | translate }}</span
+  >
 </div>
 
 @if (agentId) {
   <div class="filter-bar">
-    <button class="filter-btn" [class.active]="filtro === 'todo'" (click)="setFiltro('todo')">[TODO]</button>
-    <button class="filter-btn" [class.active]="filtro === 'pub'"  (click)="setFiltro('pub')">[PUB]</button>
-    <button class="filter-btn" [class.active]="filtro === 'priv'" (click)="setFiltro('priv')">[PRIV]</button>
+    <button class="filter-btn" [class.active]="filtro === 'todo'" (click)="setFiltro('todo')">
+      {{ 'CONSOLE_5007_FILTER_ALL' | translate }}
+    </button>
+    <button class="filter-btn" [class.active]="filtro === 'pub'" (click)="setFiltro('pub')">
+      {{ 'CONSOLE_5008_FILTER_PUBLIC' | translate }}
+    </button>
+    <button class="filter-btn" [class.active]="filtro === 'priv'" (click)="setFiltro('priv')">
+      {{ 'CONSOLE_5009_FILTER_PRIVATE' | translate }}
+    </button>
   </div>
 }
 
 <div class="console-output" #scrollContainer>
   <div class="console-boot">
     <span>IBM AS/400 · {{ agentId ? 'AGENT' : '' }} SYSTEM v2.1</span><br />
-    <span>LOADING {{ agentId ? 'AGENT LOG :: ' + filtro.toUpperCase() : 'PUBLIC CHANNEL' }}...</span>
+    <span>{{
+      agentId
+        ? ('CONSOLE_5004_LOADING_AGENT' | translate)
+        : ('CONSOLE_5005_LOADING_PUBLIC' | translate)
+    }}</span>
     <p>─────────────────────────────────────</p>
   </div>
 
@@ -28,13 +45,14 @@
       <span class="console-arrow">
         {{ m.visibility === 'private' ? '-->' : '->' }}
       </span>
+
       <span class="console-agent console-to">
         {{ m.to === 'all' ? 'ALL' : (m.to | uppercase) }}
       </span>
 
       <span class="console-sep">»</span>
-      <span class="console-text"
-        >{{ m.text }}
+      <span class="console-text">
+        {{ m.text }}
         @if ($last && isEscribiendo()) {
           <span class="console-cursor"></span>
         }
@@ -46,10 +64,9 @@
   } @empty {
     <div class="console-line">
       <span class="console-sep">»</span>
-      <span class="console-agent">NO MESSAGES LOGGED.</span>
+      <span class="console-agent">{{ 'CONSOLE_5006_EMPTY' | translate }}</span>
     </div>
   }
-
 </div>
 
 <div class="console-input-bar">
@@ -60,8 +77,10 @@
     type="text"
     [(ngModel)]="userInput"
     (keydown.enter)="sendUserMessage()"
-    placeholder="WRITE A MESSAGE..."
+    placeholder="{{ 'INPUT_5010_PLACEHOLDER' | translate }}"
     autocomplete="off"
   />
-  <button class="input-send" (click)="sendUserMessage()">SEND ↵</button>
+  <button class="input-send" (click)="sendUserMessage()">
+    {{ 'INPUT_5011_SEND' | translate }}
+  </button>
 </div>

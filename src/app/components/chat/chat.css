@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 6px 14px;
-  border-bottom: 1px solid #1a2e1a;
+  border-bottom: 2px solid #1a2e1a;
   flex-shrink: 0;
   background: #060c06;
 }

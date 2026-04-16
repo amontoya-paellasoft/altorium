@@ -5,10 +5,12 @@ import { MOCK_AGENTS } from '../../mock/mock-data';
 import { UpperCasePipe } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { Chat } from '../chat/chat';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-agent-panel',
-  imports: [UpperCasePipe, DragDropModule, Chat],
+  standalone: true,
+  imports: [UpperCasePipe, DragDropModule, Chat, TranslatePipe],
   templateUrl: './agent-panel.html',
   styleUrl: './agent-panel.css',
 })

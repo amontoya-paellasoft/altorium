@@ -14,12 +14,14 @@ import { ChatService } from '../../services/chat-service';
 import { SimulationService } from '../../services/simulation-service';
 import { MessageInterface } from '../../models/message-interface';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
   templateUrl: './chat.html',
-  imports: [DatePipe, UpperCasePipe, FormsModule],
+  imports: [DatePipe, UpperCasePipe, FormsModule, TranslateModule, TranslatePipe
+  ],
   styleUrl: './chat.css',
 })
 export class Chat implements OnInit, OnChanges {

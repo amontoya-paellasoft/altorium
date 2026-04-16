@@ -3,7 +3,7 @@ import { MOCK_AGENTS, MOCK_LINKS } from '../../mock/mock-data';
 import { UpperCasePipe, LowerCasePipe } from '@angular/common';
 import { WorkspaceService } from '../../services/workspace-service';
 import { ChatService } from '../../services/chat-service';
-import { NodePosition } from '../../models/node-position';
+import { NodePosition } from '../../models/node-interface';
 
 @Component({
   selector: 'app-agent-map',

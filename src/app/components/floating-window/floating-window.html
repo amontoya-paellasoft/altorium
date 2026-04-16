@@ -7,7 +7,11 @@
 >
   <div class="window-header" cdkDragHandle>
     <span class="title">
-      {{ agentId ? 'TERMINAL :: ' + agentId : 'SYSTEM CONSOLE' }}
+      {{
+        agentId
+          ? ('WINDOW_6001_TERMINAL_TITLE' | translate: { id: agentId })
+          : ('WINDOW_6002_SYSTEM_TITLE' | translate)
+      }}
     </span>
     <button class="close-btn" (click)="ws.cerrar(agentId)">✕</button>
   </div>

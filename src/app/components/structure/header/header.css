@@ -1,0 +1,85 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: #f7f4ee;
+  border-bottom: 1px solid #e5dccf;
+  font-family: "Inter", sans-serif;
+  color: #2c2c2c;
+  position: relative;
+  z-index: 10;
+}
+
+.status-led {
+  width: 8px;
+  height: 8px;
+  background: #3ecf8e;
+  border-radius: 50%;
+}
+
+.topbar-title {
+  font-weight: 600;
+}
+
+.topbar-sub {
+  color: #8a8175;
+  font-size: 13px;
+}
+
+/* Selector idioma */
+.lang-wrapper {
+  margin-left: auto;
+}
+
+.lang-selector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Botón actual */
+.lang-current {
+  padding: 6px 10px;
+  border: 1px solid #e5dccf;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
+
+/* Contenedor horizontal */
+.lang-options {
+  display: flex;
+  gap: 4px;
+
+  opacity: 0;
+  transform: translateX(-10px);
+  pointer-events: none;
+
+  transition: all 0.2s ease;
+}
+
+.lang-selector.expanded .lang-options {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.lang-btn {
+  padding: 6px 8px;
+  border: 1px solid #e5dccf;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.lang-btn:hover {
+  background: #f2ede5;
+}
+
+.lang-btn.active {
+  background: #2c2c2c;
+  color: white;
+  border-color: #2c2c2c;
+}
