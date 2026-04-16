@@ -50,6 +50,34 @@
     <div class="divider">─────────────────────────────────</div>
   </div>
 
+  <div class="panel-info">
+    <div class="section-label">TAREAS ASIGNADAS</div>
+    <div class="tareas-lista">
+      @for (tarea of tareas; track tarea.id) {
+        <div class="tarea-item">
+          <div class="tarea-header">
+            <span class="tarea-estado" [style.color]="getColorEstado(tarea.estado)">
+              ● {{ tarea.estado | uppercase }}
+            </span>
+            <span
+              class="tarea-prioridad"
+              [class.alta]="tarea.prioridad === 'alta'"
+              [class.media]="tarea.prioridad === 'media'"
+              [class.baja]="tarea.prioridad === 'baja'"
+            >
+              {{ tarea.prioridad | uppercase }}
+            </span>
+          </div>
+          <div class="tarea-titulo">{{ tarea.titulo }}</div>
+          <div class="tarea-desc">{{ tarea.descripcion }}</div>
+        </div>
+      } @empty {
+        <span class="empty">SIN TAREAS ASIGNADAS.</span>
+      }
+    </div>
+  </div>
+  <div class="divider">─────────────────────────────────</div>
+
   <!-- chat -->
   <div class="panel-chat">
     <app-chat [agentId]="agentId()" />
