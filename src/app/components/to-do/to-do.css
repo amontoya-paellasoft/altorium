@@ -17,11 +17,12 @@
 .header-container {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 1rem;
   padding: 1.25rem 1.5rem;
   border-bottom: 1px solid #334155;
   background: #0f172a;
+  justify-self: center;
 }
 
 .header-left {
