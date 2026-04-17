@@ -25,5 +25,58 @@
   "INPUT_5011_SEND": "ENVIAR ↵",
 
   "WINDOW_6001_TERMINAL_TITLE": "TERMINAL ::",
-  "WINDOW_6002_SYSTEM_TITLE": "CONSOLA SISTEMA"
+  "WINDOW_6002_SYSTEM_TITLE": "CONSOLA SISTEMA",
+
+  "TODO": {
+    "TITLE": "Tablero de Tareas",
+    "NEW_TASK": "+ Nueva Tarea",
+    "CLOSE": "✕ Cerrar",
+    "MODAL_TITLE": "Nueva Tarea",
+    "LABELS": {
+      "TITLE": "Título",
+      "DESCRIPTION": "Descripción",
+      "DETAILS": "Detalles",
+      "PRIORITY": "Prioridad",
+      "DUE_DATE": "Fecha de Entrega",
+      "STATUS": "Estado",
+      "CREATED": "Creado",
+      "ID": "ID"
+    },
+    "PLACEHOLDERS": {
+      "TITLE": "Título de la tarea",
+      "DESCRIPTION": "Breve descripción",
+      "DETAILS": "Información detallada..."
+    },
+    "PRIORITIES": {
+      "Low": "Baja",
+      "Medium": "Media",
+      "High": "Alta"
+    },
+    "ERRORS": {
+      "PAST_DATE": "La fecha no puede ser anterior a hoy."
+    },
+    "BUTTONS": {
+      "CANCEL": "Cancelar",
+      "ADD": "Añadir Tarea",
+      "VIEW": "Ver",
+      "ALL": "Todas"
+    },
+    "FILTERS": {
+      "PRIORITY": "Filtrar",
+      "ALL": "Todas"
+    },
+    "COLUMNS": {
+      "Mise en Place": "Mise en Place",
+      "Backlog": "Pendientes",
+      "To Do": "Por Hacer",
+      "Do": "En Proceso",
+      "Test": "Pruebas",
+      "Done": "Hecho"
+    },
+    "VIEW_MODAL": {
+      "TITLE": "Detalles de la Tarea",
+      "NO_DEADLINE": "Sin fecha límite"
+    },
+    "EMPTY_STATE": "No hay tareas aquí"
+  }
 }

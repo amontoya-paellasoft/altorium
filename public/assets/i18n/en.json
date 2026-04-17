@@ -25,5 +25,58 @@
   "INPUT_5011_SEND": "SEND ↵",
 
   "WINDOW_6001_TERMINAL_TITLE": "TERMINAL ::",
-  "WINDOW_6002_SYSTEM_TITLE": "SYSTEM CONSOLE"
+  "WINDOW_6002_SYSTEM_TITLE": "SYSTEM CONSOLE",
+
+  "TODO": {
+    "TITLE": "Task Board",
+    "NEW_TASK": "+ New Task",
+    "CLOSE": "✕ Close",
+    "MODAL_TITLE": "New Task",
+    "LABELS": {
+      "TITLE": "Title",
+      "DESCRIPTION": "Description",
+      "DETAILS": "Details",
+      "PRIORITY": "Priority",
+      "DUE_DATE": "Due Date",
+      "STATUS": "Status",
+      "CREATED": "Created",
+      "ID": "ID"
+    },
+    "PLACEHOLDERS": {
+      "TITLE": "Task title",
+      "DESCRIPTION": "Brief description",
+      "DETAILS": "Detailed information..."
+    },
+    "PRIORITIES": {
+      "Low": "Low",
+      "Medium": "Medium",
+      "High": "High"
+    },
+    "ERRORS": {
+      "PAST_DATE": "Date cannot be in the past."
+    },
+    "BUTTONS": {
+      "CANCEL": "Cancel",
+      "ADD": "Add Task",
+      "VIEW": "View",
+      "ALL": "All"
+    },
+    "FILTERS": {
+      "PRIORITY": "Filter",
+      "ALL": "All"
+    },
+    "COLUMNS": {
+      "Mise en Place": "Mise en Place",
+      "Backlog": "Backlog",
+      "To Do": "To Do",
+      "Do": "Do",
+      "Test": "Test",
+      "Done": "Done"
+    },
+    "VIEW_MODAL": {
+      "TITLE": "Task Details",
+      "NO_DEADLINE": "No deadline"
+    },
+    "EMPTY_STATE": "No tasks here"
+  }
 }
