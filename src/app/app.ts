@@ -13,7 +13,7 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [Header, AgentMap, ControlPanel, AngularSplitModule, FloatingWindow, AgentPanel, Stats],
+  imports: [Header, AgentMap, ControlPanel, AngularSplitModule, FloatingWindow, AgentPanel, Stats, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
