@@ -1,19 +1,24 @@
 .app-container {
   position: relative;
-  display: grid;
-  grid-template-rows: 46px 1fr auto;
+  display: flex;
+  flex-direction: column;
   height: 100vh;
+  width: 100vw;
   overflow: hidden;
 }
 
-.main-content {
+/* El router outlet renderiza el componente aquí */
+router-outlet + * {
+  flex: 1;
+  display: block;
   overflow: hidden;
-  height: 100%;
 }
 
+/* Estilos compartidos para componentes que usen el layout de paneles */
 .main-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  height: 100%;
   overflow: hidden;
 }
 

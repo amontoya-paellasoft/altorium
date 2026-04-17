@@ -4,6 +4,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
+  max-width: 23rem;
 }
 
 .search-box {
@@ -12,7 +13,7 @@
   align-items: center;
   width: 100%;
   max-width: 300px;
-  background: #0f172a;
+  background: #ffffff;
   border: 1px solid #334155;
   border-radius: 6px;
   padding: 0.4rem 0.75rem;
@@ -20,19 +21,19 @@
 }
 
 .search-box:focus-within {
-  border-color: #06b6d4;
+  border-color: #000000;
 }
 
 .search-icon {
   margin-right: 0.75rem;
   font-size: 0.85rem;
-  color: #94a3b8;
+  color: #000000;
 }
 
 .search-input {
   background: transparent;
   border: none;
-  color: #e2e8f0;
+  color: #000000;
   font-size: 0.8rem;
   width: 100%;
   outline: none;
@@ -47,7 +48,7 @@
 .filter-label {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #94a3b8;
+  color: #000000;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
