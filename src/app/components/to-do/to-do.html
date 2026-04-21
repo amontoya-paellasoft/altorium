@@ -6,7 +6,7 @@
         <i class="fa-solid fa-square-caret-left"></i> ATRÁS
       </button>
       <h2 class="todo-page-title">
-        {{ userName() ? 'Tablero de ' + userName() : ('TODO.TITLE' | translate) }}
+        {{ 'TODO.TITLE' | translate }}
       </h2>
       <button class="btn-retro" (click)="showForm = !showForm">
         {{ (showForm ? 'TODO.CLOSE' : 'TODO.NEW_TASK') | translate }}
@@ -73,7 +73,7 @@
     @for (column of columns; track column.id; let colIndex = $index) {
       <div class="column-container">
         <div class="column-header">
-          <span class="column-title">{{ getTranslatedColumn(column.name) }}</span>
+          <span class="column-title">{{ ('TODO.COLUMNS.' + column.id) | translate }}</span>
           <span class="column-counter">({{ column.tasks.length }})</span>
         </div>
 
@@ -121,20 +121,9 @@
                   @if (selectedTaskId === task.id) {
                     <div class="task-actions" (click)="$event.stopPropagation()">
                       <div class="move-btns">
-                        <button
-                          class="btn-move"
-                          [disabled]="colIndex >= 3"
-                          (click)="moveTask(task.id, 'prev')"
-                        >
-                          «
-                        </button>
-                        <button
-                          class="btn-move"
-                          [disabled]="colIndex >= 2"
-                          (click)="moveTask(task.id, 'next')"
-                        >
-                          »
-                        </button>
+                        <button class="btn-view" (click)="viewTaskDetails(task)">Ver Info</button>
+                        <button class="btn-move" [disabled]="colIndex >= 3" (click)="moveTask(task.id, 'prev')">«</button>
+                        <button class="btn-move" [disabled]="colIndex >= 2" (click)="moveTask(task.id, 'next')">»</button>
                       </div>
                     </div>
                   }
@@ -146,4 +135,43 @@
       </div>
     }
   </div>
+
+  @if (selectedTaskDetail) {
+    <div class="view-overlay" (click)="closeTaskDetails()">
+      <div class="detail-panel" (click)="$event.stopPropagation()">
+        <div class="detail-header">
+          <h2 class="detail-title">{{ selectedTaskDetail.title }}</h2>
+          <button class="btn-close-retro" (click)="closeTaskDetails()">✕</button>
+        </div>
+        <div class="detail-body">
+          <div class="info-card">
+            <div class="info-label">Resumen Funcional</div>
+            <div class="info-content">{{ selectedTaskDetail.functionalSummary }}</div>
+          </div>
+          
+          <div class="info-row">
+            <div class="info-card half">
+              <div class="info-label">Estado / ID</div>
+              <div class="info-content">{{ selectedTaskDetail.state }} / #{{ selectedTaskDetail.taskId }}</div>
+            </div>
+            <div class="info-card half">
+              <div class="info-label">Usuario Asignado</div>
+              <div class="info-content">{{ getNombreUsuario(selectedTaskDetail.assignedUserId) }}</div>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-card half">
+              <div class="info-label">Creado</div>
+              <div class="info-content">{{ selectedTaskDetail.createdAt | date:'short' }}</div>
+            </div>
+            <div class="info-card half">
+              <div class="info-label">Actualizado</div>
+              <div class="info-content">{{ selectedTaskDetail.updatedAt | date:'short' }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
 </div>

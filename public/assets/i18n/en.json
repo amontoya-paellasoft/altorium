@@ -66,12 +66,12 @@
       "ALL": "All"
     },
     "COLUMNS": {
-      "Mise en Place": "Mise en Place",
-      "Backlog": "Backlog",
-      "To Do": "To Do",
-      "Do": "Do",
-      "Test": "Test",
-      "Done": "Done"
+      "mise-en-place": "Mise en Place",
+      "backlog": "Backlog",
+      "todo": "To Do",
+      "doing": "Doing",
+      "test": "Test",
+      "done": "Done"
     },
     "VIEW_MODAL": {
       "TITLE": "Task Details",

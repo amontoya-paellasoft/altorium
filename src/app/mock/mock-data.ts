@@ -1,7 +1,6 @@
 import { AgentMockInterface } from '../models/agent-interface';
 import { MessageInterface } from '../models/message-interface';
 import { ConversationInterface } from '../models/conversation-interface';
-import { TareaInterface } from '../models/tarea-interface';
 
 export const MOCK_AGENTS: AgentMockInterface[] = [
   { id: 'pm', dummyUserId: 1, name: 'P. Manager',    role: 'Coordinación', emoji: '🏛️', status: 'ocupado',   bg: 'white'    },
@@ -286,76 +285,3 @@ export const MOCK_REACCIONES_PUBLICAS: Record<string, string[]> = {
     'Oye, a mí no me miréis, yo solo diseño cosas, no me encargo de quién entra en el chat.',
   ],
 };
-
-export const MOCK_TAREAS: TareaInterface[] = [
-  {
-    id: 'tarea1',
-    titulo: 'Corregir bug de sincronización',
-    descripcion: 'Se detecta solapamiento de métodos en el módulo de persistencia (123.java). Revisar conflictos de estado.',
-    asignadaA: 'be',
-    estado: 'en_progreso',
-    prioridad: 'alta',
-    creadaEn: new Date(),
-    usuarioId: 4,
-  },
-  {
-    id: 'tarea2',
-    titulo: 'Mejorar UX/UI del panel de control',
-    descripcion: 'Unificar paleta de colores, ajustar jerarquía tipográfica y mejorar feedback visual en acciones críticas.',
-    asignadaA: 'di',
-    estado: 'en_progreso',
-    prioridad: 'media',
-    creadaEn: new Date(),
-    usuarioId: 2,
-  },
-  {
-    id: 'tarea3',
-    titulo: 'Revisión de API de autenticación',
-    descripcion: 'Validar consistencia de respuestas HTTP y manejo de estados inválidos en endpoints de login.',
-    asignadaA: 'be',
-    estado: 'pendiente',
-    prioridad: 'alta',
-    creadaEn: new Date(),
-    usuarioId: 4,
-  },
-  {
-    id: 'tarea4',
-    titulo: 'Validación de casos límite en flujo de usuario',
-    descripcion: 'QA debe reproducir escenarios de error en retroceso de flujo y verificar estabilidad general del sistema.',
-    asignadaA: 'qa',
-    estado: 'en_progreso',
-    prioridad: 'alta',
-    creadaEn: new Date(),
-    usuarioId: 5,
-  },
-  {
-    id: 'tarea5',
-    titulo: 'Coordinación de release final',
-    descripcion: 'Supervisar cierre de issues críticos, validar estabilidad del sistema y confirmar readiness para entrega.',
-    asignadaA: 'pm',
-    estado: 'pendiente',
-    prioridad: 'alta',
-    creadaEn: new Date(),
-    usuarioId: 1,
-  },
-  {
-    id: 'tarea6',
-    titulo: 'Optimización del renderizado de componentes',
-    descripcion: 'Reducir re-renders innecesarios en el árbol de UI y revisar performance del frontend en pantallas complejas.',
-    asignadaA: 'fe',
-    estado: 'en_progreso',
-    prioridad: 'media',
-    creadaEn: new Date(),
-    usuarioId: 3,
-  },
-  {
-    id: 'tarea7',
-    titulo: 'Simulación de comportamiento de usuario',
-    descripcion: 'Usuario externo detectado en flujo no previsto. Analizar impacto y reproducibilidad del acceso no autorizado.',
-    asignadaA: 'us',
-    estado: 'pendiente',
-    prioridad: 'baja',
-    creadaEn: new Date(),
-    usuarioId: 6,
-  },
-];

@@ -66,12 +66,12 @@
       "ALL": "Todas"
     },
     "COLUMNS": {
-      "Mise en Place": "Mise en Place",
-      "Backlog": "Pendientes",
-      "To Do": "Por Hacer",
-      "Do": "En Proceso",
-      "Test": "Pruebas",
-      "Done": "Hecho"
+      "mise-en-place": "Mise en Place",
+      "backlog": "Backlog",
+      "todo": "Por Hacer",
+      "doing": "En Proceso",
+      "test": "Pruebas",
+      "done": "Hecho"
     },
     "VIEW_MODAL": {
       "TITLE": "Detalles de la Tarea",

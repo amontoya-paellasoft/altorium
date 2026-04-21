@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
-import { MOCK_TAREAS, MOCK_AGENTS } from '../mock/mock-data';
-import { TareaInterface } from '../models/tarea-interface';
+import { forkJoin, map, Observable, switchMap, tap } from 'rxjs';
+import { MOCK_AGENTS } from '../mock/mock-data';
 import { TaskInterface } from '../models/task-dummy-interface';
 import { User } from '../models/agent-interface';
 
@@ -20,23 +19,6 @@ export class TareaService {
     if (!agente) return mockId.toUpperCase();
     const usuario = this._usuariosCache().find(u => u.id === agente.dummyUserId);
     return usuario ? `${usuario.firstName} ${usuario.lastName}` : agente.name;
-  }
-
-  getAllTareas(): Observable<TareaInterface[]> {
-    return of(MOCK_TAREAS);
-    // return this.http.get<TareaInterface[]>(this.baseUrl + '/tareas');
-  }
-
-  getTareasByAgenteMock(agentId: string): Observable<TareaInterface[]> {
-    const filtradas = MOCK_TAREAS.filter((t) => t.asignadaA === agentId);
-    return of(filtradas);
-    // return this.http.get<TareaInterface[]>(`${this.baseUrl}/tareas?agente=${agentId}`);
-  }
-
-  getTareasByEstadoMock(estado: TareaInterface['estado']): Observable<TareaInterface[]> {
-    const filtradas = MOCK_TAREAS.filter((t) => t.estado === estado);
-    return of(filtradas);
-    // return this.http.get<TareaInterface[]>(`${this.baseUrl}/tareas?estado=${estado}`);
   }
 
   getAgenteAPIPorId(id: number): Observable<User> {
@@ -58,19 +40,34 @@ export class TareaService {
       );
   }
 
-  getTareasApiByAgente(agentId: number): Observable<TaskInterface[]> {
-    return this.http
-      .get<any>(`${this.baseUrl}/todos/user/${agentId}`)
-      .pipe(map((respuesta) => respuesta.todos.map((todo: any) => this.mapTodo(todo))));
-  }
+  private mapTodo(todo: any): TaskInterface | null {
+    const excludedTitles = [
+      'Learn Javascript',
+      'Listen to a new music genre',
+      'Text a friend you haven\'t talked to in a long time',
+      'Attend a local cultural festival',
+      'Draw and color a Mandala'
+    ];
+    
+    if (excludedTitles.includes(todo.todo)) {
+      return null;
+    }
 
-  private mapTodo(todo: any): TaskInterface {
     return {
       id: todo.id,
       texto: todo.todo,
       estado: todo.completed ? 'completada' : 'pendiente',
       asignadaA: todo.userId,
     };
+  }
+
+  getTareasApiByAgente(agentId: number): Observable<TaskInterface[]> {
+    return this.http
+      .get<any>(`${this.baseUrl}/todos/user/${agentId}`)
+      .pipe(map((respuesta) => respuesta.todos
+        .map((todo: any) => this.mapTodo(todo))
+        .filter((t: any) => t !== null) as TaskInterface[]
+      ));
   }
 
   getUsuariosConTareas(): Observable<any[]> {

@@ -11,6 +11,16 @@
     >
   </div>
 
+  <!-- Filtro de Usuario -->
+  <div class="user-filters ms-3">
+    <select class="filter-select" (change)="setUser($any($event.target).value)">
+      <option value="All">Todos los usuarios</option>
+      @for (user of usuarios; track user.id) {
+        <option [value]="user.id">{{ user.firstName }} {{ user.lastName }}</option>
+      }
+    </select>
+  </div>
+
   <!-- Filtros de Prioridad -->
   <div class="priority-filters ms-3">
     <span class="filter-label d-none d-md-inline">{{ 'TODO.FILTERS.PRIORITY' | translate }}:</span>

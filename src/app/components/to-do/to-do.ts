@@ -7,7 +7,7 @@ import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { Column, Task } from '../../models/to-do-interface';
 import { TodoService } from '../../services/todo-service';
 import { TareaService } from '../../services/tarea-service';
-import { MOCK_AGENTS, MOCK_TAREAS } from '../../mock/mock-data';
+import { MOCK_AGENTS } from '../../mock/mock-data';
 import { Busqueda } from '../busqueda/busqueda';
 import { Router, RouterLink } from '@angular/router';
 
@@ -21,12 +21,12 @@ import { Router, RouterLink } from '@angular/router';
 export class TodoComponent implements OnInit {
 // ... (rest of class properties)
 
-  onDrop(event: CdkDragDrop<Task[]>) {
+  onDrop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
       // Actualizar los orderIndex en la columna
-      event.container.data.forEach((task, index) => {
-        task.orderIndex = index;
+      event.container.data.forEach((item, index) => {
+        item.orderIndex = index;
       });
       // Forzar la actualización del estado en el servicio
       this.todoService.actualizarColumnas(this.todoService.getColumns());
@@ -34,43 +34,28 @@ export class TodoComponent implements OnInit {
   }
 // ...
 
-  @Input('id') tareaId!: string;
-  
-  private _agentId!: string;
-  @Input('agentId') set agentId(value: string) {
-    this._agentId = value;
-    this.updateFilter();
-  }
-  get agentId() { return this._agentId; }
-
-  private _userId!: string;
-  @Input('userId') set userId(value: string) {
-    this._userId = value;
-    this.updateFilter();
-  }
-  get userId() { return this._userId; }
-
-  private _userNameInput!: string;
-  @Input('userName') set userNameInput(value: string) {
-    this._userNameInput = value;
-    if (value) this.userName.set(value.replace(/-/g, ' '));
-  }
-  get userNameInput() { return this._userNameInput; }
-
   private translate = inject(TranslateService);
   public todoService = inject(TodoService);
   private tareaService = inject(TareaService);
   private destroyRef = inject(DestroyRef);
 
   selectedTaskId: number | null = null;
+  selectedTaskDetail: any | null = null;
   taskForm: FormGroup;
   showForm = false;
-  taskIdCounter = 5000; // Un numero alto para IDs locales
+  taskIdCounter = 5000;
   userName = signal<string>('');
 
-  // Accedemos a las columnas filtradas desde el servicio
   get columns() {
     return this.todoService.filteredColumns();
+  }
+
+  viewTaskDetails(task: any) {
+    this.selectedTaskDetail = task;
+  }
+
+  closeTaskDetails() {
+    this.selectedTaskDetail = null;
   }
 
   constructor(private fb: FormBuilder, private router: Router) {
@@ -80,40 +65,10 @@ export class TodoComponent implements OnInit {
     });
   }
 
-  private updateFilter(): void {
-    if (this.userId) {
-      const uId = parseInt(this.userId, 10);
-      this.todoService.setUsuarioIdFilter(uId);
-      const agente = MOCK_AGENTS.find(a => a.dummyUserId === uId);
-      if (agente) {
-        this.userName.set(this.tareaService.getNombrePorMockId(agente.id));
-      } else {
-        this.userName.set(`Usuario ${uId}`);
-      }
-    } else if (this.agentId) {
-      // Intentamos buscar por ID de agente o por dummyUserId si se pasó un número
-      const agente = MOCK_AGENTS.find(a => a.id === this.agentId || a.dummyUserId.toString() === this.agentId);
-      if (agente) {
-        this.todoService.setUsuarioIdFilter(agente.dummyUserId);
-        this.userName.set(this.tareaService.getNombrePorMockId(agente.id));
-      } else {
-        const uId = parseInt(this.agentId, 10);
-        if (!isNaN(uId)) {
-          this.todoService.setUsuarioIdFilter(uId);
-          this.userName.set(`Usuario ${uId}`);
-        }
-      }
-    } else {
-      this.todoService.setUsuarioIdFilter(null);
-      this.userName.set('');
-    }
-  }
-
   ngOnInit(): void {
-    this.updateFilter();
-
-    // Cargamos las tareas del MOCK local
-    this.todoService.cargarTareasMock(MOCK_TAREAS);
+    // Se asegura que no haya filtros activos al iniciar
+    this.todoService.setUsuarioIdFilter(null);
+    this.userName.set('');
 
     this.tareaService.getUsuariosConTareas()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -121,9 +76,6 @@ export class TodoComponent implements OnInit {
         usuarios.forEach((usuario: any) => {
           this.todoService.cargarTareasDeApi(usuario.tareas);
         });
-        
-        // Refrescamos el nombre del usuario por si ahora tenemos más info en el cache
-        this.updateFilter();
       });
   }
 
@@ -136,8 +88,10 @@ export class TodoComponent implements OnInit {
     return this.translate.instant('TODO.PRIORITIES.' + priority);
   }
 
-  getTranslatedColumn(name: string): string {
-    return this.translate.instant('TODO.COLUMNS.' + name);
+  getTranslatedColumn(id: string): string {
+    const key = `TODO.COLUMNS.${id.toLowerCase()}`;
+    const translation = this.translate.instant(key);
+    return translation === key ? id : translation;
   }
 
   selectTask(id: number) {
@@ -148,12 +102,27 @@ export class TodoComponent implements OnInit {
     if (this.taskForm.valid) {
       const formValue = this.taskForm.value;
       const newTask: Task = {
+        taskId: this.taskIdCounter,
         id: this.taskIdCounter,
+        title: formValue.texto,
         texto: formValue.texto,
+        state: 'TODO',
         estado: 'pendiente',
+        assignedUserId: this.todoService.currentUser(),
         asignadaA: this.todoService.currentUser(),
         priority: formValue.priority,
-        createdAt: new Date()
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        companyId: 0,
+        projectId: 0,
+        originType: 'MANUAL',
+        functionalSummary: '',
+        createdBy: 0,
+        currentIteration: 1,
+        validationMode: 'NONE',
+        relatedTaskId: null,
+        automationActive: false,
+        automationBranchName: null
       };
       this.taskIdCounter++;
       this.todoService.addTask(newTask);
