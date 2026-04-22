@@ -2,6 +2,11 @@
 
   <div class="stats-header" cdkDragHandle>
     <span class="stats-title">[ AGENT ACTIVITY STATS ]</span>
+     <select class="periodo-select" (change)="onPeriodoChange($event)">
+      <option value="7d">Últimos 7 días</option>
+      <option value="3m">Últimos 3 meses</option>
+      <option value="6m">Últimos 6 meses</option>
+    </select>
     <button class="close-btn" (click)="ws.cerrarStats()">✕</button>
   </div>
 

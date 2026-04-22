@@ -1,10 +1,8 @@
-import { Component, computed, DestroyRef, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, computed, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { MOCK_AGENTS, MOCK_LINKS } from '../../mock/mock-data';
 import { UpperCasePipe, LowerCasePipe } from '@angular/common';
 import { WorkspaceService } from '../../services/workspace-service';
 import { ChatService } from '../../services/chat-service';
-import { TareaService } from '../../services/tarea-service';
 import { NodePosition } from '../../models/node-interface';
 import { FloatingWindow } from '../floating-window/floating-window';
 
@@ -21,9 +19,8 @@ export class AgentMap implements OnInit {
 
   ws: WorkspaceService = inject(WorkspaceService);
   chatServ: ChatService = inject(ChatService);
-  private tareaServ: TareaService = inject(TareaService);
-  private destroyRef = inject(DestroyRef);
 
+  cargando = signal(true);
   mensajeActivo = computed(() => this.chatServ.mensajeActivo());
   hayMensajeActivo = computed(() => this.mensajeActivo() !== null);
   enviarMsgsAll = computed(() => {
@@ -33,6 +30,7 @@ export class AgentMap implements OnInit {
     return this.nodes.filter((n) => n.id !== msg.from).map((n) => n.id);
   });
 
+  /* NODOS */
   // tamaños de nodo — el de usuario es más grande
   readonly NODE_W = 160;
   readonly NODE_H = 56;
@@ -69,24 +67,7 @@ export class AgentMap implements OnInit {
 
   ngOnInit(): void {
     this.ws.abrir({ agentId: '' });
-
-    this.tareaServ.getUsuariosConTareas()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(usuarios => {
-        usuarios.forEach((usuario: any) => {
-          const agenteMock = MOCK_AGENTS.find(a => a.dummyUserId === usuario.id);
-          if (!agenteMock) return;
-          const nodo = this.nodes.find(n => n.id === agenteMock.id);
-          if (!nodo) return;
-          nodo.label = `${usuario.firstName} ${usuario.lastName}`;
-          nodo.data = {
-            ...nodo.data,
-            image: usuario.image,
-            realName: `${usuario.firstName} ${usuario.lastName}`,
-          };
-        });
-        this.nodes = [...this.nodes];
-      });
+    this.cargando.set(false);
   }
 
   // Centro de un nodo
@@ -122,8 +103,8 @@ export class AgentMap implements OnInit {
     return `M ${x1} ${y1} Q ${mx + dx} ${my + dy} ${x2} ${y2}`;
   }
 
-  // Dirección del chevron según el mensaje activo
-  getLinkDirection(emisorId: string, remitenteId: string): 'desde' | 'hasta' | 'ausente' {
+// Sentido del flujo del mensaje activo sobre un enlace: desde el emisor, hacia el emisor, o sin mensaje
+  getSentidoMensaje(emisorId: string, remitenteId: string): 'desde' | 'hasta' | 'ausente' {
     const msg = this.mensajeActivo();
     if (!msg || msg.to === 'all') return 'ausente';
     if (msg.from === emisorId && msg.to === remitenteId) return 'desde';

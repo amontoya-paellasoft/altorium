@@ -2,25 +2,26 @@ import { AgentMockInterface } from '../models/agent-interface';
 import { MessageInterface } from '../models/message-interface';
 import { ConversationInterface } from '../models/conversation-interface';
 import { TareaInterface } from '../models/tarea-interface';
+import { MOCK_TASK_DETAIL } from './mock-task-detail';
 
 export const MOCK_AGENTS: AgentMockInterface[] = [
-  { id: 'pm', dummyUserId: 1, name: 'P. Manager',    role: 'Coordinación', emoji: '🏛️', status: 'ocupado',   bg: 'white'    },
-  { id: 'di', dummyUserId: 2, name: 'Diseñador',     role: 'Diseño',       emoji: '✨',  status: 'en línea', bg: 'pink'     },
-  { id: 'fe', dummyUserId: 3, name: 'FrontEnd Dev',  role: 'UI/UX',        emoji: '🔍', status: 'ausente',  bg: 'black'    },
-  { id: 'be', dummyUserId: 4, name: 'BackEnd Dev',   role: 'Node/API',     emoji: '🧪', status: 'ocupado',  bg: 'orange'   },
-  { id: 'qa', dummyUserId: 5, name: 'QA',            role: 'Test',         emoji: '🦄', status: 'en línea', bg: 'blue'     },
-  { id: 'us', dummyUserId: 6, name: 'User',          role: 'Guest',        emoji: '👤', status: 'en línea', bg: 'darkpink' },
+  { id: 'pm', name: 'P. Manager',  role: 'Coordinación', emoji: '🏛️', status: 'ocupado',   bg: 'white'   },
+  { id: 'di', name: 'Diseñador',   role: 'Diseño',       emoji: '✨',  status: 'en línea', bg: 'pink'    },
+  { id: 'fe', name: 'FrontEnd Dev',role: 'UI/UX',        emoji: '🔍', status: 'ausente',   bg: 'black'   },
+  { id: 'be', name: 'BackEnd Dev', role: 'Node/API',     emoji: '🧪', status: 'ocupado',   bg: 'orange'  },
+  { id: 'qa', name: 'QA',          role: 'Test',         emoji: '🦄', status: 'en línea', bg: 'blue'    },
+  { id: 'us', name: 'User',        role: 'Guest',        emoji: '👤', status: 'en línea', bg: 'darkpink'},
 ];
 
 export const MOCK_MESSAGES: MessageInterface[] = [
-  // Canal general
+  // Últimos 7 días (2026-04-14 en adelante)
   {
     id: 1,
     from: 'pm',
     to: 'all',
     visibility: 'public',
     text: 'El flujo principal cierra hoy. No hay margen.',
-    timeStamp: new Date('2026-04-02T10:31:00'),
+    timeStamp: new Date('2026-04-16T09:00:00'),
   },
   {
     id: 2,
@@ -28,7 +29,7 @@ export const MOCK_MESSAGES: MessageInterface[] = [
     to: 'all',
     visibility: 'public',
     text: 'Recibido. Hay algo raro en la transicion del paso tres, lo estoy viendo.',
-    timeStamp: new Date('2026-04-02T10:31:14'),
+    timeStamp: new Date('2026-04-16T09:05:00'),
   },
   {
     id: 3,
@@ -36,7 +37,7 @@ export const MOCK_MESSAGES: MessageInterface[] = [
     to: 'all',
     visibility: 'public',
     text: 'API estable. Faltan validaciones en edge cases pero no bloquea.',
-    timeStamp: new Date('2026-04-02T10:31:28'),
+    timeStamp: new Date('2026-04-17T11:00:00'),
   },
   {
     id: 4,
@@ -44,7 +45,7 @@ export const MOCK_MESSAGES: MessageInterface[] = [
     to: 'all',
     visibility: 'public',
     text: 'Reproduzco un fallo al retroceder en el flujo y reenviar. Prioridad alta.',
-    timeStamp: new Date('2026-04-02T10:31:45'),
+    timeStamp: new Date('2026-04-18T14:30:00'),
   },
   {
     id: 5,
@@ -52,15 +53,17 @@ export const MOCK_MESSAGES: MessageInterface[] = [
     to: 'all',
     visibility: 'public',
     text: 'Ese bug bloquea entrega. Todo el equipo foco en eso hasta cerrarlo.',
-    timeStamp: new Date('2026-04-02T10:32:00'),
+    timeStamp: new Date('2026-04-19T10:00:00'),
   },
+
+  // Entre 7 días y 3 meses (2026-01-20 – 2026-04-13)
   {
     id: 6,
     from: 'be',
     to: 'all',
     visibility: 'public',
     text: 'Validacion añadida en backend. Reenvios con estado inconsistente quedan rechazados.',
-    timeStamp: new Date('2026-04-02T10:34:10'),
+    timeStamp: new Date('2026-03-05T10:00:00'),
   },
   {
     id: 7,
@@ -68,7 +71,7 @@ export const MOCK_MESSAGES: MessageInterface[] = [
     to: 'all',
     visibility: 'public',
     text: 'He simplificado el estado en el paso tres. Estados intermedios eliminados.',
-    timeStamp: new Date('2026-04-02T10:34:40'),
+    timeStamp: new Date('2026-03-08T15:20:00'),
   },
   {
     id: 8,
@@ -76,7 +79,7 @@ export const MOCK_MESSAGES: MessageInterface[] = [
     to: 'all',
     visibility: 'public',
     text: 'Verificado. El escenario ya no se reproduce en ninguna variante.',
-    timeStamp: new Date('2026-04-02T10:35:10'),
+    timeStamp: new Date('2026-02-25T09:00:00'),
   },
   {
     id: 9,
@@ -84,25 +87,24 @@ export const MOCK_MESSAGES: MessageInterface[] = [
     to: 'all',
     visibility: 'public',
     text: 'Cerrado. Siguiente punto.',
-    timeStamp: new Date('2026-04-02T10:35:20'),
+    timeStamp: new Date('2026-02-28T16:00:00'),
   },
-
-  // Privado: PM -> DI
   {
     id: 10,
     from: 'pm',
     to: 'di',
     visibility: 'private',
     text: 'Necesito que el flujo del paso dos sea mas obvio. Usuarios reportan confusion.',
-    timeStamp: new Date('2026-04-02T10:32:30'),
+    timeStamp: new Date('2026-03-12T11:30:00'),
   },
+  // Más de 3 meses (anteriores a 2026-01-20)
   {
     id: 11,
     from: 'di',
     to: 'pm',
     visibility: 'private',
     text: 'El problema es estructural, no visual. Estamos pidiendo demasiado en un solo paso. Propongo dividirlo.',
-    timeStamp: new Date('2026-04-02T10:32:55'),
+    timeStamp: new Date('2026-01-10T10:00:00'),
   },
   {
     id: 12,
@@ -110,7 +112,7 @@ export const MOCK_MESSAGES: MessageInterface[] = [
     to: 'di',
     visibility: 'private',
     text: 'Si no implica retraso, adelante. Pero necesito verlo antes de que llegue a FE.',
-    timeStamp: new Date('2026-04-02T10:33:10'),
+    timeStamp: new Date('2025-12-15T14:00:00'),
   },
   {
     id: 13,
@@ -118,17 +120,16 @@ export const MOCK_MESSAGES: MessageInterface[] = [
     to: 'pm',
     visibility: 'private',
     text: 'Te mando el flujo revisado en quince minutos. Incluye los casos de error que antes ignorabamos.',
-    timeStamp: new Date('2026-04-02T10:33:30'),
+    timeStamp: new Date('2025-12-20T09:30:00'),
   },
 
-  // Privado: BE -> FE
   {
     id: 14,
     from: 'be',
     to: 'fe',
     visibility: 'private',
     text: 'El endpoint de reenvio ahora devuelve 409 si el estado no es el esperado. Maneja ese caso.',
-    timeStamp: new Date('2026-04-02T10:33:00'),
+    timeStamp: new Date('2026-01-05T11:00:00'),
     code: 'POST /api/submit\n  409 Conflict\n  { "error": "invalid_state", "expected": "pending" }',
   },
   {
@@ -137,7 +138,7 @@ export const MOCK_MESSAGES: MessageInterface[] = [
     to: 'be',
     visibility: 'private',
     text: 'Ok :)) lo capturo y muestro pantalla de error con opcion de reiniciar. Cuando lo despliegues avisa!! ^.^',
-    timeStamp: new Date('2026-04-02T10:33:45'),
+    timeStamp: new Date('2025-11-20T16:00:00'),
   },
   {
     id: 16,
@@ -145,7 +146,7 @@ export const MOCK_MESSAGES: MessageInterface[] = [
     to: 'fe',
     visibility: 'private',
     text: 'Desplegado en staging. Hash del commit: a3f9d1c.',
-    timeStamp: new Date('2026-04-02T10:36:00'),
+    timeStamp: new Date('2025-12-01T10:00:00'),
     code: 'git commit a3f9d1c\n"fix: reject inconsistent resubmit state"',
   },
   {
@@ -154,17 +155,16 @@ export const MOCK_MESSAGES: MessageInterface[] = [
     to: 'be',
     visibility: 'private',
     text: '... Buuu aburridoooooo! uwu',
-    timeStamp: new Date('2026-04-02T10:36:45'),
+    timeStamp: new Date('2025-11-15T14:00:00'),
   },
 
-  // Privado: QA -> BE
   {
     id: 18,
     from: 'qa',
     to: 'be',
     visibility: 'private',
     text: 'El 409 llega bien pero el mensaje de error no es consistente con el resto de la API. Revisar.',
-    timeStamp: new Date('2026-04-02T10:37:00'),
+    timeStamp: new Date('2025-12-10T09:00:00'),
   },
   {
     id: 19,
@@ -172,7 +172,7 @@ export const MOCK_MESSAGES: MessageInterface[] = [
     to: 'qa',
     visibility: 'private',
     text: 'Correcto. Normalizo la estructura de error en todos los endpoints. Dame diez minutos.',
-    timeStamp: new Date('2026-04-02T10:37:20'),
+    timeStamp: new Date('2026-01-15T11:00:00'),
   },
   {
     id: 20,
@@ -180,7 +180,7 @@ export const MOCK_MESSAGES: MessageInterface[] = [
     to: 'be',
     visibility: 'private',
     text: 'Confirmado tras el fix. Estructura consistente. Cierro el ticket.',
-    timeStamp: new Date('2026-04-02T10:48:00'),
+    timeStamp: new Date('2025-11-25T16:00:00'),
   },
 ];
 
@@ -287,75 +287,27 @@ export const MOCK_REACCIONES_PUBLICAS: Record<string, string[]> = {
   ],
 };
 
+function mapEstado(state: string): TareaInterface['estado'] {
+  const map: Record<string, TareaInterface['estado']> = {
+    BACKLOG: 'pendiente',
+    TODO:    'pendiente',
+    DOING:   'en_progreso',
+    TEST:    'en_progreso',
+    DONE:    'acabada',
+  };
+  return map[state] ?? 'pendiente';
+}
+
 export const MOCK_TAREAS: TareaInterface[] = [
   {
-    id: 'tarea1',
-    titulo: 'Corregir bug de sincronización',
-    descripcion: 'Se detecta solapamiento de métodos en el módulo de persistencia (123.java). Revisar conflictos de estado.',
-    asignadaA: 'be',
-    estado: 'en_progreso',
-    prioridad: 'alta',
-    creadaEn: new Date(),
-    usuarioId: 4,
-  },
-  {
-    id: 'tarea2',
-    titulo: 'Mejorar UX/UI del panel de control',
-    descripcion: 'Unificar paleta de colores, ajustar jerarquía tipográfica y mejorar feedback visual en acciones críticas.',
-    asignadaA: 'di',
-    estado: 'en_progreso',
-    prioridad: 'media',
-    creadaEn: new Date(),
-    usuarioId: 2,
-  },
-  {
-    id: 'tarea3',
-    titulo: 'Revisión de API de autenticación',
-    descripcion: 'Validar consistencia de respuestas HTTP y manejo de estados inválidos en endpoints de login.',
-    asignadaA: 'be',
-    estado: 'pendiente',
-    prioridad: 'alta',
-    creadaEn: new Date(),
-    usuarioId: 4,
-  },
-  {
-    id: 'tarea4',
-    titulo: 'Validación de casos límite en flujo de usuario',
-    descripcion: 'QA debe reproducir escenarios de error en retroceso de flujo y verificar estabilidad general del sistema.',
-    asignadaA: 'qa',
-    estado: 'en_progreso',
-    prioridad: 'alta',
-    creadaEn: new Date(),
-    usuarioId: 5,
-  },
-  {
-    id: 'tarea5',
-    titulo: 'Coordinación de release final',
-    descripcion: 'Supervisar cierre de issues críticos, validar estabilidad del sistema y confirmar readiness para entrega.',
-    asignadaA: 'pm',
-    estado: 'pendiente',
-    prioridad: 'alta',
-    creadaEn: new Date(),
-    usuarioId: 1,
-  },
-  {
-    id: 'tarea6',
-    titulo: 'Optimización del renderizado de componentes',
-    descripcion: 'Reducir re-renders innecesarios en el árbol de UI y revisar performance del frontend en pantallas complejas.',
-    asignadaA: 'fe',
-    estado: 'en_progreso',
-    prioridad: 'media',
-    creadaEn: new Date(),
-    usuarioId: 3,
-  },
-  {
-    id: 'tarea7',
-    titulo: 'Simulación de comportamiento de usuario',
-    descripcion: 'Usuario externo detectado en flujo no previsto. Analizar impacto y reproducibilidad del acceso no autorizado.',
-    asignadaA: 'us',
-    estado: 'pendiente',
-    prioridad: 'baja',
-    creadaEn: new Date(),
-    usuarioId: 6,
+    id:          `TK-${MOCK_TASK_DETAIL.task.taskId}`,
+    titulo:      MOCK_TASK_DETAIL.task.title,
+    descripcion: MOCK_TASK_DETAIL.task.functionalSummary,
+    asignadaA:   'be',
+    estado:      mapEstado(MOCK_TASK_DETAIL.task.state),
+    // TODO deuda técnica: el backend no expone priority, valor provisional
+    prioridad:   'alta',
+    creadaEn:    new Date(MOCK_TASK_DETAIL.task.createdAt),
   },
 ];
+

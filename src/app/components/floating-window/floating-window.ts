@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, input, Input } from '@angular/core';
 import { Chat } from '../chat/chat';
 import { WorkspaceService } from '../../services/workspace-service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -16,10 +16,10 @@ import { TranslatePipe } from '@ngx-translate/core';
   },
 })
 export class FloatingWindow {
-  @Input() agentId!: string;
+  agentId = input.required<string>();
   ws: WorkspaceService = inject(WorkspaceService);
 
   get esGeneral(): boolean {
-    return this.agentId === '';
+    return this.agentId() === '';
   }
 }

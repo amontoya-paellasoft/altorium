@@ -6,11 +6,12 @@
       <app-stats />
     }
   </div>
+
   @if (isMapRoute) {
     <app-control-panel />
   }
 
-  @if (ws.agentSelec()) {
-    <app-agent-panel [agentId]="ws.agentSelec()!" />
+   @if (ws.agentSelec(); as agentId) {
+    <app-agent-panel [agentId]="agentId" />
   }
 </div>

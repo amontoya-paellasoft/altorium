@@ -1,24 +1,22 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
+import { Injectable, signal, computed } from '@angular/core';
 import { Column, Task } from '../models/to-do-interface';
 import { TareaInterface } from '../models/tarea-interface';
-import { TaskInterface } from '../models/task-dummy-interface';
-import { TareaService } from './tarea-service';
+import { MOCK_AGENTS } from '../mock/mock-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  private tareaService = inject(TareaService);
   private _searchTerm = signal<string>('');
   public searchTerm = this._searchTerm.asReadonly();
 
   private _priorityFilter = signal<string>('All');
   public priorityFilter = this._priorityFilter.asReadonly();
 
-  private _usuarioIdFilter = signal<number | null>(null);
+  private _usuarioIdFilter = signal<string | null>(null);
   public usuarioIdFilter = this._usuarioIdFilter.asReadonly();
 
-  public currentUser = signal<number>(1);
+  public currentUser = signal<string>('pm');
 
   private _columns = signal<Column[]>([
     { id: 'mise-en-place', name: 'Mise en Place', tasks: [] },
@@ -36,22 +34,21 @@ export class TodoService {
   public filteredColumns = computed(() => {
     const term = this._searchTerm().toLowerCase();
     const priority = this._priorityFilter();
-    const userIdFilter = this._usuarioIdFilter();
+    const agentFilter = this._usuarioIdFilter();
 
     return this._columns().map(col => ({
       ...col,
       tasks: [...col.tasks].sort((a, b) => (a.orderIndex ?? 0) - (b.orderIndex ?? 0)).filter(task => {
-        const userName = this.tareaService._usuariosCache().find(u => u.id === task.asignadaA);
-        const fullName = userName ? `${userName.firstName} ${userName.lastName}`.toLowerCase() : `usuario ${task.asignadaA}`.toLowerCase();
-        
-        const matchesSearch = !term || 
+        const agente = MOCK_AGENTS.find(a => a.id === task.asignadaA);
+        const fullName = (agente?.name ?? task.asignadaA).toLowerCase();
+
+        const matchesSearch = !term ||
           task.texto.toLowerCase().includes(term) ||
           fullName.includes(term);
-        
+
         const matchesPriority = priority === 'All' || task.priority === priority;
-        
-        const matchesUser = userIdFilter === null || task.asignadaA === userIdFilter;
-        
+        const matchesUser = agentFilter === null || task.asignadaA === agentFilter;
+
         return matchesSearch && matchesPriority && matchesUser;
       })
     }));
@@ -65,7 +62,7 @@ export class TodoService {
     this._priorityFilter.set(priority);
   }
 
-  public setUsuarioIdFilter(id: number | null) {
+  public setUsuarioIdFilter(id: string | null) {
     this._usuarioIdFilter.set(id);
     if (id !== null) {
       this.currentUser.set(id);
@@ -97,12 +94,7 @@ export class TodoService {
 
     if (targetColumnIndex >= 0 && targetColumnIndex < currentCols.length) {
       const [task] = currentCols[sourceColumnIndex].tasks.splice(taskIndex, 1);
-      // Actualizamos el estado basado en la columna destino
-      if (currentCols[targetColumnIndex].id === 'done') {
-        task.estado = 'completada';
-      } else {
-        task.estado = 'pendiente';
-      }
+      task.estado = currentCols[targetColumnIndex].id === 'done' ? 'completada' : 'pendiente';
       currentCols[targetColumnIndex].tasks.push(task);
       this._columns.set([...currentCols]);
     }
@@ -114,30 +106,23 @@ export class TodoService {
 
   public cargarTareasMock(tareas: TareaInterface[]): void {
     const currentCols = this._columns();
-    
+
     tareas.forEach(tarea => {
-      // Evitar duplicados (id puede ser string o number en TareaInterface, convertimos a number si es numérico)
       const numericId = parseInt(tarea.id.replace('tarea', ''), 10) || Math.floor(Math.random() * 10000);
-      const yaExiste = currentCols.some(col => 
-        col.tasks.some(t => t.id === numericId)
-      );
+      const yaExiste = currentCols.some(col => col.tasks.some(t => t.id === numericId));
       if (yaExiste) return;
 
       const task: Task = {
         id: numericId,
         texto: tarea.titulo,
         estado: tarea.estado === 'acabada' ? 'completada' : 'pendiente',
-        asignadaA: tarea.usuarioId,
+        asignadaA: tarea.asignadaA,
         priority: this.mapPrioridad(tarea.prioridad),
         createdAt: tarea.creadaEn,
       };
 
-      // Mapear estado a columna
-      const colId = this.mapEstadoAColumna(tarea.estado);
-      const targetCol = currentCols.find(c => c.id === colId);
-      if (targetCol) {
-        targetCol.tasks.push(task);
-      }
+      const targetCol = currentCols.find(c => c.id === this.mapEstadoAColumna(tarea.estado));
+      targetCol?.tasks.push(task);
     });
 
     this._columns.set([...currentCols]);
@@ -154,36 +139,5 @@ export class TodoService {
     if (e === 'en_progreso') return 'doing';
     if (e === 'acabada') return 'done';
     return 'backlog';
-  }
-
-  public cargarTareasDeApi(tareas: TaskInterface[]): void {
-    const currentCols = this._columns();
-    const todoCol  = currentCols.find(c => c.id === 'todo');
-    const doneCol  = currentCols.find(c => c.id === 'done');
-    if (!todoCol || !doneCol) return;
-
-    tareas.forEach(tarea => {
-      const yaExiste = currentCols.some(col =>
-        col.tasks.some(t => t.id === tarea.id)
-      );
-      if (yaExiste) return;
-
-      const task: Task = {
-        id: tarea.id,
-        texto: tarea.texto,
-        estado: tarea.estado,
-        asignadaA: tarea.asignadaA,
-        priority: 'Medium',
-        createdAt: new Date(),
-      };
-
-      if (tarea.estado === 'completada') {
-        doneCol.tasks.push(task);
-      } else {
-        todoCol.tasks.push(task);
-      }
-    });
-
-    this._columns.set([...currentCols]);
   }
 }

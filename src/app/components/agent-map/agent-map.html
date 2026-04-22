@@ -1,4 +1,9 @@
-
+@if (cargando()) {
+  <div class="cargando">
+    <div class="spinner-border text-success">
+    </div>
+  </div>
+} @else {
 <!-- Contenedor del mapa -->
 <div class="contenedor">
 
@@ -82,7 +87,7 @@
             stroke="#D4AF37"
             stroke-width="2"
             [class]="
-              getLinkDirection(link.source, link.target) === 'hasta'
+              getSentidoMensaje(link.source, link.target) === 'hasta'
                 ? 'chevron-bwd'
                 : 'chevron-fwd'
             "
@@ -94,17 +99,15 @@
 
     <!-- Broadcast: flechas hacia todos msgs públicos -->
     @for (target of broadcastTargets(); track target.id) {
-      @if (getNode(mensajeActivo()!.from)) {
-        <path
-          [attr.d]="getLinkPath(mensajeActivo()!.from, target.id)"
-          fill="none"
-          stroke="#D4AF37"
-          stroke-width="1.5"
-          class="chevron-fwd"
-          stroke-opacity="0.6"
-          marker-end="url(#arrow-gold)"
-        />
-      }
+     <path
+        [attr.d]="getLinkPath(mensajeActivo()!.from, target.id)"
+        fill="none"
+        stroke="#D4AF37"
+        stroke-width="1.5"
+        class="chevron-fwd"
+        stroke-opacity="0.6"
+        marker-end="url(#arrow-gold)"
+      />
     }
 
     <!-- NODOS -->
@@ -162,7 +165,9 @@
             font-family="monospace"
             fill="#01FF00"
             letter-spacing="0.5"
-          >[CON]</text>
+          >
+          [CON]
+        </text>
         }
 
         <!-- Contenido interno -->
@@ -305,6 +310,7 @@
     }
   </svg>
 </div>
+}
 
 @for (agentId of ws.ventanasAbiertas(); track agentId) {
   <app-floating-window [agentId]="agentId" />

@@ -1,6 +1,8 @@
-import { TaskInterface } from './task-dummy-interface';
-
-export interface Task extends TaskInterface {
+export interface Task {
+  id: number;
+  texto: string;
+  estado: 'pendiente' | 'completada';
+  asignadaA: string;
   priority: 'Low' | 'Medium' | 'High';
   createdAt: Date;
   orderIndex?: number;

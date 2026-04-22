@@ -1,17 +1,15 @@
 import { Component, computed, DestroyRef, inject, input, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { forkJoin } from 'rxjs';
 import { WorkspaceService } from '../../services/workspace-service';
 import { ChatService } from '../../services/chat-service';
 import { TareaService } from '../../services/tarea-service';
-import { TaskInterface } from '../../models/task-dummy-interface';
-import { User } from '../../models/agent-interface';
+import { TareaInterface } from '../../models/tarea-interface';
 import { MOCK_AGENTS } from '../../mock/mock-data';
 import { UpperCasePipe } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { Chat } from '../chat/chat';
 import { TranslatePipe } from '@ngx-translate/core';
-import { RouterLink } from "@angular/router";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-agent-panel',
@@ -31,28 +29,23 @@ export class AgentPanel implements OnInit {
   agente = computed(() => MOCK_AGENTS.find((a) => a.id === this.agentId()));
   agentesRelacionados = computed(() => this.chatServ.getAgentesRelacionados(this.agentId()));
 
-  usuarioDummy = signal<User | null>(null);
-  tareas = signal<TaskInterface[]>([]);
+  tareas = signal<TareaInterface[]>([]);
 
   ngOnInit(): void {
     const agente = this.agente();
     if (!agente) return;
 
-    forkJoin([
-      this.tareaServ.getAgenteAPIPorId(agente.dummyUserId),
-      this.tareaServ.getTareasApiByAgente(agente.dummyUserId),
-    ])
+    this.tareaServ.getTareasByAgenteMock(agente.id)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(([usuario, tareas]) => {
-        this.usuarioDummy.set(usuario);
-        this.tareas.set(tareas);
-      });
+      .subscribe(tareas => this.tareas.set(tareas));
   }
 
-  getColorEstado(estado: TaskInterface['estado']): string {
-    const colores: Record<TaskInterface['estado'], string> = {
+  getColorEstado(estado: TareaInterface['estado']): string {
+    const colores: Record<TareaInterface['estado'], string> = {
       'pendiente':   '#976013',
-      'completada':  '#1a6eb3',
+      'en_progreso': '#1a6eb3',
+      'acabada':     '#1a9b4b',
+      'descartada':  '#888888',
     };
     return colores[estado];
   }
