@@ -284,6 +284,37 @@
 
 
 
+/* Diseño tablero + panel lateral */
+.board-panel {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  align-items: flex-start;
+}
+
+.board-panel .todo-wrapper {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.task-detail-side-panel {
+  width: 440px;
+  min-width: 440px;
+  border-left: 2px solid #d4af37;
+  background: #ffffff;
+  overflow-y: auto;
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(30px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
 /* Modales / Overlays */
 .view-overlay {
   position: fixed;

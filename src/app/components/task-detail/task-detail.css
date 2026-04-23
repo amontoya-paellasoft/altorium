@@ -1,0 +1,210 @@
+:host {
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.8rem;
+  color: #334155;
+}
+
+.main-container {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/*  HEADER  */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.header h1 {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #92400e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.header h2 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.btn-close-retro {
+  background: transparent;
+  border: 1px solid #cbd5e1;
+  color: #64748b;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.15s;
+  padding: 0;
+}
+
+.btn-close-retro:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+  border-color: #94a3b8;
+}
+
+/*  BADGES  */
+.container-badges {
+  margin-bottom: 0.75rem;
+}
+
+.badge {
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 3px 7px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.badge-state    { background: #f97316; color: #fff; }
+.badge-origin   { background: #16a34a; color: #fff; }
+.badge-validation { background: #2563eb; color: #fff; }
+.badge-texto    { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+.badge-automation { background: #f0fdf4; color: #15803d; border: 1px solid #86efac; font-size: 0.6rem; }
+
+/*  USUARIOS  */
+.container-users {
+  margin-bottom: 0.5rem;
+}
+
+.container-users span {
+  font-size: 0.75rem;
+}
+
+.user-assigned,
+.user-createdBy {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/*  DIVISORES  */
+hr {
+  margin: 0.75rem 0;
+  border-color: #e2e8f0;
+  opacity: 1;
+}
+
+/*  SECCIONES: headings internos  */
+.container-resumen h2,
+.container-resumen + h2,
+h2:not(.header h2) {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #1e293b;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 0 0 0.6rem;
+}
+
+.container-resumen {
+  margin-bottom: 0.25rem;
+}
+
+.container-resumen p {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #475569;
+  margin-bottom: 0.5rem;
+}
+
+/*  READINESS  */
+.d-flex.align-items-center.gap-2.mb-3 h2 {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #1e293b;
+  margin: 0;
+}
+
+/*  CARDS ESTIMATE / APPROVAL  */
+.card {
+  border-radius: 3px !important;
+}
+
+.card-body {
+  padding: 0.75rem !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.card-title {
+  font-size: 0.68rem !important;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #92400e;
+  margin-bottom: 0.5rem !important;
+}
+
+.card-body .d-flex span:first-child {
+  color: #64748b;
+  font-size: 0.72rem;
+}
+
+.card-body .fw-bold {
+  font-size: 0.72rem;
+  color: #1e293b;
+}
+
+/*  ACTIVIDAD: tabla  */
+.table {
+  font-size: 0.72rem;
+  margin-bottom: 0;
+}
+
+.table th,
+.table td {
+  padding: 0.3rem 0.4rem;
+  vertical-align: top;
+}
+
+/*  EJECUCIÓN Y LOGS  */
+.card.mb-3 .card-body {
+  gap: 0.2rem;
+}
+
+.card.mb-3 p.fw-bold {
+  font-size: 0.78rem;
+  margin-bottom: 0.25rem !important;
+}
+
+/* Cards oscuras de logs */
+.card.text-bg-dark .card-title {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+

@@ -24,15 +24,15 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  background: #060c06;
-  border-bottom: 1px solid #1a2e1a;
+  background: #fffbf0;
+  border-bottom: 1px solid #d4c4a0;
   cursor: grab;
   flex-shrink: 0;
 }
 
 .panel-title {
   font-size: 12px;
-  color: #41ff00;
+  color: #1a2e1a;
   letter-spacing: 0.1em;
   font-family: 'Courier New', monospace;
 }
@@ -44,8 +44,7 @@
   cursor: pointer;
   font-size: 14px;
   padding: 0;
-  line-height: 1;
-  &:hover { text-shadow: 0 0 8px #ff3333; }
+  font-weight: bold;
 }
 
 /* INFO */

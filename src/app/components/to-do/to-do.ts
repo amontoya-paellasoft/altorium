@@ -9,11 +9,12 @@ import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { Busqueda } from '../busqueda/busqueda';
 
 import { TarjetasToDo } from '../tarjetas-to-do/tarjetas-to-do';
+import { TaskDetail } from '../task-detail/task-detail';
 
 @Component({
   selector: 'app-to-do',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, DragDropModule, Busqueda, TarjetasToDo],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, DragDropModule, Busqueda, TarjetasToDo, TaskDetail],
   templateUrl: './to-do.html',
   styleUrls: ['./to-do.css']
 })
@@ -27,7 +28,7 @@ export class TodoComponent implements OnInit {
   }
   showForm = false;
   selectedTaskId: number | null = null;
-  selectedTaskDetail: any = null;
+  detailTaskId: number | null = null;
   taskForm = (this.todoService as any).getTaskForm ? (this.todoService as any).getTaskForm() : null;
 
   ngOnInit() {}
@@ -37,11 +38,11 @@ export class TodoComponent implements OnInit {
   }
 
   viewTaskDetails(task: any) {
-    this.selectedTaskDetail = task;
+    this.detailTaskId = task.taskId ?? null;
   }
 
   closeTaskDetails() {
-    this.selectedTaskDetail = null;
+    this.detailTaskId = null;
   }
 
   addTask() {
