@@ -79,7 +79,6 @@
     <section class="section">
       <div class="section-inline">
         <h3>Readiness</h3>
-
         @if (data.currentApproval.status === 'APPROVED') {
           <span class="pill-ok"> Readiness completo · Lista para avanzar </span>
         }
@@ -119,7 +118,7 @@
             <span>Approval ID</span><strong>{{ data.currentApproval.approvalId }}</strong>
           </div>
           <div class="kv">
-            <span>Status</span><strong class="green">{{ data.currentApproval.status }}</strong>
+            <span>Status</span><strong class="text-success">{{ data.currentApproval.status }}</strong>
           </div>
           <div class="kv">
             <span>Approved by</span
