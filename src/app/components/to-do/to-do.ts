@@ -9,12 +9,12 @@ import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { Busqueda } from '../busqueda/busqueda';
 
 import { TarjetasToDo } from '../tarjetas-to-do/tarjetas-to-do';
-import { TaskDetail } from '../task-detail/task-detail';
+import { TaskDetailComponent } from '../task-detail/task-detail';
 
 @Component({
   selector: 'app-to-do',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, DragDropModule, Busqueda, TarjetasToDo, TaskDetail],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, DragDropModule, Busqueda, TarjetasToDo, TaskDetailComponent],
   templateUrl: './to-do.html',
   styleUrls: ['./to-do.css']
 })
@@ -59,9 +59,7 @@ export class TodoComponent implements OnInit {
   }
 
   onDrop(event: CdkDragDrop<any[]>) {
-    if ((this.todoService as any).drop) {
-      (this.todoService as any).drop(event);
-    }
+    this.todoService.reorderTasks(event);
   }
 
   getNombreUsuario(userId: number | undefined): string {
@@ -106,6 +104,4 @@ export class TodoComponent implements OnInit {
   getAsignadaA(item: any): number | undefined {
     return item.asignadaA || item.assignedUserId;
   }
-
-
 }

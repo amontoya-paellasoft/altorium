@@ -78,7 +78,7 @@
             <span class="column-counter">({{ column.tasks.length }})</span>
           </div>
 
-          <div class="task-list" cdkDropList [cdkDropListData]="column.tasks" (cdkDropListDropped)="onDrop($event)">
+          <div class="task-list" cdkDropList [id]="column.id" [cdkDropListData]="column.tasks" (cdkDropListDropped)="onDrop($event)">
 
             @if (column.tasks.length === 0) {
               <div class="empty-state-container">
@@ -97,7 +97,15 @@
                 (onSelect)="selectTask($event)"
                 (onViewDetails)="viewTaskDetails($event)"
                 (onMove)="moveTask($event.taskId, $event.direction)"
-              ></app-tarjetas-to-do>
+              >
+                <div *cdkDragPlaceholder class="ghost-placeholder">
+                  <div class="ghost-sidebar"></div>
+                  <div class="ghost-content">
+                    <div class="ghost-title">{{ task.texto || task.title }}</div>
+                    <div class="ghost-line short"></div>
+                  </div>
+                </div>
+              </app-tarjetas-to-do>
             }
           </div>
         </div>
