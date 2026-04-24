@@ -110,6 +110,19 @@
       "TITLE": "Task Details",
       "NO_DEADLINE": "No deadline"
     },
-    "EMPTY_STATE": "No tasks here"
+    "EMPTY_STATE": "No tasks here",
+    "CARD": {
+      "EST_LABEL": "Est:",
+      "APROB_LABEL": "Approb:",
+      "ITERATION_PREFIX": "IT:",
+      "BUILDS_LABEL": "Builds:",
+      "DIAG_LABEL": "Diag:",
+      "APPROVAL_STATUS": {
+        "APPROVED": "Appr",
+        "PENDING": "Pend",
+        "REJECTED": "Rej",
+        "NONE": "N/A"
+      }
+    }
   }
 }
