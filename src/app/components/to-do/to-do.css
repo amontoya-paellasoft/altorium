@@ -106,16 +106,29 @@
   background: #f1f5f9;
   border-bottom: 2px solid #e2e8f0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 8px;
 }
+
+.column-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.bg-backlog { background: #94a3b8; } /* Gris */
+.bg-todo { background: #3b82f6; }     /* Azul */
+.bg-doing { background: #f97316; }    /* Naranja */
+.bg-test { background: #facc15; }     /* Amarillo */
+.bg-done { background: #10b981; }     /* Verde */
+.bg-mise-en-place { background: #475569; } /* Gris técnico */
 
 .column-title {
   font-size: 10px;
-  /* Texto ligeramente más pequeño para que quepa mejor */
   font-weight: 800;
-  color: #334155;
   text-transform: uppercase;
+  flex: 1;
+  color: #334155;
   letter-spacing: 0.5px;
   white-space: nowrap;
   overflow: hidden;

@@ -74,6 +74,7 @@
       @for (column of columns; track column.id; let colIndex = $index) {
         <div class="column-container">
           <div class="column-header">
+            <span class="column-indicator" [class]="'bg-' + column.id"></span>
             <span class="column-title">{{ ('TODO.COLUMNS.' + column.id) | translate }}</span>
             <span class="column-counter">({{ column.tasks.length }})</span>
           </div>
