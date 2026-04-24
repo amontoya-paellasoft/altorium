@@ -10,7 +10,7 @@ import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { Busqueda } from '../busqueda/busqueda';
 
 import { TarjetasToDo } from '../tarjetas-to-do/tarjetas-to-do';
-import { TaskDetailComponent } from '../task-detail/task-detail';
+import { TaskDetail } from '../task-detail/task-detail';
 
 @Component({
   selector: 'app-to-do',
@@ -23,7 +23,7 @@ export class TodoComponent implements OnInit {
   public todoService = inject(TodoService);
   private tareaService = inject(TareaService);
   private translate = inject(TranslateService);
-  
+
   get columns() {
     return this.todoService.filteredColumns();
   }
@@ -81,12 +81,12 @@ export class TodoComponent implements OnInit {
     if (!relatedTaskId) {
       return this.translate.instant('TODO.DETAIL_PANEL.VALUES.NONE');
     }
-    
+
     for (const col of this.todoService.getColumns()) {
       const task = col.tasks.find(t => (t as Task).taskId === relatedTaskId);
       if (task) return (task as Task).title;
     }
-    
+
     return `#${relatedTaskId}`;
   }
 

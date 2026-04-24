@@ -121,7 +121,7 @@
         "PARTIAL_SANDBOX": "Partial Sandbox",
         "EVIDENCE_ONLY": "Solo Evidencia"
       }
-    "EMPTY_STATE": "No hay tareas aquí"
+    }
   },
   "TASK_DETAIL": {
     "HEADER": {
