@@ -100,7 +100,10 @@
                 (onViewDetails)="viewTaskDetails($event)"
                 (onMove)="moveTask($event.taskId, $event.direction)"
               >
-                <div *cdkDragPlaceholder class="ghost-placeholder">
+                <div *cdkDragPlaceholder 
+                     class="ghost-placeholder"
+                     [class.mise-ghost]="column.isMiseEnPlace"
+                     [class.doing-ghost]="column.id === 'doing'">
                   <div class="ghost-sidebar"></div>
                   <div class="ghost-content">
                     <div class="ghost-title">{{ task.texto || task.title }}</div>

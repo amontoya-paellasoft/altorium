@@ -204,15 +204,27 @@
 
 .ghost-placeholder {
   width: 100%;
-  height: 100%;
-  min-height: 90px;
+  min-height: 200px; /* Tamaño para modern-todo-card estándar */
   background: rgba(248, 250, 252, 0.9);
-  border: 2px dashed #94a3b8;
+  border: 2px dashed #d4af37;
   border-radius: 8px;
   display: flex;
   overflow: hidden;
   position: relative;
+  margin-bottom: 12px;
   animation: ghost-pulse 1.5s infinite ease-in-out;
+}
+
+.ghost-placeholder.mise-ghost {
+  min-height: 90px;
+  background: rgba(100, 116, 139, 0.1);
+  border-color: #64748b;
+}
+
+.ghost-placeholder.doing-ghost {
+  min-height: 320px;
+  background: rgba(59, 130, 246, 0.05);
+  border-color: #3b82f6;
 }
 
 .ghost-sidebar {
