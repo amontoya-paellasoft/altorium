@@ -78,26 +78,47 @@
 /* Tablero */
 .todo-wrapper {
   display: flex;
-  gap: 0.5rem; /* Reducimos el espacio entre columnas */
-  padding: 0.5rem; /* Reducimos el padding general */
-  overflow-x: hidden;
-  /* Evitamos el scroll horizontal */
+  gap: 0.5rem;
+  padding: 0.5rem;
   flex-grow: 1;
   background: #f8fafc;
   width: 100%;
+
+  /* --- TRUCO SCROLL SUPERIOR --- */
+  overflow-x: auto;
+  transform: rotateX(180deg); /* Sube la barra al rotar el contenedor */
+}
+
+/* Personalización del scrollbar para mantener la estética */
+.todo-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.todo-wrapper::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.todo-wrapper::-webkit-scrollbar-thumb {
+  background: #d4af37; /* Color oro del proyecto */
+  border-radius: 0px;
 }
 
 .column-container {
-  flex: 1;
-  /* Permitimos que las columnas se encojan más para que quepan todas */
-  min-width: 180px;
+  /* Calculamos el ancho para que quepan las 6 columnas exactamente en el viewport */
+  /* (100vw - padding total - gaps totales) / 6 */
+  flex: 0 0 calc((100vw - 7.5rem) / 6); 
+  min-width: calc((100vw - 7.5rem) / 6);
   background: #ffffff;
   border: 1px solid #cbd5e1;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   height: 100%;
-  /* Ocupan todo el alto disponible */
+  align-self: flex-end;
+
+  /* --- RETORNO DE ROTACIÓN --- */
+  transform: rotateX(180deg);
 }
 
 .column-header {
