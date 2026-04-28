@@ -1,4 +1,4 @@
-export interface Task {
+export interface ToDoTask {
   taskId: number;
   companyId: number;
   projectId: number;
@@ -18,11 +18,11 @@ export interface Task {
   orderIndex?: number;
 
   // Campos para el nuevo diseño de tarjeta
-  estimatedPrice?: number;
-  estimatedMinutes?: number;
-  approvalStatus?: 'PENDING' | 'APPROVED' | 'REJECTED' | 'NONE';
-  buildCount?: number;
-  healthScore?: number;
+  estimatedPrice: number;
+  estimatedMinutes: number;
+  approvalStatus: 'PENDING' | 'APPROVED' | 'REJECTED' | 'NONE';
+  buildCount: number;
+  healthScore: number;
   
   // Compatibilidad interna y legacy
   id: number;
@@ -129,6 +129,6 @@ export type MiseEnPlaceItem =
 export interface Column {
   id: string;
   name: string;
-  tasks: (Task | MiseEnPlaceItem)[];
+  tasks: (ToDoTask | MiseEnPlaceItem)[];
   isMiseEnPlace?: boolean;
 }

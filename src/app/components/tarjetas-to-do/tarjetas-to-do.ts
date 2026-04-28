@@ -2,7 +2,7 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Task, MiseEnPlaceItem } from '../../models/to-do-interface';
+import { ToDoTask, MiseEnPlaceItem } from '../../models/to-do-interface';
 import { TareaService } from '../../services/tarea-service';
 
 @Component({
@@ -16,7 +16,7 @@ export class TarjetasToDo {
   private translate = inject(TranslateService);
   private tareaService = inject(TareaService);
 
-  @Input({ required: true }) task!: any;
+  @Input({ required: true }) task!: ToDoTask | MiseEnPlaceItem;
   @Input({ required: true }) colIndex!: number;
   @Input() columnId: string = '';
   @Input() selectedTaskId: number | null = null;
@@ -65,15 +65,15 @@ export class TarjetasToDo {
     return item.asignadaA || item.assignedUserId;
   }
 
-  asMiseEnPlace(item: any): MiseEnPlaceItem {
+  asMiseEnPlace(item: ToDoTask | MiseEnPlaceItem): MiseEnPlaceItem {
     return item as MiseEnPlaceItem;
   }
 
-  asTask(item: any): Task {
-    return item as Task;
+  asTask(item: ToDoTask | MiseEnPlaceItem): ToDoTask {
+    return item as ToDoTask;
   }
 
-  getFormattedEstimation(task: Task): string {
+  getFormattedEstimation(task: ToDoTask): string {
     if (!task.estimatedPrice && !task.estimatedMinutes) return 'N/A';
     const hours = task.estimatedMinutes ? (task.estimatedMinutes / 60).toFixed(1) : '0';
     return `€${task.estimatedPrice || 0} / ${hours}h`;

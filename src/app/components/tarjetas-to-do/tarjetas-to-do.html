@@ -115,8 +115,8 @@
   <div class="block-id">
     <span class="ticket-id">#TK-{{ taskItem.taskId }}</span>
     <div class="id-actions">
-      <button class="btn-info-mini" (click)="toggleCollapse($event)">
-        <img src="assets/imgs/bars-staggered-solid-full.svg" class="btn-icon-svg" [style.opacity]="isCollapsed ? 0.5 : 1" alt="Toggle">
+      <button class="btn-collapse" [class.collapsed]="isCollapsed" (click)="toggleCollapse($event)" [title]="(isCollapsed ? 'TODO.BUTTONS.EXPAND' : 'TODO.BUTTONS.COLLAPSE') | translate">
+        <img src="assets/imgs/bars-staggered-solid-full.svg" class="btn-icon-svg" alt="Toggle">
       </button>
       <button class="btn-info-mini" (click)="$event.stopPropagation(); viewTaskDetails(taskItem)">
         <i class="fa-solid fa-circle-info"></i> {{ 'TODO.BUTTONS.VIEW' | translate }}

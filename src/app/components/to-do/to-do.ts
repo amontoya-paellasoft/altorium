@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TodoService } from '../../services/todo-service';
 import { TareaService } from '../../services/tarea-service';
-import { Task, MiseEnPlaceItem, Column } from '../../models/to-do-interface';
+import { ToDoTask, MiseEnPlaceItem, Column } from '../../models/to-do-interface';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { Busqueda } from '../busqueda/busqueda';
@@ -41,7 +41,7 @@ export class TodoComponent implements OnInit {
   }
   showForm = false;
   selectedTaskId: number | null = null;
-  selectedTaskDetail: Task | null = null;
+  selectedTaskDetail: ToDoTask | null = null;
   taskForm = (this.todoService as any).getTaskForm ? (this.todoService as any).getTaskForm() : null;
 
   columnExpandedState: Record<string, boolean> = {};
@@ -106,8 +106,8 @@ export class TodoComponent implements OnInit {
     }
     
     for (const col of this.todoService.getColumns()) {
-      const task = col.tasks.find(t => (t as Task).taskId === relatedTaskId);
-      if (task) return (task as Task).title;
+      const task = col.tasks.find(t => (t as ToDoTask).taskId === relatedTaskId);
+      if (task) return (task as ToDoTask).title;
     }
     
     return `#${relatedTaskId}`;
@@ -129,15 +129,15 @@ export class TodoComponent implements OnInit {
     return item.asignadaA || item.assignedUserId;
   }
 
-  isTask(item: any): item is Task {
-    return (item as Task).taskId !== undefined && (item as any).itemType === undefined;
+  isTask(item: any): item is ToDoTask {
+    return (item as ToDoTask).taskId !== undefined && (item as any).itemType === undefined;
   }
 
   asMiseEnPlace(item: any): MiseEnPlaceItem {
     return item as MiseEnPlaceItem;
   }
 
-  asTask(item: any): Task {
-    return item as Task;
+  asTask(item: any): ToDoTask {
+    return item as ToDoTask;
   }
 }
