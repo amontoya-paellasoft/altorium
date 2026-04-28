@@ -4,12 +4,15 @@
   left: 20px;
   z-index: 200;
   display: block;
-  height: calc(100vh - 100px);
 }
 
 .panel-ventana {
   width: 28rem;
-  height: 100%;
+  min-width: 22rem;
+  max-width: 60rem;
+  height: 39rem;
+  max-height: 41rem;
+  min-height: 30rem;
   background: #FFFBF0;
   border: 1px solid #D4C4A0;
   border-radius: 4px;
@@ -17,6 +20,8 @@
   flex-direction: column;
   box-shadow: 0 8px 32px rgba(61,48,32,0.15);
   font-family: 'Segoe UI', sans-serif;
+  resize: both;
+  overflow: hidden;
 }
 
 /* HEADER */
@@ -25,15 +30,15 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  background: #060c06;
-  border-bottom: 1px solid #1a2e1a;
+  background: #fffbf0;
+  border-bottom: 1px solid #d4c4a0;
   cursor: grab;
   flex-shrink: 0;
 }
 
 .panel-title {
   font-size: 12px;
-  color: #41ff00;
+  color: #1a2e1a;
   letter-spacing: 0.1em;
   font-family: 'Courier New', monospace;
 }
@@ -45,8 +50,7 @@
   cursor: pointer;
   font-size: 14px;
   padding: 0;
-  line-height: 1;
-  &:hover { text-shadow: 0 0 8px #ff3333; }
+  font-weight: bold;
 }
 
 /* INFO */
@@ -205,7 +209,7 @@
 /* CHAT */
 .panel-chat {
   flex: 1;
+  min-height: 160px;
   overflow: hidden;
   border-top: 1px solid #1a2e1a;
-  min-height: 0;
 }

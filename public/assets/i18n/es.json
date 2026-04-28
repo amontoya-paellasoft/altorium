@@ -1,32 +1,25 @@
 {
   "APP_1001_TITLE": "ALTORIUM",
   "APP_1002_SUBTITLE": "Simulación de trabajo entre agentes IA",
-
   "CTRL_2001_PANEL": "PANEL DE CONTROL",
   "CTRL_2002_RESTART": "[ REINICIAR ]",
   "CTRL_2003_CLOSE": "[ CERRAR VENTANAS ]",
-
   "AGENT_4001_DETAIL_TITLE": "[ DETALLE DE AGENTE ::",
   "AGENT_4002_INTERACT": "INTERACTÚA CON",
   "AGENT_4003_EMPTY": "SIN DATOS",
-
-  "CONSOLE_5001_AGENT_TITLE": "CONSOLA DE AGENTE :: {{id}}",
+  "CONSOLE_5001_AGENT_TITLE": "CONSOLA DE AGENTE ::",
   "CONSOLE_5002_SYSTEM_TITLE": "CONSOLA SISTEMA",
   "CONSOLE_5003_LOG_COUNT": "MENSAJES REGISTRADOS",
   "CONSOLE_5004_LOADING_AGENT": "CARGANDO LOG DEL AGENTE...",
   "CONSOLE_5005_LOADING_PUBLIC": "CARGANDO CANAL PÚBLICO...",
   "CONSOLE_5006_EMPTY": "SIN MENSAJES REGISTRADOS.",
-
   "CONSOLE_5007_FILTER_ALL": "[TODO]",
   "CONSOLE_5008_FILTER_PUBLIC": "[PUB]",
   "CONSOLE_5009_FILTER_PRIVATE": "[PRIV]",
-
   "INPUT_5010_PLACEHOLDER": "ESCRIBE UN MENSAJE...",
   "INPUT_5011_SEND": "ENVIAR ↵",
-
   "WINDOW_6001_TERMINAL_TITLE": "TERMINAL ::",
   "WINDOW_6002_SYSTEM_TITLE": "CONSOLA SISTEMA",
-
   "TODO": {
     "TITLE": "Tablero de Tareas",
     "NEW_TASK": "+ Nueva Tarea",
@@ -45,7 +38,8 @@
     "PLACEHOLDERS": {
       "TITLE": "Título de la tarea",
       "DESCRIPTION": "Breve descripción",
-      "DETAILS": "Información detallada..."
+      "DETAILS": "Información detallada...",
+      "SEARCH": "Buscar tareas..."
     },
     "PRIORITIES": {
       "Low": "Baja",
@@ -59,24 +53,154 @@
       "CANCEL": "Cancelar",
       "ADD": "Añadir Tarea",
       "VIEW": "Ver",
-      "ALL": "Todas"
+      "ALL": "Todas",
+      "VIEW_INFO": "Ver Info"
+    },
+    "DETAIL_PANEL": {
+      "ORIGIN_LABEL": "ORIGEN DEL REQUERIMIENTO:",
+      "STATUS": {
+        "ACTIVA": "ACTIVA",
+        "CONECTADO": "CONECTADO",
+        "COMPLETADO": "COMPLETADO",
+        "VALIDADO": "VALIDADO",
+        "DISPONIBLE": "DISPONIBLE"
+      },
+      "LABELS": {
+        "FUNCTIONAL_SUMMARY": "Resumen Funcional",
+        "COMPANY": "Compañía",
+        "ASSIGNED_USER": "Usuario Asignado",
+        "CREATOR": "Creador del Ticket",
+        "STATE_PRIORITY": "Estado y Prioridad",
+        "ITERATION_VALIDATION": "Iteración y Validación",
+        "RELATED_TASK": "Tarea Relacionada",
+        "AUTOMATION": "Automatización",
+        "CREATED_AT": "Fecha de Creación",
+        "UPDATED_AT": "Última Actualización",
+        "RESOURCE_TYPE": "Tipo de Recurso"
+      },
+      "VALUES": {
+        "SYSTEM": "Sistema",
+        "NONE": "NINGUNA",
+        "ACTIVE": "ACTIVA",
+        "INACTIVE": "INACTIVA",
+        "BRANCH": "Rama"
+      }
     },
     "FILTERS": {
       "PRIORITY": "Filtrar",
-      "ALL": "Todas"
+      "ALL": "Todas",
+      "ALL_USERS": "Todos los usuarios"
     },
     "COLUMNS": {
-      "Mise en Place": "Mise en Place",
-      "Backlog": "Pendientes",
-      "To Do": "Por Hacer",
-      "Do": "En Proceso",
-      "Test": "Pruebas",
-      "Done": "Hecho"
+      "mise-en-place": "Mise en Place",
+      "backlog": "Backlog",
+      "todo": "Por Hacer",
+      "doing": "En Proceso",
+      "test": "Pruebas",
+      "done": "Hecho"
     },
     "VIEW_MODAL": {
       "TITLE": "Detalles de la Tarea",
       "NO_DEADLINE": "Sin fecha límite"
     },
-    "EMPTY_STATE": "No hay tareas aquí"
+    "EMPTY_STATE": "No hay tareas aquí",
+    "CARD": {
+      "EST_LABEL": "Est:",
+      "APROB_LABEL": "Aprob:",
+      "ITERATION_PREFIX": "IT:",
+      "BUILDS_LABEL": "Builds:",
+      "DIAG_LABEL": "Diag:",
+      "VERSION_PREFIX": "v",
+      "SCORE_LABEL": "Punt:",
+      "RELATED_PREFIX": "Rel:",
+      "BUILD_RUNNING": "BUILD: EN EJECUCIÓN",
+      "APPROVAL_STATUS": {
+        "APPROVED": "Aprob",
+        "PENDING": "Pend",
+        "REJECTED": "Rechaz",
+        "NONE": "N/A"
+      },
+      "VALIDATION_MODES": {
+        "FULL_SANDBOX": "Full Sandbox",
+        "PARTIAL_SANDBOX": "Partial Sandbox",
+        "EVIDENCE_ONLY": "Solo Evidencia"
+      }
+    }
+  },
+  "TASK_DETAIL": {
+    "HEADER": {
+      "ASSIGNED_TO": "Asignada a",
+      "CREATED_BY": "Creada por",
+      "CREATED": "Creada",
+      "UPDATED": "Actualizada",
+      "AUTOMATED": "Automatizada",
+      "ITERATION": "Iteración"
+    },
+    "SECTIONS": {
+      "SUMMARY": "Resumen funcional",
+      "READINESS": "Preparación",
+      "ACTIVITY": "Actividad operativa",
+      "BUILD": "Ejecución y registros"
+    },
+    "META": {
+      "RELATED_TO": "Relacionada con",
+      "PROJECT": "Proyecto",
+      "COMPANY": "Empresa"
+    },
+    "READINESS": {
+      "COMPLETE": "Preparación completa · Lista para avanzar",
+      "ESTIMATE_TITLE": "Estimación actual",
+      "APPROVAL_TITLE": "Aprobación actual"
+    },
+    "ESTIMATE": {
+      "BASE_MINUTES": "Minutos base",
+      "FINAL_MINUTES": "Minutos finales",
+      "ESTIMATED_PRICE": "Precio estimado",
+      "SAVINGS": "Ahorro",
+      "APPROVAL_REQ": "Requiere aprobación",
+      "APPROVAL_YES": "Sí",
+      "APPROVAL_NO": "No",
+      "CREATED": "Creada"
+    },
+    "APPROVAL": {
+      "APPROVAL_ID": "ID de aprobación",
+      "STATUS": "Estado",
+      "APPROVED_BY": "Aprobado por",
+      "APPROVED_AT": "Aprobado el",
+      "PROMO_HOURS": "Horario promocional"
+    },
+    "LEGEND": {
+      "TIMELINE_EVENT": "Evento cronológico",
+      "DIAGNOSTIC": "Diagnóstico",
+      "COMMENT": "Comentario",
+      "BUILD": "Build",
+      "EVENTS": "eventos"
+    },
+    "BUILD": {
+      "LAST_BUILD": "Última ejecución #",
+      "STARTED": "Iniciado",
+      "FINISHED": "Finalizado",
+      "MAVEN_GOAL": "Objetivo Maven",
+      "ARTIFACT": "Artefacto"
+    },
+    "LOGS": {
+      "STDOUT": "Salida estándar",
+      "STDERR": "Salida de error",
+      "NO_ERRORS": "(Sin mensajes de error)",
+      "OPEN_HINT": "Vista previa — Usa el botón para ver el log completo",
+      "BUTTON": "Log completo"
+    }
+  },
+  "STATS": {
+    "TITLE": "[ ESTADÍSTICAS DE ACTIVIDAD DE AGENTES ]",
+    "PERIODS": {
+      "7D": "Últimos 7 días",
+      "3M": "Últimos 3 meses",
+      "6M": "Últimos 6 meses"
+    },
+    "CHARTS": {
+      "MESSAGES_BY_AGENT": "MENSAJES POR AGENTE",
+      "PUBLIC_VS_PRIVATE": "PÚBLICO VS PRIVADO"
+    }
   }
 }

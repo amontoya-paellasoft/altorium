@@ -3,19 +3,19 @@
   [class.general]="esGeneral"
   [class.privada]="!esGeneral"
   cdkDrag
-  (mousedown)="ws.focus(agentId)"
+  (mousedown)="ws.focus(agentId())"
 >
   <div class="window-header" cdkDragHandle>
     <span class="title">
       {{
-        agentId
-          ? ('WINDOW_6001_TERMINAL_TITLE' | translate: { id: agentId })
+        agentId()
+          ? ('WINDOW_6001_TERMINAL_TITLE' | translate: { id: agentId() })
           : ('WINDOW_6002_SYSTEM_TITLE' | translate)
       }}
     </span>
-    <button class="close-btn" (click)="ws.cerrar(agentId)">✕</button>
+    <button class="close-btn" (click)="ws.cerrar(agentId())">✕</button>
   </div>
   <div class="window-content">
-    <app-chat [agentId]="agentId" />
+    <app-chat [agentId]="agentId()" />
   </div>
 </div>

@@ -17,7 +17,7 @@
     <div class="agent-hero">
       <span class="agent-emoji">{{ agente()?.emoji }}</span>
       <div>
-        <div class="agent-name">{{ agente()?.name }}</div>
+        <div class="agent-name">{{ usuarioReal()?.fullName }}</div>
         <div class="agent-role">{{ agente()?.role | uppercase }}</div>
       </div>
       <div class="agent-status">
@@ -53,23 +53,16 @@
   <div class="panel-info">
     <div class="section-label">TAREAS ASIGNADAS</div>
     <div class="tareas-lista">
-      @for (tarea of tareas; track tarea.id) {
-        <div class="tarea-item" routerLink="to-do" (click)="ws.cerrarTodas()">
+      @for (tarea of tareas(); track tarea.id) {
+        <div class="tarea-item"
+             [routerLink]="['/to-do', agente()?.id, getSlugAgente(usuarioReal()?.fullName || '')]"
+             (click)="ws.cerrarTodas()">
           <div class="tarea-header">
             <span class="tarea-estado" [style.color]="getColorEstado(tarea.estado)">
               ● {{ tarea.estado | uppercase }}
             </span>
-            <span
-              class="tarea-prioridad"
-              [class.alta]="tarea.prioridad === 'alta'"
-              [class.media]="tarea.prioridad === 'media'"
-              [class.baja]="tarea.prioridad === 'baja'"
-            >
-              {{ tarea.prioridad | uppercase }}
-            </span>
           </div>
           <div class="tarea-titulo">{{ tarea.titulo }}</div>
-          <div class="tarea-desc">{{ tarea.descripcion }}</div>
         </div>
       } @empty {
         <span class="empty">SIN TAREAS ASIGNADAS.</span>

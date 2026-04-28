@@ -1,24 +1,26 @@
-import { Component, computed, ElementRef, inject, ViewChild } from '@angular/core';
-import { MOCK_AGENTS, MOCK_LINKS } from '../../mock/mock-data';
+import { Component, computed, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { MOCK_AGENTS, MOCK_LINKS, MOCK_USERS } from '../../mock/mock-data';
 import { UpperCasePipe, LowerCasePipe } from '@angular/common';
 import { WorkspaceService } from '../../services/workspace-service';
 import { ChatService } from '../../services/chat-service';
 import { NodePosition } from '../../models/node-interface';
+import { FloatingWindow } from '../floating-window/floating-window';
 
 @Component({
   selector: 'app-agent-map',
   standalone: true,
-  imports: [UpperCasePipe, LowerCasePipe],
+  imports: [UpperCasePipe, LowerCasePipe, FloatingWindow],
   templateUrl: './agent-map.html',
   styleUrl: './agent-map.css',
 })
-export class AgentMap {
+export class AgentMap implements OnInit {
   // el svg, para el drag necesito acceder a él directamente
   @ViewChild('svgRef') svgRef!: ElementRef<SVGSVGElement>;
 
   ws: WorkspaceService = inject(WorkspaceService);
   chatServ: ChatService = inject(ChatService);
 
+  cargando = signal(true);
   mensajeActivo = computed(() => this.chatServ.mensajeActivo());
   hayMensajeActivo = computed(() => this.mensajeActivo() !== null);
   enviarMsgsAll = computed(() => {
@@ -28,6 +30,7 @@ export class AgentMap {
     return this.nodes.filter((n) => n.id !== msg.from).map((n) => n.id);
   });
 
+  /* NODOS */
   // tamaños de nodo — el de usuario es más grande
   readonly NODE_W = 160;
   readonly NODE_H = 56;
@@ -41,6 +44,7 @@ export class AgentMap {
   private offsetY = 0;
 
   nodes: NodePosition[] = MOCK_AGENTS.map((agent) => {
+    const user = MOCK_USERS.find((u) => u.userId === agent.userId);
     const positions: Record<string, { x: number; y: number }> = {
       pm: { x: 260, y: 232 }, // centro
       di: { x: 260, y: 60 }, // arriba
@@ -51,7 +55,7 @@ export class AgentMap {
     };
     return {
       id: agent.id,
-      label: agent.name,
+      label: user?.fullName ?? agent.id.toUpperCase(),
       x: positions[agent.id].x,
       y: positions[agent.id].y,
       data: { role: agent.role, emoji: agent.emoji, status: agent.status },
@@ -61,6 +65,11 @@ export class AgentMap {
   });
 
   links = MOCK_LINKS;
+
+  ngOnInit(): void {
+    this.ws.abrir({ agentId: '' });
+    this.cargando.set(false);
+  }
 
   // Centro de un nodo
   cx(node: NodePosition): number {
@@ -95,8 +104,8 @@ export class AgentMap {
     return `M ${x1} ${y1} Q ${mx + dx} ${my + dy} ${x2} ${y2}`;
   }
 
-  // Dirección del chevron según el mensaje activo
-  getLinkDirection(emisorId: string, remitenteId: string): 'desde' | 'hasta' | 'ausente' {
+// Sentido del flujo del mensaje activo sobre un enlace: desde el emisor, hacia el emisor, o sin mensaje
+  getSentidoMensaje(emisorId: string, remitenteId: string): 'desde' | 'hasta' | 'ausente' {
     const msg = this.mensajeActivo();
     if (!msg || msg.to === 'all') return 'ausente';
     if (msg.from === emisorId && msg.to === remitenteId) return 'desde';

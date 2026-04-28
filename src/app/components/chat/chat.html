@@ -2,8 +2,8 @@
   <span class="console-title">
     ▌
     {{
-      agentId
-        ? ('CONSOLE_5001_AGENT_TITLE' | translate: { id: agentId })
+      agentId()
+        ? ('CONSOLE_5001_AGENT_TITLE' | translate: { id: agentId() })
         : ('CONSOLE_5002_SYSTEM_TITLE' | translate)
     }}
   </span>
@@ -12,7 +12,7 @@
   >
 </div>
 
-@if (agentId) {
+@if (agentId()) {
   <div class="filter-bar">
     <button class="filter-btn" [class.active]="filtro === 'todo'" (click)="setFiltro('todo')">
       {{ 'CONSOLE_5007_FILTER_ALL' | translate }}
@@ -28,9 +28,9 @@
 
 <div class="console-output" #scrollContainer>
   <div class="console-boot">
-    <span>IBM AS/400 · {{ agentId ? 'AGENT' : '' }} SYSTEM v2.1</span><br />
+    <span>IBM AS/400 · {{ agentId() ? 'AGENT' : '' }} SYSTEM v2.1</span><br />
     <span>{{
-      agentId
+      agentId()
         ? ('CONSOLE_5004_LOADING_AGENT' | translate)
         : ('CONSOLE_5005_LOADING_PUBLIC' | translate)
     }}</span>
@@ -41,19 +41,19 @@
     <div class="console-line" [class.private]="m.visibility === 'private'">
       <span class="console-time">{{ m.timeStamp | date: 'HH:mm:ss' }}</span>
 
-      <span class="console-agent">{{ m.from | uppercase }}</span>
+      <span class="console-agent">{{ tareaServ.getNombrePorMockId(m.from).charAt(0) + '. ' + tareaServ.getNombrePorMockId(m.from).split(' ').slice(-1)[0] }}</span>
       <span class="console-arrow">
-        {{ m.visibility === 'private' ? '-->' : '->' }}
+        {{ m.visibility === 'private' ? '➤' : '➜' }}
       </span>
 
       <span class="console-agent console-to">
-        {{ m.to === 'all' ? 'ALL' : (m.to | uppercase) }}
+        {{ m.to === 'all' ? 'ALL' : tareaServ.getNombrePorMockId(m.to).charAt(0) + '. ' + tareaServ.getNombrePorMockId(m.to).split(' ').slice(-1)[0] }}
       </span>
 
       <span class="console-sep">»</span>
       <span class="console-text">
         {{ m.text }}
-        @if ($last && isEscribiendo()) {
+        @if ($last && hayMensajesEnCurso()) {
           <span class="console-cursor"></span>
         }
       </span>

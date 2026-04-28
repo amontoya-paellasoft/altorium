@@ -1,32 +1,25 @@
 {
   "APP_1001_TITLE": "ALTORIUM",
   "APP_1002_SUBTITLE": "AI agent workspace simulation",
-
   "CTRL_2001_PANEL": "CONTROL PANEL",
   "CTRL_2002_RESTART": "[ RESTART ]",
   "CTRL_2003_CLOSE": "[ CLOSE WINDOWS ]",
-
   "AGENT_4001_DETAIL_TITLE": "[ AGENT DETAIL ::",
   "AGENT_4002_INTERACT": "INTERACT WITH",
   "AGENT_4003_EMPTY": "NO DATA",
-
-  "CONSOLE_5001_AGENT_TITLE": "AGENT CONSOLE :: {{id}}",
+  "CONSOLE_5001_AGENT_TITLE": "AGENT CONSOLE ::",
   "CONSOLE_5002_SYSTEM_TITLE": "SYSTEM CONSOLE",
   "CONSOLE_5003_LOG_COUNT": "LOGS RECORDED",
   "CONSOLE_5004_LOADING_AGENT": "LOADING AGENT LOG...",
   "CONSOLE_5005_LOADING_PUBLIC": "LOADING PUBLIC CHANNEL...",
   "CONSOLE_5006_EMPTY": "NO LOGS RECORDED.",
-
   "CONSOLE_5007_FILTER_ALL": "[ALL]",
   "CONSOLE_5008_FILTER_PUBLIC": "[PUB]",
   "CONSOLE_5009_FILTER_PRIVATE": "[PRIV]",
-
   "INPUT_5010_PLACEHOLDER": "TYPE A MESSAGE...",
   "INPUT_5011_SEND": "SEND ↵",
-
   "WINDOW_6001_TERMINAL_TITLE": "TERMINAL ::",
   "WINDOW_6002_SYSTEM_TITLE": "SYSTEM CONSOLE",
-
   "TODO": {
     "TITLE": "Task Board",
     "NEW_TASK": "+ New Task",
@@ -45,7 +38,8 @@
     "PLACEHOLDERS": {
       "TITLE": "Task title",
       "DESCRIPTION": "Brief description",
-      "DETAILS": "Detailed information..."
+      "DETAILS": "Detailed information...",
+      "SEARCH": "Search tasks..."
     },
     "PRIORITIES": {
       "Low": "Low",
@@ -59,24 +53,150 @@
       "CANCEL": "Cancel",
       "ADD": "Add Task",
       "VIEW": "View",
-      "ALL": "All"
+      "ALL": "All",
+      "VIEW_INFO": "View Info"
+    },
+    "DETAIL_PANEL": {
+      "ORIGIN_LABEL": "REQUIREMENT ORIGIN:",
+      "STATUS": {
+        "ACTIVA": "ACTIVE",
+        "CONECTADO": "CONNECTED",
+        "COMPLETADO": "COMPLETED",
+        "VALIDADO": "VALIDATED",
+        "DISPONIBLE": "AVAILABLE"
+      },
+      "LABELS": {
+        "FUNCTIONAL_SUMMARY": "Functional Summary",
+        "COMPANY": "Company",
+        "ASSIGNED_USER": "Assigned User",
+        "CREATOR": "Ticket Creator",
+        "STATE_PRIORITY": "Status and Priority",
+        "ITERATION_VALIDATION": "Iteration and Validation",
+        "RELATED_TASK": "Related Task",
+        "AUTOMATION": "Automation",
+        "CREATED_AT": "Creation Date",
+        "UPDATED_AT": "Last Update",
+        "RESOURCE_TYPE": "Resource Type"
+      },
+      "VALUES": {
+        "SYSTEM": "System",
+        "NONE": "NONE",
+        "ACTIVE": "ACTIVE",
+        "INACTIVE": "INACTIVE",
+        "BRANCH": "Branch"
+      }
     },
     "FILTERS": {
       "PRIORITY": "Filter",
-      "ALL": "All"
+      "ALL": "All",
+      "ALL_USERS": "All users"
     },
     "COLUMNS": {
-      "Mise en Place": "Mise en Place",
-      "Backlog": "Backlog",
-      "To Do": "To Do",
-      "Do": "Do",
-      "Test": "Test",
-      "Done": "Done"
+      "mise-en-place": "Mise en Place",
+      "backlog": "Backlog",
+      "todo": "To Do",
+      "doing": "Doing",
+      "test": "Test",
+      "done": "Done"
     },
     "VIEW_MODAL": {
       "TITLE": "Task Details",
       "NO_DEADLINE": "No deadline"
     },
-    "EMPTY_STATE": "No tasks here"
+    "EMPTY_STATE": "No tasks here",
+    "CARD": {
+      "EST_LABEL": "Est:",
+      "APROB_LABEL": "Approb:",
+      "ITERATION_PREFIX": "IT:",
+      "BUILDS_LABEL": "Builds:",
+      "DIAG_LABEL": "Diag:",
+      "APPROVAL_STATUS": {
+        "APPROVED": "Appr",
+        "PENDING": "Pend",
+        "REJECTED": "Rej",
+        "NONE": "N/A"
+      },
+      "VALIDATION_MODES": {
+        "FULL_SANDBOX": "Full Sandbox",
+        "PARTIAL_SANDBOX": "Partial Sandbox",
+        "EVIDENCE_ONLY": "Evidence Only"
+      }
+    }
+  },
+  "TASK_DETAIL": {
+    "HEADER": {
+      "ASSIGNED_TO": "Assigned to",
+      "CREATED_BY": "Created by",
+      "CREATED": "Created",
+      "UPDATED": "Updated",
+      "AUTOMATED": "Automated",
+      "ITERATION": "Iteration"
+    },
+    "SECTIONS": {
+      "SUMMARY": "Functional summary",
+      "READINESS": "Readiness",
+      "ACTIVITY": "Operational activity",
+      "BUILD": "Execution and logs"
+    },
+    "META": {
+      "RELATED_TO": "Related to",
+      "PROJECT": "Project",
+      "COMPANY": "Company"
+    },
+    "READINESS": {
+      "COMPLETE": "Readiness complete · Ready to advance",
+      "ESTIMATE_TITLE": "Current estimate",
+      "APPROVAL_TITLE": "Current approval"
+    },
+    "ESTIMATE": {
+      "BASE_MINUTES": "Base minutes",
+      "FINAL_MINUTES": "Final minutes",
+      "ESTIMATED_PRICE": "Estimated price",
+      "SAVINGS": "Savings",
+      "APPROVAL_REQ": "Approval req.",
+      "APPROVAL_YES": "Yes",
+      "APPROVAL_NO": "No",
+      "CREATED": "Created"
+    },
+    "APPROVAL": {
+      "APPROVAL_ID": "Approval ID",
+      "STATUS": "Status",
+      "APPROVED_BY": "Approved by",
+      "APPROVED_AT": "Approved at",
+      "PROMO_HOURS": "Promo hours"
+    },
+    "LEGEND": {
+      "TIMELINE_EVENT": "Timeline event",
+      "DIAGNOSTIC": "Diagnostic",
+      "COMMENT": "Comment",
+      "BUILD": "Build",
+      "EVENTS": "events"
+    },
+    "BUILD": {
+      "LAST_BUILD": "Last build #",
+      "STARTED": "Started",
+      "FINISHED": "Finished",
+      "MAVEN_GOAL": "Maven goal",
+      "ARTIFACT": "Artifact"
+    },
+    "LOGS": {
+      "STDOUT": "stdoutExcerpt",
+      "STDERR": "stderrExcerpt",
+      "NO_ERRORS": "(No error messages)",
+      "OPEN_HINT": "Preview - Click the button to see the full log",
+      "BUTTON": "Full log"
+    }
+  },
+  "STATS": {
+    "TITLE": "[ AGENT ACTIVITY STATS ]",
+    "PERIODS": {
+      "7D": "Last 7 days",
+      "3M": "Last 3 months",
+      "6M": "Last 6 months"
+    },
+    "CHARTS": {
+      "MESSAGES_BY_AGENT": "MESSAGES BY AGENT",
+      "PUBLIC_VS_PRIVATE": "PUBLIC VS PRIVATE"
+    }
   }
 }

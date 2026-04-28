@@ -1,15 +1,20 @@
 <div class="todo-main-container">
-  <!-- Header con Botón de Nueva Tarea -->
+  <!-- Header: Título y Acciones -->
   <div class="header-container">
     <div class="header-left">
-      <h2 class="todo-page-title">{{ 'TODO.TITLE' | translate }}</h2>
-      <button class="btn-retro" (click)="showForm = !showForm">
-        {{ (showForm ? 'TODO.CLOSE' : 'TODO.NEW_TASK') | translate }}
+      <button routerLink="/" class="btn-retro">
+        <i class="fa-solid fa-square-caret-left"></i> ATRÁS
       </button>
+      <h2 class="todo-page-title">
+        {{ 'TODO.TITLE' | translate }}
+      </h2>
     </div>
+
     <div class="header-right">
       <app-busqueda />
+      <!-- Filters can go here if added later -->
     </div>
+
   </div>
 
   <!-- Formulario Flotante Modal -->
@@ -26,17 +31,15 @@
         <div class="detail-body">
           <form [formGroup]="taskForm" (ngSubmit)="addTask()" class="retro-form">
             <div class="form-group-grid">
-              <div class="form-field">
-                <label class="form-label-retro">{{ 'TODO.LABELS.TITLE' | translate }}</label>
-                <input formControlName="title" type="text" class="form-control-retro" [placeholder]="'TODO.PLACEHOLDERS.TITLE' | translate" maxlength="30">
-              </div>
-              <div class="form-field">
-                <label class="form-label-retro">{{ 'TODO.LABELS.DESCRIPTION' | translate }}</label>
-                <input formControlName="shortDescription" type="text" class="form-control-retro" [placeholder]="'TODO.PLACEHOLDERS.DESCRIPTION' | translate" maxlength="50">
-              </div>
               <div class="form-field full-width">
-                <label class="form-label-retro">{{ 'TODO.LABELS.DETAILS' | translate }}</label>
-                <textarea formControlName="extendedDescription" class="form-control-retro" [placeholder]="'TODO.PLACEHOLDERS.DETAILS' | translate" rows="4"></textarea>
+                <label class="form-label-retro">{{ 'TODO.LABELS.TITLE' | translate }}</label>
+                <input
+                  formControlName="texto"
+                  type="text"
+                  class="form-control-retro"
+                  [placeholder]="'TODO.PLACEHOLDERS.TITLE' | translate"
+                  maxlength="100"
+                />
               </div>
               <div class="form-field">
                 <label class="form-label-retro">{{ 'TODO.LABELS.PRIORITY' | translate }}</label>
@@ -46,18 +49,15 @@
                   <option value="High">{{ 'TODO.PRIORITIES.High' | translate }}</option>
                 </select>
               </div>
-              <div class="form-field">
-                <label class="form-label-retro">{{ 'TODO.LABELS.DUE_DATE' | translate }}</label>
-                <input formControlName="dueDate" type="date" class="form-control-retro">
-                @if (taskForm.get('dueDate')?.hasError('dateInPast') && taskForm.get('dueDate')?.touched) {
-                  <div class="error-msg">{{ 'TODO.ERRORS.PAST_DATE' | translate }}</div>
-                }
-              </div>
             </div>
 
             <div class="form-actions">
-              <button type="button" class="btn-retro btn-secondary" (click)="showForm = false">{{ 'TODO.BUTTONS.CANCEL' | translate }}</button>
-              <button type="submit" [disabled]="taskForm.invalid" class="btn-retro">{{ 'TODO.BUTTONS.ADD' | translate }}</button>
+              <button type="button" class="btn-retro btn-secondary" (click)="showForm = false">
+                {{ 'TODO.BUTTONS.CANCEL' | translate }}
+              </button>
+              <button type="submit" [disabled]="taskForm.invalid" class="btn-retro">
+                {{ 'TODO.BUTTONS.ADD' | translate }}
+              </button>
             </div>
           </form>
         </div>
@@ -65,132 +65,65 @@
     </div>
   }
 
-  <!-- Tablero -->
-  <div class="todo-wrapper">
-    @for (column of columns; track column.id; let colIndex = $index) {
-      <div class="column-container">
-        <div class="column-header">
-          <span class="column-title">{{ getTranslatedColumn(column.name) }}</span>
-          <span class="column-counter">({{ column.tasks.length }})</span>
-        </div>
-
-        <div class="task-list">
-          @if (column.tasks.length === 0) {
-            <div class="empty-state-container">
-              <div class="empty-state-icon">📭</div>
-              <div class="empty-state-text">{{ 'TODO.EMPTY_STATE' | translate }}</div>
+  <!-- Tablero + Panel lateral -->
+  <div class="board-panel">
+    <div class="todo-wrapper">
+      @for (column of columns; track column.id; let colIndex = $index) {
+        <div class="column-container">
+          <div class="column-header">
+            <span class="column-indicator" [class]="'bg-' + column.id"></span>
+            <span class="column-title">{{ ('TODO.COLUMNS.' + column.id) | translate }}</span>
+            <div class="column-actions">
+              @if (!column.isMiseEnPlace && column.id !== 'doing') {
+                <button class="btn-column-collapse" [class.collapsed]="!columnExpandedState[column.id]" (click)="toggleColumn(column.id)" [title]="(columnExpandedState[column.id] ? 'TODO.BUTTONS.COLLAPSE_COLUMN' : 'TODO.BUTTONS.EXPAND_COLUMN') | translate">
+                  <img src="assets/imgs/angle-right-solid-full.svg" class="btn-icon-svg" alt="Toggle">
+                </button>
+              }
             </div>
-          }
+            <span class="column-counter">({{ column.tasks.length }})</span>
+          </div>
 
-          @for (task of column.tasks; track task.id) {
-            <div class="todo-card" 
-                 [class.selected]="selectedTaskId === task.id" 
-                 [class.priority-border-low]="task.priority === 'Low'"
-                 [class.priority-border-medium]="task.priority === 'Medium'"
-                 [class.priority-border-high]="task.priority === 'High'"
-                 (click)="selectTask(task.id)">
-              <div class="todo-card-header">
-                {{ task.title }}
+          <div class="task-list" cdkDropList [id]="column.id" [cdkDropListData]="column.tasks" (cdkDropListDropped)="onDrop($event)">
+
+            @if (column.tasks.length === 0) {
+              <div class="empty-state-container">
+                <div class="empty-state-icon">📭</div>
+                <div class="empty-state-text">{{ 'TODO.EMPTY_STATE' | translate }}</div>
               </div>
-              <div class="todo-card-body">
-                <p class="task-desc">
-                  {{ task.shortDescription }}
-                </p>
+            }
 
-                <div class="task-date">
-                  <span>🕐</span>
-                  <span>{{ (task.dueDate | date:'dd/MM') || '—' }}</span>
-                </div>
-
-                <div class="task-footer">
-                  <span class="priority-tag" 
-                        [class.priority-low]="task.priority === 'Low'"
-                        [class.priority-medium]="task.priority === 'Medium'"
-                        [class.priority-high]="task.priority === 'High'">
-                    {{ getTranslatedPriority(task.priority) }}
-                  </span>
-                </div>
-
-                @if (selectedTaskId === task.id) {
-                  <div class="task-actions" (click)="$event.stopPropagation()">
-                    <div class="move-btns">
-                      <button class="btn-move" [disabled]="colIndex === 0" (click)="moveTask(task.id, 'prev')">«</button>
-                      <button class="btn-move" [disabled]="colIndex === columns.length - 1" (click)="moveTask(task.id, 'next')">»</button>
-                    </div>
-                    <button class="btn-view" (click)="openView(task)">{{ 'TODO.BUTTONS.VIEW' | translate }}</button>
+            @for (task of column.tasks; track task.id) {
+              <app-tarjetas-to-do
+                cdkDrag
+                [task]="task"
+                [colIndex]="colIndex"
+                [columnId]="column.id"
+                [selectedTaskId]="selectedTaskId"
+                [columnIsMiseEnPlace]="!!column.isMiseEnPlace"
+                (onSelect)="selectTask($event)"
+                (onViewDetails)="viewTaskDetails($event)"
+                (onMove)="moveTask($event.taskId, $event.direction)"
+              >
+                <div *cdkDragPlaceholder
+                     class="ghost-placeholder"
+                     [class.mise-ghost]="column.isMiseEnPlace"
+                     [class.doing-ghost]="column.id === 'doing'">
+                  <div class="ghost-sidebar"></div>
+                  <div class="ghost-content">
+                    <div class="ghost-title">{{ task.texto || task.title }}</div>
                   </div>
-                }
-              </div>
-            </div>
-          }
+                </div>
+              </app-tarjetas-to-do>
+            }
+          </div>
         </div>
+      }
+    </div>
+
+    @if (selectedTaskDetail && selectedTaskDetail.taskId) {
+      <div class="task-detail-side-panel">
+        <app-task-detail [taskId]="selectedTaskDetail.taskId" (cerrar)="closeTaskDetails()" />
       </div>
     }
   </div>
-
-  <!-- PANEL DE INFORMACIÓN EXTENDIDA MODERNO -->
-  @if (viewedTask) {
-    <div class="view-overlay" (click)="closeView()">
-      <div class="detail-panel" (click)="$event.stopPropagation()">
-        <!-- Header -->
-        <div class="detail-header">
-          <div class="detail-header-info">
-            <h2 class="detail-title">{{ 'TODO.VIEW_MODAL.TITLE' | translate }}</h2>
-            <div class="task-meta">{{ 'TODO.LABELS.ID' | translate }}: {{ viewedTask.id }}</div>
-          </div>
-          <button type="button" class="btn-close-retro" (click)="closeView()">×</button>
-        </div>
-
-        <!-- Body -->
-        <div class="detail-body">
-          <div class="info-card"
-               [class.priority-border-low]="viewedTask.priority === 'Low'"
-               [class.priority-border-medium]="viewedTask.priority === 'Medium'"
-               [class.priority-border-high]="viewedTask.priority === 'High'">
-            <div class="info-label">{{ 'TODO.LABELS.TITLE' | translate }}</div>
-            <div class="info-content title-content">{{ viewedTask.title }}</div>
-          </div>
-
-          <div class="info-row">
-            <div class="info-card half"
-                 [class.priority-border-low]="viewedTask.priority === 'Low'"
-                 [class.priority-border-medium]="viewedTask.priority === 'Medium'"
-                 [class.priority-border-high]="viewedTask.priority === 'High'">
-              <div class="info-label">{{ 'TODO.LABELS.CREATED' | translate }}</div>
-              <div class="info-content small">{{ viewedTask.createdAt | date:'short' }}</div>
-            </div>
-            <div class="info-card half"
-                 [class.priority-border-low]="viewedTask.priority === 'Low'"
-                 [class.priority-border-medium]="viewedTask.priority === 'Medium'"
-                 [class.priority-border-high]="viewedTask.priority === 'High'">
-              <div class="info-label">{{ 'TODO.LABELS.DUE_DATE' | translate }}</div>
-              <div class="info-content small">{{ (viewedTask.dueDate | date:'short') || ('TODO.VIEW_MODAL.NO_DEADLINE' | translate) }}</div>
-            </div>
-          </div>
-
-          <div class="info-card"
-               [class.priority-border-low]="viewedTask.priority === 'Low'"
-               [class.priority-border-medium]="viewedTask.priority === 'Medium'"
-               [class.priority-border-high]="viewedTask.priority === 'High'">
-            <div class="info-label">{{ 'TODO.LABELS.DESCRIPTION' | translate }}</div>
-            <div class="info-content desc-content">
-              {{ viewedTask.extendedDescription }}
-            </div>
-          </div>
-
-          <div class="detail-footer">
-            <div class="priority-badge-container">
-              <span class="info-label">{{ 'TODO.LABELS.PRIORITY' | translate }}:</span>
-              <span class="priority-tag"
-                    [class.priority-low]="viewedTask.priority === 'Low'"
-                    [class.priority-medium]="viewedTask.priority === 'Medium'"
-                    [class.priority-high]="viewedTask.priority === 'High'">
-                {{ getTranslatedPriority(viewedTask.priority) }}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  }
 </div>

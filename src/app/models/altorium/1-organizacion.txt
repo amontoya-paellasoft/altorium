@@ -1,0 +1,6 @@
+Hay cuatro cosas que estaban mal en las interfaces y que HAY que respetar porque son bugs de verdad:
+
+- resolvedUsers apuntaba a RespuestaTaskDTO (la interfaz padre), o sea se referenciaba a sí misma. Bucle infinito, la liaba.
+- LatestBuild era un copy-paste exacto de BuildRunDTO. Lo he quitado, ahora usamos BuildRunDTO directamente para latestBuild también.
+- fromState estaba como opcional (fromState?: string) pero el JSON lo manda siempre, a veces como null. Como la diferencia importa en TypeScript (opcional significa que el campo puede no venir, null significa que viene pero vacío) lo he dejado como fromState?: string | null.
+- he unido las tres interfaces de usuario (AssignedUser, CreatedByUser, ApprovedByUser) en UserDTO, pero si prefieres tenerlas separadas para que sea más explícito dímelo y lo cambiamos sin problema!
