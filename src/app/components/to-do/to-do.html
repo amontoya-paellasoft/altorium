@@ -73,6 +73,13 @@
           <div class="column-header">
             <span class="column-indicator" [class]="'bg-' + column.id"></span>
             <span class="column-title">{{ ('TODO.COLUMNS.' + column.id) | translate }}</span>
+            <div class="column-actions">
+              @if (!column.isMiseEnPlace && column.id !== 'doing') {
+                <button class="btn-column-collapse" [class.collapsed]="!columnExpandedState[column.id]" (click)="toggleColumn(column.id)" [title]="(columnExpandedState[column.id] ? 'TODO.BUTTONS.COLLAPSE_COLUMN' : 'TODO.BUTTONS.EXPAND_COLUMN') | translate">
+                  <img src="assets/imgs/angle-right-solid-full.svg" class="btn-icon-svg" alt="Toggle">
+                </button>
+              }
+            </div>
             <span class="column-counter">({{ column.tasks.length }})</span>
           </div>
 

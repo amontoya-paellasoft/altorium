@@ -1,10 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TodoService } from '../../services/todo-service';
 import { TareaService } from '../../services/tarea-service';
-import { Task, MiseEnPlaceItem, Column } from '../../models/to-do-interface';
+import { ToDoTask, MiseEnPlaceItem, Column } from '../../models/to-do-interface';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { Busqueda } from '../busqueda/busqueda';
@@ -30,6 +30,8 @@ import { TaskDetail } from '../task-detail/task-detail';
   styleUrls: ['./to-do.css']
 })
 export class TodoComponent implements OnInit {
+  @ViewChildren(TarjetasToDo) tarjetas!: QueryList<TarjetasToDo>;
+
   private todoService = inject(TodoService);
   private tareaService = inject(TareaService);
   private translate = inject(TranslateService);
@@ -39,10 +41,22 @@ export class TodoComponent implements OnInit {
   }
   showForm = false;
   selectedTaskId: number | null = null;
-  selectedTaskDetail: Task | null = null;
+  selectedTaskDetail: ToDoTask | null = null;
   taskForm = (this.todoService as any).getTaskForm ? (this.todoService as any).getTaskForm() : null;
 
+  columnExpandedState: Record<string, boolean> = {};
+
   ngOnInit() {}
+
+  toggleColumn(columnId: string) {
+    const isCurrentlyExpanded = !!this.columnExpandedState[columnId];
+    const newState = !isCurrentlyExpanded;
+    this.columnExpandedState[columnId] = newState;
+
+    this.tarjetas
+      .filter(t => t.columnId === columnId)
+      .forEach(t => t.isCollapsed = !newState);
+  }
 
   selectTask(taskId: number) {
     this.selectedTaskId = taskId;
@@ -92,8 +106,8 @@ export class TodoComponent implements OnInit {
     }
     
     for (const col of this.todoService.getColumns()) {
-      const task = col.tasks.find(t => (t as Task).taskId === relatedTaskId);
-      if (task) return (task as Task).title;
+      const task = col.tasks.find(t => (t as ToDoTask).taskId === relatedTaskId);
+      if (task) return (task as ToDoTask).title;
     }
     
     return `#${relatedTaskId}`;
@@ -115,15 +129,15 @@ export class TodoComponent implements OnInit {
     return item.asignadaA || item.assignedUserId;
   }
 
-  isTask(item: any): item is Task {
-    return (item as Task).taskId !== undefined && (item as any).itemType === undefined;
+  isTask(item: any): item is ToDoTask {
+    return (item as ToDoTask).taskId !== undefined && (item as any).itemType === undefined;
   }
 
   asMiseEnPlace(item: any): MiseEnPlaceItem {
     return item as MiseEnPlaceItem;
   }
 
-  asTask(item: any): Task {
-    return item as Task;
+  asTask(item: any): ToDoTask {
+    return item as ToDoTask;
   }
 }

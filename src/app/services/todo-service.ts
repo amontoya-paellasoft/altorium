@@ -1,5 +1,5 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
-import { Column, Task, MiseEnPlaceItem } from '../models/to-do-interface';
+import { Column, ToDoTask, MiseEnPlaceItem } from '../models/to-do-interface';
 import { MOCK_TASK_DATA, MOCK_MISE_EN_PLACE } from '../mock/task-data';
 import { TareaService } from './tarea-service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
@@ -68,7 +68,7 @@ export class TodoService {
     }
   }
 
-  public addTask(task: Task) {
+  public addTask(task: ToDoTask) {
     const currentCols = this._columns();
     currentCols[0].tasks.push(task);
     this._columns.set([...currentCols]);
@@ -80,12 +80,13 @@ export class TodoService {
       const numericId = parseInt(tarea.id.replace('tarea', ''), 10) || Math.floor(Math.random() * 10000);      
       const yaExiste = currentCols.some(col => col.tasks.some(t => (t as any).id === numericId));
       if (yaExiste) return;
-      const task: Task = {
+      const task: ToDoTask = {
         taskId: numericId, id: numericId, title: tarea.titulo, texto: tarea.titulo, state: 'TODO',
         estado: tarea.estado === 'acabada' ? 'completada' : 'pendiente', assignedUserId: tarea.usuarioId,      
         asignadaA: tarea.usuarioId, priority: 'Medium', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(),
         companyId: 0, projectId: 0, originType: 'MANUAL', functionalSummary: '', createdBy: 0,
-        currentIteration: 1, validationMode: 'NONE', relatedTaskId: null, automationActive: false, automationBranchName: null
+        currentIteration: 1, validationMode: 'NONE', relatedTaskId: null, automationActive: false, automationBranchName: null,
+        estimatedPrice: 0, estimatedMinutes: 0, approvalStatus: 'NONE', buildCount: 0, healthScore: 0
       };
       const targetCol = currentCols.find(c => c.id === 'todo');
       if (targetCol) targetCol.tasks.push(task);
@@ -121,7 +122,12 @@ export class TodoService {
         currentIteration: 1,
         automationActive: false,
         automationBranchName: null,
-        relatedTaskId: null
+        relatedTaskId: null,
+        estimatedPrice: tarea.estimatedPrice || 0,
+        estimatedMinutes: tarea.estimatedMinutes || 0,
+        approvalStatus: tarea.approvalStatus || 'NONE',
+        buildCount: tarea.buildCount || 0,
+        healthScore: tarea.healthScore || 0
       } as any);
     });
     this._columns.set([...currentCols]);
@@ -255,21 +261,21 @@ export class TodoService {
       currentCols[sourceColIndex].tasks = tasks;
     } else {
       // Mover entre columnas
-      const sourceTasks = [...currentCols[sourceColIndex].tasks];
-      const targetTasks = [...currentCols[targetColIndex].tasks];
+      const sourceToDoTasks = [...currentCols[sourceColIndex].tasks];
+      const targetToDoTasks = [...currentCols[targetColIndex].tasks];
       
-      const [movedItem] = sourceTasks.splice(event.previousIndex, 1);
-      targetTasks.splice(event.currentIndex, 0, movedItem);
+      const [movedItem] = sourceToDoTasks.splice(event.previousIndex, 1);
+      targetToDoTasks.splice(event.currentIndex, 0, movedItem);
 
       // Actualizar estados y orderIndex
-      sourceTasks.forEach((t, i) => (t as any).orderIndex = i);
-      targetTasks.forEach((t, i) => {
+      sourceToDoTasks.forEach((t, i) => (t as any).orderIndex = i);
+      targetToDoTasks.forEach((t, i) => {
         (t as any).orderIndex = i;
         (t as any).state = targetColId;
       });
 
-      currentCols[sourceColIndex].tasks = sourceTasks;
-      currentCols[targetColIndex].tasks = targetTasks;
+      currentCols[sourceColIndex].tasks = sourceToDoTasks;
+      currentCols[targetColIndex].tasks = targetToDoTasks;
     }
 
     this._columns.set([...currentCols]);

@@ -502,6 +502,37 @@
 }
 
 /* NUEVO DISEÑO MODERN TODO CARD */
+/* Transición suave para colapso */
+.is-collapsed {
+  display: none;
+}
+
+.block-collapsed-view {
+  display: none;
+  padding: 4px 0;
+  gap: 6px;
+}
+
+.block-collapsed-view.visible {
+  display: flex;
+  flex-direction: column;
+}
+
+.collapsed-metrics {
+  display: flex;
+  gap: 10px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.est-mini {
+  color: #047857;
+}
+
+.state-mini {
+  color: #c2410c;
+}
+
 .modern-todo-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
@@ -547,6 +578,51 @@
   gap: 8px;
 }
 
+.btn-collapse {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #64748b;
+  font-size: 10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.btn-collapse img {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s;
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.btn-collapse:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+}
+
+.btn-collapse.collapsed img {
+  transform: rotate(180deg);
+  filter: brightness(0) invert(1);
+}
+
+.btn-collapse.collapsed {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+.modern-todo-card.selected .btn-collapse {
+  border-color: #d4af37;
+}
+
 .btn-info-mini {
   background: #f1f5f9;
   border: 1px solid #cbd5e1;
@@ -558,8 +634,17 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
   transition: all 0.2s;
+  min-width: 24px;
+  min-height: 24px;
+}
+
+.btn-icon-svg {
+  width: 14px;
+  height: 14px;
+  display: block;
 }
 
 .btn-info-mini:hover {
@@ -572,6 +657,10 @@
   background: #0f172a;
   color: #ffffff;
   border-color: #0f172a;
+}
+
+.modern-todo-card.selected .btn-icon-svg {
+  filter: brightness(0) invert(1);
 }
 
 .btn-options {
@@ -637,6 +726,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 12px; /* Separación de la fila inferior */
 }
 
 .assignee-area {

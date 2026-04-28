@@ -110,6 +110,10 @@
       "ITERATION_PREFIX": "IT:",
       "BUILDS_LABEL": "Builds:",
       "DIAG_LABEL": "Diag:",
+      "VERSION_PREFIX": "v",
+      "SCORE_LABEL": "Punt:",
+      "RELATED_PREFIX": "Rel:",
+      "BUILD_RUNNING": "BUILD: EN EJECUCIÓN",
       "APPROVAL_STATUS": {
         "APPROVED": "Aprob",
         "PENDING": "Pend",
