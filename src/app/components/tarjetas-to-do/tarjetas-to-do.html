@@ -48,10 +48,10 @@
   @let taskItem = asTask(task);
   <div class="modern-todo-card doing-card" [class.selected]="selectedTaskId === taskItem.id" (click)="$event.stopPropagation(); selectTask(taskItem.id)">
     
-    <!-- Bloque 1: Identificación -->
+  <!-- Bloque 1: Identificación -->
     <div class="block-id">
       <span class="ticket-id">#TK-{{ taskItem.taskId }}</span>
-      <span class="build-status-pill">BUILD: RUNNING</span>
+      <span class="build-status-pill">{{ 'TODO.CARD.BUILD_RUNNING' | translate }}</span>
     </div>
 
     <!-- Bloque 2: Contenido -->
@@ -75,7 +75,7 @@
           <span class="box-label">Est:</span> {{ taskItem.estimatedMinutes }}m / €{{ taskItem.estimatedPrice }}
         </div>
         <div class="action-box aprob-box-large">
-          <span class="box-label">Aprob:</span> {{ getApprovalLabel(taskItem.approvalStatus) }}
+          <span class="box-label">{{ 'TODO.CARD.APROB_LABEL' | translate }}</span> {{ getApprovalLabel(taskItem.approvalStatus) }}
         </div>
       </div>
     </div>
@@ -87,7 +87,7 @@
         <span class="tag-context tag-green-large">{{ ('TODO.CARD.VALIDATION_MODES.' + taskItem.validationMode) | translate }}</span>
       </div>
       <div class="context-tags-bottom">
-        <span class="tag-context tag-gray-large">Iteración: {{ taskItem.currentIteration }}</span>
+        <span class="tag-context tag-gray-large">{{ 'TODO.CARD.ITERATION_PREFIX' | translate }} {{ taskItem.currentIteration }}</span>
       </div>
     </div>
 
@@ -98,7 +98,7 @@
       </div>
       <div class="footer-row">
         @if(taskItem.relatedTaskId) {
-          <div class="trace-info-footer-large">Rel: #TK-{{ taskItem.relatedTaskId }}</div>
+          <div class="trace-info-footer-large">{{ 'TODO.CARD.RELATED_PREFIX' | translate }} #TK-{{ taskItem.relatedTaskId }}</div>
         }
         <button class="btn-info-mini" (click)="$event.stopPropagation(); viewTaskDetails(taskItem)">
           <i class="fa-solid fa-circle-info"></i> {{ 'TODO.BUTTONS.VIEW' | translate }}
@@ -116,7 +116,7 @@
     <span class="ticket-id">#TK-{{ taskItem.taskId }}</span>
     <div class="id-actions">
       <button class="btn-info-mini" (click)="toggleCollapse($event)">
-        <i class="fa-solid" [class.fa-chevron-up]="!isCollapsed" [class.fa-chevron-down]="isCollapsed"></i>
+        <img src="assets/imgs/bars-staggered-solid-full.svg" class="btn-icon-svg" [style.opacity]="isCollapsed ? 0.5 : 1" alt="Toggle">
       </button>
       <button class="btn-info-mini" (click)="$event.stopPropagation(); viewTaskDetails(taskItem)">
         <i class="fa-solid fa-circle-info"></i> {{ 'TODO.BUTTONS.VIEW' | translate }}
@@ -131,7 +131,7 @@
   <div class="block-collapsed-view" [class.visible]="isCollapsed">
     <div class="task-title-bold">{{ taskItem.texto || taskItem.title }}</div>
     <div class="collapsed-metrics">
-       <span class="est-mini">Est: {{ getFormattedEstimation(taskItem) }}</span>
+       <span class="est-mini">{{ 'TODO.CARD.EST_LABEL' | translate }} {{ getFormattedEstimation(taskItem) }}</span>
        <span class="state-mini" [class]="'aprob-' + (taskItem.approvalStatus?.toLowerCase() || 'none')">{{ getApprovalLabel(taskItem.approvalStatus) }}</span>
     </div>
   </div>

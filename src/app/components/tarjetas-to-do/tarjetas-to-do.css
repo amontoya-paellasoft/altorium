@@ -589,8 +589,17 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
   transition: all 0.2s;
+  min-width: 24px;
+  min-height: 24px;
+}
+
+.btn-icon-svg {
+  width: 14px;
+  height: 14px;
+  display: block;
 }
 
 .btn-info-mini:hover {
@@ -603,6 +612,10 @@
   background: #0f172a;
   color: #ffffff;
   border-color: #0f172a;
+}
+
+.modern-todo-card.selected .btn-icon-svg {
+  filter: brightness(0) invert(1);
 }
 
 .btn-options {

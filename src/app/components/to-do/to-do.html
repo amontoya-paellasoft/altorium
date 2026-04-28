@@ -75,7 +75,11 @@
             <span class="column-title">{{ ('TODO.COLUMNS.' + column.id) | translate }}</span>
             <div class="column-actions">
               <button class="btn-info-mini" (click)="toggleColumn(column.id)">
-                <i class="fa-solid" [class.fa-compress]="columnExpandedState[column.id]" [class.fa-expand]="!columnExpandedState[column.id]"></i>
+                @if (columnExpandedState[column.id]) {
+                  <img src="assets/imgs/angle-right-solid-full.svg" class="btn-icon-svg" style="transform: rotate(90deg)" alt="Expanded">
+                } @else {
+                  <img src="assets/imgs/angle-right-solid-full.svg" class="btn-icon-svg" alt="Collapsed">
+                }
               </button>
             </div>
             <span class="column-counter">({{ column.tasks.length }})</span>
