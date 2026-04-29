@@ -1,5 +1,4 @@
 <div class="log-ventana" cdkDrag (click)="$event.stopPropagation()">
-
   <div class="log-header" cdkDragHandle>
     <span class="log-title">CONSOLE</span>
     <button class="close-btn" (click)="ws.cerrarLogPanel()">✕</button>
@@ -7,14 +6,22 @@
 
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link" [class.active]="ws.logPanelTab() === 'stdout'"
-         (click)="ws.logPanelTab.set('stdout')" role="button">
+      <a
+        class="nav-link"
+        [class.active]="ws.logPanelTab() === 'stdout'"
+        (click)="ws.logPanelTab.set('stdout')"
+        role="button"
+      >
         STDOUT.LOG
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [class.active]="ws.logPanelTab() === 'stderr'"
-         (click)="ws.logPanelTab.set('stderr')" role="button">
+      <a
+        class="nav-link"
+        [class.active]="ws.logPanelTab() === 'stderr'"
+        (click)="ws.logPanelTab.set('stderr')"
+        role="button"
+      >
         STDERR.LOG
       </a>
     </li>
@@ -27,5 +34,4 @@
       <pre class="log-pre stderr">{{ ws.logData()?.stderrExcerpt || 'No errors.' }}</pre>
     }
   </div>
-
 </div>
