@@ -1,7 +1,9 @@
 :host {
   position: fixed;
-  right: 2%;
-  bottom: 10%;
+/* 100% - 25% (tu right original) - 42rem (el ancho de la ventana) */
+  left: calc(75% - 42rem);
+  /* 100% - 30% (tu bottom original) - 22rem (el alto de la ventana) */
+  top: calc(70% - 22rem);
   z-index: 200;
   display: block;
 }
@@ -62,7 +64,9 @@
   gap: 4px;
 }
 
-.nav-item { display: flex; }
+.nav-item {
+  display: flex;
+}
 
 .nav-link {
   display: block;
