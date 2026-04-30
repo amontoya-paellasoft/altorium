@@ -83,7 +83,12 @@
             <span class="column-counter">({{ column.tasks.length }})</span>
           </div>
 
-          <div class="task-list" cdkDropList [id]="column.id" [cdkDropListData]="column.tasks" (cdkDropListDropped)="onDrop($event)">
+          <div class="task-list" 
+               cdkDropList 
+               [id]="column.id" 
+               [cdkDropListData]="column.tasks" 
+               (cdkDropListDropped)="onDrop($event)"
+               [cdkDropListDisabled]="isMobile()">
 
             @if (column.tasks.length === 0) {
               <div class="empty-state-container">

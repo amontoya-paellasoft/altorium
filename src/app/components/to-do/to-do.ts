@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, inject, OnInit, ViewChildren, QueryList, HostListener, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -16,14 +16,14 @@ import { TaskDetail } from '../task-detail/task-detail';
   selector: 'app-to-do',
   standalone: true,
   imports: [
-    CommonModule, 
-    FormsModule, 
-    ReactiveFormsModule, 
-    RouterLink, 
-    TranslateModule, 
-    DragDropModule, 
-    Busqueda, 
-    TarjetasToDo, 
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
+    DragDropModule,
+    Busqueda,
+    TarjetasToDo,
     TaskDetail
   ],
   templateUrl: './to-do.html',
@@ -35,7 +35,7 @@ export class TodoComponent implements OnInit {
   private todoService = inject(TodoService);
   private tareaService = inject(TareaService);
   private translate = inject(TranslateService);
-  
+
   get columns() {
     return this.todoService.filteredColumns();
   }
@@ -46,7 +46,14 @@ export class TodoComponent implements OnInit {
 
   columnExpandedState: Record<string, boolean> = {};
 
-  ngOnInit() {}
+  isMobile = signal(window.innerWidth < 1250);
+
+  @HostListener('window:resize')
+  onResize() {
+    this.isMobile.set(window.innerWidth < 1250);
+  }
+
+  ngOnInit() { }
 
   toggleColumn(columnId: string) {
     const isCurrentlyExpanded = !!this.columnExpandedState[columnId];
@@ -104,12 +111,12 @@ export class TodoComponent implements OnInit {
     if (!relatedTaskId) {
       return this.translate.instant('TODO.DETAIL_PANEL.VALUES.NONE');
     }
-    
+
     for (const col of this.todoService.getColumns()) {
       const task = col.tasks.find(t => (t as ToDoTask).taskId === relatedTaskId);
       if (task) return (task as ToDoTask).title;
     }
-    
+
     return `#${relatedTaskId}`;
   }
 
