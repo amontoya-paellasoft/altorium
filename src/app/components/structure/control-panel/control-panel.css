@@ -47,3 +47,48 @@
   background: #ff333322;
   text-shadow: 0 0 8px #ff3333;
 }
+
+/* El botón CONSOLA solo aparece en móvil */
+.btn-consola-mobile {
+  display: none;
+}
+
+/* El botón REINICIAR solo aparece en desktop */
+.btn-reiniciar-desktop {
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .panel {
+    height: auto;
+    flex-wrap: wrap;
+    padding: 8px 12px;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .panel-title {
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+  }
+
+  .panel-actions {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .btn-action,
+  .btn-kill {
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+
+  .btn-consola-mobile {
+    display: inline-block;
+  }
+
+  .btn-reiniciar-desktop {
+    display: none;
+  }
+}

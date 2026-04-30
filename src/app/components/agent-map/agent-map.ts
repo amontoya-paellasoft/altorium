@@ -67,7 +67,6 @@ export class AgentMap implements OnInit {
   links = MOCK_LINKS;
 
   ngOnInit(): void {
-    this.ws.abrir({ agentId: '' });
     this.cargando.set(false);
   }
 
