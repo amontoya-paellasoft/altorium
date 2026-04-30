@@ -1,0 +1,40 @@
+<div class="company-card">
+  <div class="card-header">
+    <h3 class="company-name">{{ empresa.nombre }}</h3>
+    <div class="menu-container">
+      <button class="btn-kebab" (click)="toggleMenu($event)">
+        <i class="fas fa-ellipsis-v"></i>
+      </button>
+      <div class="kebab-menu" *ngIf="menuOpen">
+        <button (click)="edit.emit(); menuOpen = false">
+          <i class="fas fa-edit"></i> Editar
+        </button>
+        <button class="delete" (click)="delete.emit(); menuOpen = false">
+          <i class="fas fa-trash-alt"></i> Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="badges-row">
+    <span class="badge alias">{{ empresa.alias }}</span>
+    <span class="badge plan" [ngClass]="empresa.plan.toLowerCase()">{{ empresa.plan }}</span>
+    <span class="badge email" [class.no]="!empresa.facturaEmail">
+      {{ empresa.facturaEmail ? 'Email' : 'No email' }}
+    </span>
+    <span class="badge status" [class.pending]="empresa.pagoEstado === 'Pendiente'">
+      {{ empresa.pagoEstado }}
+    </span>
+  </div>
+
+  <div class="card-details">
+    <div class="detail-item">
+      <span class="label">NIF</span>
+      <span class="value">{{ empresa.nif || '-' }}</span>
+    </div>
+    <div class="detail-item">
+      <span class="label">Válido hasta</span>
+      <span class="value">{{ empresa.validoHasta ? (empresa.validoHasta | date:'dd/MM/yyyy') : '-' }}</span>
+    </div>
+  </div>
+</div>

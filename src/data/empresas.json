@@ -1,0 +1,48 @@
+{
+  "empresas": [
+    {
+      "id": "6f3a2b9e-7c1d-4a8f-b2a7-9d3f1e5c8b10",
+      "alias": "technova",
+      "nombre": "TechNova Solutions S.L.",
+      "nif": "B12345678",
+      "plan": "PREMIUM",
+      "facturaEmail": true,
+      "pagoEstado": "Al día",
+      "validoHasta": "2026-05-15",
+      "creadoEn": "2024-11-12T10:24:00Z"
+    },
+    {
+      "id": "1b9e7d2c-3f4a-4c8b-9e2a-0f7c3b2a1d98",
+      "alias": "datacore",
+      "nombre": "DataCore Analytics S.L.",
+      "nif": "B87654321",
+      "plan": "GROWTH",
+      "facturaEmail": true,
+      "pagoEstado": "Pendiente",
+      "validoHasta": null,
+      "creadoEn": "2025-03-05T09:15:00Z"
+    },
+    {
+      "id": "a3c7d1e8-9b2f-4d6a-8c3b-5e2a7c1d0f9b",
+      "alias": "infrasys",
+      "nombre": "InfraSys Operaciones S.L.",
+      "nif": "B23456789",
+      "plan": "BASIC",
+      "facturaEmail": false,
+      "pagoEstado": "Al día",
+      "validoHasta": "2026-02-22",
+      "creadoEn": "2024-07-18T14:30:00Z"
+    },
+    {
+      "id": "d8f1b2c3-4a5e-4b6d-9c7a-2e1f3d4b5c6a",
+      "alias": "aiwf",
+      "nombre": "AI Workflow Labs S.L.",
+      "nif": "B99887766",
+      "plan": "PREMIUM",
+      "facturaEmail": true,
+      "pagoEstado": "Al día",
+      "validoHasta": "2026-05-10",
+      "creadoEn": "2025-01-02T11:00:00Z"
+    }
+  ]
+}

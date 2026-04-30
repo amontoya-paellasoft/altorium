@@ -1,0 +1,120 @@
+.company-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.company-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0;
+}
+
+.menu-container {
+    position: relative;
+}
+
+.btn-kebab {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.kebab-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    min-width: 140px;
+    display: flex;
+    flex-direction: column;
+}
+
+.kebab-menu button {
+    padding: 0.75rem 1rem;
+    border: none;
+    background: none;
+    text-align: left;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.kebab-menu button:hover {
+    background: #f8fafc;
+}
+
+.kebab-menu button.delete {
+    color: #ef4444;
+}
+
+.badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.badge {
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.badge.alias { background: #eef2ff; color: #6366f1; }
+.badge.plan.premium { background: #f5f3ff; color: #7c3aed; }
+.badge.plan.growth { background: #eff6ff; color: #2563eb; }
+.badge.plan.basic { background: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; }
+.badge.email { background: #ecfdf5; color: #10b981; }
+.badge.email.no { background: #f1f5f9; color: #64748b; }
+.badge.status { background: #f0fdf4; color: #16a34a; }
+.badge.status.pending { background: #fff7ed; color: #ea580c; }
+
+.card-details {
+    display: flex;
+    gap: 2rem;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+.value {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+}
