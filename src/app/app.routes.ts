@@ -4,10 +4,10 @@ import { TodoComponent } from './components/to-do/to-do';
 import { Configuracion } from './components/configuracion/configuracion';
 
 export const routes: Routes = [
-  { path: '', component: AgentMap },
-  { path: 'to-do', component: TodoComponent },
-  { path: 'to-do/:userId/:userName', component: TodoComponent },
-  { path: 'to-do/:userId', component: TodoComponent },
-  { path: 'to-do/:id/:agentId', component: TodoComponent },
-  { path: 'configuracion', component: Configuracion },
+  { path: '', component: AgentMap, data: { title: 'Inicio' } },
+  { path: 'to-do', component: TodoComponent, data: { title: 'Tablero' } },
+  { path: 'to-do/:userId/:userName', component: TodoComponent, data: { title: 'Tablero' } },
+  { path: 'to-do/:userId', component: TodoComponent, data: { title: 'Tablero' } },
+  { path: 'to-do/:id/:agentId', component: TodoComponent, data: { title: 'Tablero' } },
+  { path: 'configuracion', component: Configuracion, data: { title: 'Configuración' } },
 ];

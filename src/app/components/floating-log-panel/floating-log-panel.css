@@ -1,6 +1,6 @@
 :host {
   position: fixed;
-/* 100% - 25% (tu right original) - 42rem (el ancho de la ventana) */
+  /* 100% - 25% (tu right original) - 42rem (el ancho de la ventana) */
   left: calc(75% - 42rem);
   top: calc(70% - 22rem);
   z-index: 200;
@@ -39,7 +39,6 @@
   font-size: 12px;
   color: #01ff00;
   letter-spacing: 0.15em;
-  font-family: 'Courier New', monospace;
 }
 
 .close-btn {
@@ -71,7 +70,7 @@
   display: block;
   padding: 4px 10px;
   font-size: 10px;
-  font-family: 'Courier New', monospace;
+
   letter-spacing: 0.08em;
   color: #4a8a4a;
   cursor: pointer;
@@ -100,7 +99,7 @@
 .log-pre {
   margin: 0;
   color: #01ff00;
-  font-family: 'Courier New', monospace;
+
   font-size: 11px;
   line-height: 1.7;
   white-space: pre-wrap;

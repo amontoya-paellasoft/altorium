@@ -37,16 +37,14 @@
   overflow: hidden;
 }
 
-.brand-dot {
-  width: 8px;
-  height: 8px;
-  background: #10b981;
-  border-radius: 50%;
+.brand-logo {
+  height: 26px;
+  width: auto;
   flex-shrink: 0;
+  object-fit: contain;
 }
 
 .brand-name {
-  font-family: 'Courier New', monospace;
   font-size: 12px;
   font-weight: bold;
   color: #d4af37;
@@ -91,7 +89,6 @@
   text-decoration: none;
   color: #94a3b8;
   font-size: 13px;
-  font-family: 'Segoe UI', sans-serif;
   border-left: 3px solid transparent;
   white-space: nowrap;
   transition: all 0.15s;
@@ -154,7 +151,6 @@
   cursor: pointer;
   color: #94a3b8;
   font-size: 12px;
-  font-family: 'Segoe UI', sans-serif;
   text-align: left;
   white-space: nowrap;
   transition: all 0.15s;
