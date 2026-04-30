@@ -1,0 +1,289 @@
+<div class="page">
+
+  <!-- TOP BAR -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <button class="btn-back" (click)="goBack()">ATRÁS</button>
+      <h1 class="page-title">USUARIOS</h1>
+    </div>
+    <div class="empresa-wrap">
+      <span class="empresa-label">Empresa</span>
+      <select class="empresa-select">
+        <option>Cliente Existente SL - cliente001</option>
+      </select>
+    </div>
+    <button class="btn-invite">&#43; Invitar usuario</button>
+  </div>
+
+  <!-- GOLD LINE -->
+  <div class="gold-line"></div>
+
+  <!-- TABS -->
+  <div class="tabs-row">
+    <button class="tab-btn" [class.active]="activeTab() === 'usuarios'" (click)="setTab('usuarios')">Usuarios</button>
+    <button class="tab-btn" [class.active]="activeTab() === 'invitaciones'" (click)="setTab('invitaciones')">Invitaciones</button>
+    <button class="tab-btn" [class.active]="activeTab() === 'roles'" (click)="setTab('roles')">Roles</button>
+  </div>
+
+  <!-- ==================== TAB USUARIOS ==================== -->
+  @if (activeTab() === 'usuarios') {
+    <div class="filter-bar">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Buscar usuarios por nombre o email..."
+          [ngModel]="userSearch()"
+          (ngModelChange)="userSearch.set($event)"
+        />
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Rol</span>
+        <select class="filter-select" [ngModel]="userRoleFilter()" (ngModelChange)="userRoleFilter.set($event)">
+          <option value="Todos">Todos los roles</option>
+          <option value="ADMIN">ADMIN</option>
+          <option value="DEVELOPER">DEVELOPER</option>
+        </select>
+      </div>
+      <div class="badge-filters">
+        <span class="badge-toggle admin" [class.active]="userRoleFilter() === 'ADMIN'" (click)="toggleUserRole('ADMIN')">ADMIN</span>
+        <span class="badge-toggle developer" [class.active]="userRoleFilter() === 'DEVELOPER'" (click)="toggleUserRole('DEVELOPER')">DEVELOPER</span>
+      </div>
+      <button class="btn-clear" (click)="clearUserFilters()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+        </svg>
+        Limpiar
+      </button>
+    </div>
+
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Identificador externo</th>
+            <th>Auth Project</th>
+            <th>Empresas</th>
+            <th>Creado</th>
+            <th>Roles en empresa</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (u of filteredUsers(); track u.userId) {
+            <tr>
+              <td>
+                <div class="user-cell">
+                  <span class="user-name">{{ u.name }} {{ u.surname }}</span>
+                  <span class="user-email">{{ u.email }}</span>
+                  <span class="id-badge">Id: {{ u.userId }}</span>
+                </div>
+              </td>
+              <td>
+                <span class="ext-id">{{ u.userExtId }}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </span>
+              </td>
+              <td>
+                <span class="ext-id">{{ u.authProjectId }}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </span>
+              </td>
+              <td>
+                @for (cid of u.companyIds; track cid) {
+                  <span class="company-badge">{{ cid }}</span>
+                }
+              </td>
+              <td class="date-cell">{{ u.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+              <td>
+                <span class="role-badge" [class.admin]="u.roleInCompany === 'ADMIN'" [class.developer]="u.roleInCompany === 'DEVELOPER'">
+                  {{ u.roleInCompany }}
+                </span>
+              </td>
+              <td>
+                <div class="actions-cell">
+                  <button class="btn-action">Ver</button>
+                  <button class="btn-action">Gestionar roles</button>
+                  <button class="btn-action danger">Quitar</button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <!-- ==================== TAB INVITACIONES ==================== -->
+  @if (activeTab() === 'invitaciones') {
+    <div class="filter-bar">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Buscar por email..."
+          [ngModel]="inviteSearch()"
+          (ngModelChange)="inviteSearch.set($event)"
+        />
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Estado</span>
+        <select class="filter-select" [ngModel]="inviteStatusFilter()" (ngModelChange)="inviteStatusFilter.set($event)">
+          <option value="Todas">Todas</option>
+          <option value="SENT">SENT</option>
+          <option value="ERROR">ERROR</option>
+          <option value="DRAFT">DRAFT</option>
+        </select>
+      </div>
+      <div class="badge-filters">
+        <span class="badge-toggle draft" [class.active]="inviteStatusFilter() === 'DRAFT'" (click)="toggleInviteStatus('DRAFT')">DRAFT</span>
+        <span class="badge-toggle sent"  [class.active]="inviteStatusFilter() === 'SENT'"  (click)="toggleInviteStatus('SENT')">SENT</span>
+        <span class="badge-toggle error" [class.active]="inviteStatusFilter() === 'ERROR'" (click)="toggleInviteStatus('ERROR')">ERROR</span>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Rol</span>
+        <select class="filter-select" [ngModel]="inviteRoleFilter()" (ngModelChange)="inviteRoleFilter.set($event)">
+          <option value="Todos">Todos</option>
+          <option value="ADMIN">ADMIN</option>
+          <option value="DEVELOPER">DEVELOPER</option>
+        </select>
+      </div>
+      <div class="badge-filters">
+        <span class="badge-toggle admin" [class.active]="inviteRoleFilter() === 'ADMIN'" (click)="toggleInviteRole('ADMIN')">ADMIN</span>
+        <span class="badge-toggle developer" [class.active]="inviteRoleFilter() === 'DEVELOPER'" (click)="toggleInviteRole('DEVELOPER')">DEVELOPER</span>
+      </div>
+      <button class="btn-clear" (click)="clearInviteFilters()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+        </svg>
+        Limpiar
+      </button>
+    </div>
+
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Último envío</th>
+            <th>Reintentos</th>
+            <th>Error</th>
+            <th>Creada</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (inv of filteredInvites(); track inv.id) {
+            <tr>
+              <td class="email-cell">{{ inv.email }}</td>
+              <td>
+                <span class="role-badge" [class.admin]="inv.role === 'ADMIN'" [class.developer]="inv.role === 'DEVELOPER'">
+                  {{ inv.role }}
+                </span>
+              </td>
+              <td>
+                <span class="status-badge" [class.sent]="inv.status === 'SENT'" [class.error]="inv.status === 'ERROR'" [class.draft]="inv.status === 'DRAFT'">
+                  {{ inv.status }}
+                </span>
+              </td>
+              <td class="date-cell">{{ inv.lastSentAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+              <td class="center-cell">{{ inv.retries }}</td>
+              <td class="error-cell">{{ inv.errorDesc ?? '—' }}</td>
+              <td class="date-cell">{{ inv.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+              <td>
+                <div class="actions-cell">
+                  <button class="btn-action">Reenviar</button>
+                  <button class="btn-action danger">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <!-- ==================== TAB ROLES ==================== -->
+  @if (activeTab() === 'roles') {
+    <div class="roles-layout">
+      <!-- LEFT: selector + card -->
+      <div class="roles-left">
+        <label class="field-label">Seleccionar usuario</label>
+        <select class="user-select" [ngModel]="selectedUserId()" (ngModelChange)="selectedUserId.set(+$event)">
+          @for (u of companyUsers; track u.userId) {
+            <option [value]="u.userId">{{ u.name }} {{ u.surname }} ({{ u.email }})</option>
+          }
+        </select>
+
+        @if (selectedUser(); as u) {
+          <div class="user-card">
+            <div class="avatar">{{ getInitials(u) }}</div>
+            <div class="user-card-info">
+              <span class="user-card-name">{{ u.name }} {{ u.surname }}</span>
+              <span class="user-card-email">{{ u.email }}</span>
+              <span class="role-badge" [class.admin]="u.roleInCompany === 'ADMIN'" [class.developer]="u.roleInCompany === 'DEVELOPER'">
+                {{ u.roleInCompany }}
+              </span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- RIGHT: assign + current roles -->
+      <div class="roles-right">
+        <div class="roles-section">
+          <h3 class="roles-section-title">ASIGNAR ROL EN EMPRESA</h3>
+          <label class="field-label">Rol</label>
+          <div class="assign-row">
+            <select class="filter-select" [ngModel]="selectedRoleToAssign()" (ngModelChange)="selectedRoleToAssign.set($event)">
+              <option value="">Selecciona rol</option>
+              <option value="ADMIN">ADMIN</option>
+              <option value="DEVELOPER">DEVELOPER</option>
+            </select>
+            <button class="btn-assign" (click)="assignRole()">Asignar rol</button>
+          </div>
+        </div>
+
+        <div class="roles-section">
+          <h3 class="roles-section-title">ROLES ACTUALES EN LA EMPRESA</h3>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>roleAssignmentId</th>
+                <th>role</th>
+                <th>active</th>
+                <th>createdAt</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (ra of roleAssignments(); track ra.roleAssignmentId) {
+                <tr>
+                  <td>{{ ra.roleAssignmentId }}</td>
+                  <td>
+                    <span class="role-badge" [class.admin]="ra.role === 'ADMIN'" [class.developer]="ra.role === 'DEVELOPER'">
+                      {{ ra.role }}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="active-badge" [class.yes]="ra.active">{{ ra.active ? 'Sí' : 'No' }}</span>
+                  </td>
+                  <td class="date-cell">{{ ra.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  }
+
+</div>

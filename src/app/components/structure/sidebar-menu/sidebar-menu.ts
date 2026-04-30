@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { WorkspaceService } from '../../services/workspace-service';
+import { WorkspaceService } from '../../../services/workspace-service';
 
 interface NavItem {
   label: string;

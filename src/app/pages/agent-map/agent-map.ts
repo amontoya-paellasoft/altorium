@@ -4,7 +4,7 @@ import { UpperCasePipe, LowerCasePipe } from '@angular/common';
 import { WorkspaceService } from '../../services/workspace-service';
 import { ChatService } from '../../services/chat-service';
 import { NodePosition } from '../../models/node-interface';
-import { FloatingWindow } from '../floating-window/floating-window';
+import { FloatingWindow } from '../../components/floating-window/floating-window';
 
 @Component({
   selector: 'app-agent-map',
