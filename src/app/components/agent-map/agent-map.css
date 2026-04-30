@@ -1,7 +1,8 @@
 :host {
   display: block;
   height: 100%;
-  width: 50%;
+  flex: 1;
+  min-width: 0;
 }
 
 .contenedor {
@@ -113,4 +114,10 @@
 @keyframes particle {
   from { stroke-dashoffset: 180; }
   to   { stroke-dashoffset: -10; }
+}
+
+@media (max-width: 1250px) {
+  :host {
+    width: 100%;
+  }
 }

@@ -2,7 +2,6 @@
   position: fixed;
 /* 100% - 25% (tu right original) - 42rem (el ancho de la ventana) */
   left: calc(75% - 42rem);
-  /* 100% - 30% (tu bottom original) - 22rem (el alto de la ventana) */
   top: calc(70% - 22rem);
   z-index: 200;
   display: block;
@@ -110,5 +109,41 @@
 
   &.stderr {
     color: #ff6b6b;
+  }
+}
+
+@media (max-width: 1250px) {
+  :host {
+    left: 50%;
+    transform: translateX(-50%);
+    top: auto;
+    bottom: 60px;
+  }
+
+  .log-ventana {
+    width: min(42rem, 90vw);
+    max-width: none;
+  }
+}
+
+@media (max-width: 768px) {
+  :host {
+    left: 0;
+    top: 0;
+    bottom: auto;
+    transform: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  .log-ventana {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    min-width: unset !important;
+    min-height: unset !important;
+    border-radius: 0;
+    resize: none;
   }
 }
