@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AgentMap } from './components/agent-map/agent-map';
 import { TodoComponent } from './components/to-do/to-do';
 import { EmpresasComponent } from './components/empresas/empresas';
+import { Configuracion } from './components/configuracion/configuracion';
 
 
 export const routes: Routes = [

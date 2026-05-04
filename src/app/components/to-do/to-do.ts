@@ -7,9 +7,9 @@ import { TareaService } from '../../services/tarea-service';
 import { ToDoTask, MiseEnPlaceItem, Column } from '../../models/to-do-interface';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
-import { Busqueda } from '../../components/busqueda/busqueda';
-import { TaskDetail } from '../../components/task-detail/task-detail';
-import { TarjetasToDo } from '../../components/tarjetas-to-do/tarjetas-to-do';
+import { Busqueda } from '../busqueda/busqueda';
+import { TaskDetail } from '../task-detail/task-detail';
+import { TarjetasToDo } from '../tarjetas-to-do/tarjetas-to-do';
 
 @Component({
   selector: 'app-to-do',
