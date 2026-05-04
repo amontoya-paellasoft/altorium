@@ -237,9 +237,6 @@
   "COMMON": {
     "SAVE": "Guardar",
     "RESET": "Restablecer",
-<<<<<<< Updated upstream
-    "CANCEL": "Cancelar"
-=======
     "CANCEL": "Cancelar",
     "ACTIONS": "Acciones",
     "LOADING": "Cargando"
@@ -346,6 +343,5 @@
       "QUITAR": "Has intentado quitar a {{nombre}}",
       "ELIMINAR": "Has intentado eliminar la invitación de {{email}}"
     }
->>>>>>> Stashed changes
   }
 }
