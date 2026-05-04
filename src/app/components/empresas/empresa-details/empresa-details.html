@@ -3,14 +3,14 @@
     <div class="details-top-actions">
       <div class="left-actions">
         <button class="btn-action-outline" (click)="edit.emit()">
-          <i class="fas fa-pen"></i> Editar
+          <fa-icon [icon]="faPen"></fa-icon> {{ 'COMPANY.LIST.EDIT' | translate }}
         </button>
         <button class="btn-action-outline delete" (click)="delete.emit()">
-          <i class="fas fa-trash-alt"></i> Eliminar
+          <fa-icon [icon]="faTrash"></fa-icon> {{ 'COMPANY.LIST.DELETE' | translate }}
         </button>
       </div>
       <button class="btn-close" (click)="close.emit()">
-        <i class="fas fa-times"></i>
+        <fa-icon [icon]="faTimes"></fa-icon>
       </button>
     </div>
 
@@ -19,52 +19,52 @@
         <h2>{{ empresa.nombre }}</h2>
         <div class="header-meta">
           <span class="id-label">ID: {{ empresa.id }}</span>
-          <i class="fas fa-copy copy-icon"></i>
+          <fa-icon [icon]="faCopy" class="copy-icon"></fa-icon>
           <span class="alias-tag">{{ empresa.alias }}</span>
         </div>
       </div>
 
       <div class="status-badges">
         <span class="badge plan">{{ empresa.plan }}</span>
-        <span class="badge status-ok">Al día</span>
-        <span class="badge email">Email</span>
+        <span class="badge status-ok">{{ (empresa.pagoEstado === 'Al día' ? 'COMPANY.DETAILS.UP_TO_DATE' : 'COMPANY.DETAILS.PENDING') | translate }}</span>
+        <span class="badge email">{{ (empresa.facturaEmail ? 'COMPANY.DETAILS.EMAIL' : 'COMPANY.DETAILS.NO_EMAIL') | translate }}</span>
       </div>
 
       <div class="details-section">
-        <h3 class="section-title">Datos</h3>
+        <h3 class="section-title">{{ 'TODO.LABELS.DETAILS' | translate }}</h3>
         <div class="info-grid">
           <div class="info-item">
-            <span class="label">NIF</span>
+            <span class="label">{{ 'COMPANY.FORM.FIELDS.TAX_ID' | translate }}</span>
             <span class="value">{{ empresa.nif || '-' }}</span>
           </div>
           <div class="info-item">
-            <span class="label">Fundador (User ID)</span>
-            <span class="value">f1a2b3c4-5d6e-7f89-a0b1-c2d3e4f5a6b7 <i class="fas fa-copy"></i></span>
+            <span class="label">{{ 'COMPANY.DETAILS.FOUNDER' | translate }}</span>
+            <span class="value">f1a2b3c4-5d6e-7f89-a0b1-c2d3e4f5a6b7 <fa-icon [icon]="faCopy"></fa-icon></span>
           </div>
           <div class="info-item">
-            <span class="label">Creada</span>
+            <span class="label">{{ 'TODO.LABELS.CREATED' | translate }}</span>
             <span class="value">{{ empresa.creadoEn | date:'dd/MM/yyyy HH:mm:ss' }}</span>
           </div>
         </div>
       </div>
 
       <div class="details-section">
-        <h3 class="section-title">Facturación</h3>
+        <h3 class="section-title">{{ 'COMPANY.DETAILS.BILLING' | translate }}</h3>
         <div class="info-grid">
           <div class="info-item">
-            <span class="label">Factura por email</span>
-            <span class="value">{{ empresa.facturaEmail ? 'Email' : 'No email' }}</span>
+            <span class="label">{{ 'COMPANY.DRAWER.EMAIL_INVOICE' | translate }}</span>
+            <span class="value">{{ (empresa.facturaEmail ? 'COMPANY.DETAILS.EMAIL' : 'COMPANY.DETAILS.NO_EMAIL') | translate }}</span>
           </div>
           <div class="info-item">
-            <span class="label">Pago pendiente</span>
-            <span class="value">No</span>
+            <span class="label">{{ 'COMPANY.DETAILS.PAYMENT_PENDING' | translate }}</span>
+            <span class="value">{{ (empresa.pagoEstado === 'Al día' ? 'TASK_DETAIL.ESTIMATE.APPROVAL_NO' : 'TASK_DETAIL.ESTIMATE.APPROVAL_YES') | translate }}</span>
           </div>
           <div class="info-item">
-            <span class="label">Fecha pendiente</span>
+            <span class="label">{{ 'COMPANY.DETAILS.PENDING_DATE' | translate }}</span>
             <span class="value">-</span>
           </div>
           <div class="info-item">
-            <span class="label">Válido hasta</span>
+            <span class="label">{{ 'COMPANY.LIST.VALID_UNTIL' | translate }}</span>
             <span class="value">{{ empresa.validoHasta || '15/05/2026' }}</span>
           </div>
         </div>
@@ -72,17 +72,17 @@
 
       <div class="details-section">
         <div class="section-header">
-          <h3 class="section-title">Ficheros</h3>
-          <button class="btn-upload"><i class="fas fa-upload"></i> Subir fichero</button>
+          <h3 class="section-title">{{ 'COMPANY.DETAILS.FILES' | translate }}</h3>
+          <button class="btn-upload"><fa-icon [icon]="faUpload"></fa-icon> {{ 'COMPANY.DETAILS.UPLOAD' | translate }}</button>
         </div>
         
         <div class="files-list">
           <div class="files-header">
-            <span class="col-name">Nombre</span>
-            <span class="col-vis">Visibilidad</span>
-            <span class="col-actions">Acciones</span>
+            <span class="col-name">{{ 'TODO.LABELS.TITLE' | translate }}</span>
+            <span class="col-vis">{{ 'COMPANY.DETAILS.VISIBILITY' | translate }}</span>
+            <span class="col-actions">{{ 'COMMON.ACTIONS' | translate }}</span>
           </div>
-          @for (file of files; track file.name) {
+          @for (file of files; track file.name; let i = $index) {
             <div class="file-row">
               <div class="file-info">
                 <i class="far fa-file-pdf pdf-icon"></i>
@@ -92,13 +92,15 @@
                 </div>
               </div>
               <div class="file-visibility">
-                <span class="vis-badge" [class.public]="file.visibility === 'Público'">{{ file.visibility }}</span>
+                <span class="vis-badge" [class.public]="file.visibility === 'Público'">{{ (file.visibility === 'Público' ? 'COMPANY.DETAILS.PUBLIC' : 'COMPANY.DETAILS.PRIVATE') | translate }}</span>
               </div>
               <div class="file-actions">
-                <i class="fas fa-arrow-up"></i>
-                <i class="fas fa-arrow-down"></i>
-                <i class="fas fa-eye"></i>
-                <i class="fas fa-trash-alt"></i>
+                <button class="btn-icon" (click)="moveFile(i, 'up')" [disabled]="i === 0"><fa-icon [icon]="faArrowUp"></fa-icon></button>
+                <button class="btn-icon" (click)="moveFile(i, 'down')" [disabled]="i === files.length - 1"><fa-icon [icon]="faArrowDown"></fa-icon></button>
+                <button class="btn-icon" (click)="toggleVisibility(file)">
+                    <fa-icon [icon]="file.visibility === 'Público' ? faEye : faEyeSlash"></fa-icon>
+                </button>
+                <button class="btn-icon delete" (click)="deleteFile(i)"><fa-icon [icon]="faTrash"></fa-icon></button>
               </div>
             </div>
           }

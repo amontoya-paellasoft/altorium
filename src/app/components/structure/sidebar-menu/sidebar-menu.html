@@ -50,6 +50,20 @@
         </div>
       }
     }
+    <!-- Footer: Selección de Idioma -->
+    <div class="sidebar-footer">
+      <div class="lang-selector">
+        @for (lang of ['es', 'en']; track lang) {
+          <button 
+            class="lang-btn" 
+            [class.active]="idiomaActual === lang"
+            (click)="selectLanguage(lang)">
+            {{ lang | uppercase }}
+          </button>
+        }
+      </div>
+    </div>
+
   </div>
 
 </aside>

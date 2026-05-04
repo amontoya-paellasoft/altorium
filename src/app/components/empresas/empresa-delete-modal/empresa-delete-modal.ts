@@ -2,11 +2,12 @@ import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Empresa } from '../../../models/empresa.interface';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-empresa-delete-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './empresa-delete-modal.html',
   styleUrl: './empresa-delete-modal.css'
 })

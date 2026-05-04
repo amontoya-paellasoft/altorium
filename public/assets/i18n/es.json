@@ -24,7 +24,7 @@
   "WINDOW_6001_TERMINAL_TITLE": "TERMINAL ::",
   "WINDOW_6002_SYSTEM_TITLE": "CONSOLA SISTEMA",
   "TODO": {
-    "TITLE": "Tablero de Tareas",
+    "TITLE": "Tablero",
     "NEW_TASK": "+ Nueva Tarea",
     "CLOSE": "✕ Cerrar",
     "MODAL_TITLE": "Nueva Tarea",
@@ -57,7 +57,8 @@
       "ADD": "Añadir Tarea",
       "VIEW": "Ver",
       "ALL": "Todas",
-      "VIEW_INFO": "Ver Info"
+      "VIEW_INFO": "Ver Info",
+      "RETRY": "Reintentar"
     },
     "DETAIL_PANEL": {
       "ORIGIN_LABEL": "ORIGEN DEL REQUERIMIENTO:",
@@ -207,6 +208,52 @@
     }
   },
   "COMPANY": {
+    "LIST": {
+      "PAYMENT": "Pago",
+      "VALID_UNTIL": "Válido hasta",
+      "EDIT": "Editar",
+      "DELETE": "Eliminar",
+      "ALL_PLANS": "Todos los planes",
+      "SORT_BY_CREATED": "Ordenar por: Creado el",
+      "NO_COMPANIES": "No hay empresas",
+      "NO_COMPANIES_DESC": "No hay empresas creadas en el sistema aún.",
+      "NO_RESULTS": "Sin resultados",
+      "NO_RESULTS_DESC": "No se encontraron resultados para los filtros aplicados."
+    },
+    "DRAWER": {
+      "NEW_TITLE": "Nueva empresa",
+      "EDIT_TITLE": "Editar empresa",
+      "NAME_LABEL": "Nombre de empresa",
+      "NAME_PLACEHOLDER": "Escribe el nombre de la empresa",
+      "NIF_LABEL": "NIF (opcional)",
+      "NIF_PLACEHOLDER": "Escribe el NIF",
+      "NIF_FORMAT": "Formato de NIF: 9 caracteres",
+      "PLAN_LABEL": "Plan",
+      "EMAIL_INVOICE": "Factura por email",
+      "EMAIL_HINT": "La factura se enviará por correo electrónico."
+    },
+    "DETAILS": {
+      "FOUNDER": "Fundador (User ID)",
+      "BILLING": "Facturación",
+      "PAYMENT_PENDING": "Pago pendiente",
+      "PENDING_DATE": "Fecha pendiente",
+      "FILES": "Ficheros",
+      "UPLOAD": "Subir fichero",
+      "VISIBILITY": "Visibilidad",
+      "PRIVATE": "Privado",
+      "PUBLIC": "Público",
+      "UP_TO_DATE": "Al día",
+      "PENDING": "Pendiente",
+      "EMAIL": "Email",
+      "NO_EMAIL": "No email"
+    },
+    "DELETE": {
+      "TITLE": "Eliminar empresa",
+      "WARNING": "Se borrará lógicamente la empresa y todos sus proyectos asociados.",
+      "CONFIRM_LABEL": "Escribe el alias de la empresa para confirmar",
+      "INSTRUCTION": "Escribe '{{alias}}' para continuar",
+      "PLACEHOLDER": "Escribe el alias"
+    },
     "FORM": {
       "TITLE": "Formulario de Compañía",
       "SUBTITLE": "Gestione la información corporativa y de contacto",
@@ -237,6 +284,8 @@
   "COMMON": {
     "SAVE": "Guardar",
     "RESET": "Restablecer",
-    "CANCEL": "Cancelar"
+    "CANCEL": "Cancelar",
+    "ACTIONS": "Acciones",
+    "LOADING": "Cargando"
   }
 }

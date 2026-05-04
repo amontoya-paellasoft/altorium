@@ -2,11 +2,12 @@ import { Component, Input, Output, EventEmitter, inject, OnChanges, SimpleChange
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Empresa } from '../../../models/empresa.interface';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-empresa-drawer',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './empresa-drawer.html',
   styleUrl: './empresa-drawer.css'
 })

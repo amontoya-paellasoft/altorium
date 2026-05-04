@@ -57,7 +57,8 @@
       "ADD": "Add Task",
       "VIEW": "View",
       "ALL": "All",
-      "VIEW_INFO": "View Info"
+      "VIEW_INFO": "View Info",
+      "RETRY": "Retry"
     },
     "DETAIL_PANEL": {
       "ORIGIN_LABEL": "REQUIREMENT ORIGIN:",
@@ -203,6 +204,52 @@
     }
   },
   "COMPANY": {
+    "LIST": {
+      "PAYMENT": "Payment",
+      "VALID_UNTIL": "Valid until",
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "ALL_PLANS": "All plans",
+      "SORT_BY_CREATED": "Sort by: Created at",
+      "NO_COMPANIES": "No companies",
+      "NO_COMPANIES_DESC": "There are no companies created in the system yet.",
+      "NO_RESULTS": "No results",
+      "NO_RESULTS_DESC": "No results were found for the applied filters."
+    },
+    "DRAWER": {
+      "NEW_TITLE": "New company",
+      "EDIT_TITLE": "Edit company",
+      "NAME_LABEL": "Company name",
+      "NAME_PLACEHOLDER": "Type the company name",
+      "NIF_LABEL": "Tax ID (optional)",
+      "NIF_PLACEHOLDER": "Type the Tax ID",
+      "NIF_FORMAT": "Tax ID format: 9 characters",
+      "PLAN_LABEL": "Plan",
+      "EMAIL_INVOICE": "Invoice by email",
+      "EMAIL_HINT": "The invoice will be sent by email."
+    },
+    "DETAILS": {
+      "FOUNDER": "Founder (User ID)",
+      "BILLING": "Billing",
+      "PAYMENT_PENDING": "Payment pending",
+      "PENDING_DATE": "Pending date",
+      "FILES": "Files",
+      "UPLOAD": "Upload file",
+      "VISIBILITY": "Visibility",
+      "PRIVATE": "Private",
+      "PUBLIC": "Public",
+      "UP_TO_DATE": "Up to date",
+      "PENDING": "Pending",
+      "EMAIL": "Email",
+      "NO_EMAIL": "No email"
+    },
+    "DELETE": {
+      "TITLE": "Delete company",
+      "WARNING": "The company and all its associated projects will be logically deleted.",
+      "CONFIRM_LABEL": "Type the company alias to confirm",
+      "INSTRUCTION": "Type '{{alias}}' to continue",
+      "PLACEHOLDER": "Type the alias"
+    },
     "FORM": {
       "TITLE": "Company Form",
       "SUBTITLE": "Manage corporate and contact information",
@@ -233,6 +280,8 @@
   "COMMON": {
     "SAVE": "Save",
     "RESET": "Reset",
-    "CANCEL": "Cancel"
+    "CANCEL": "Cancel",
+    "ACTIONS": "Actions",
+    "LOADING": "Loading"
   }
 }
