@@ -1,6 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { CommonModule, UpperCasePipe } from '@angular/common';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { WorkspaceService } from '../../../services/workspace-service';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -27,16 +26,16 @@ interface Proyecto {
 })
 export class SidebarMenu {
   ws = inject(WorkspaceService);
-  private translate = inject(TranslateService);
+  private router = inject(Router);
 
-  idiomaActual = localStorage.getItem('idioma_preferido') || 'es';
-
-  navItems: NavItem[] = [
-    { label: 'Mapa de Agentes', icon: '◈', ruta: '/',             exact: true  },
-    { label: 'Tablero',         icon: '⊞', ruta: '/to-do',        exact: false },
-    { label: 'Empresas',        icon: '🏢', ruta: '/empresas',     exact: false },
-    { label: 'Configuración',   icon: '⚙', ruta: '/configuracion', exact: false },
-  ];
+  navItems: NavItem[] = this.router.config
+    .filter(r => r.data?.['nav'] === true)
+    .map(r => ({
+      label: r.data!['title'] as string,
+      icon:  r.data!['icon']  as string ?? '•',
+      ruta:  '/' + r.path,
+      exact: r.data!['exact'] as boolean ?? false,
+    }));
 
   proyectos = signal<Proyecto[]>([
     { id: 'prueba1', nombre: 'Proyecto DaaS', color: '#2563eb', expandido: true  },
