@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { WorkspaceService } from '../../../services/workspace-service';
 import { TranslateService } from '@ngx-translate/core';
@@ -27,6 +28,9 @@ interface Proyecto {
 export class SidebarMenu {
   ws = inject(WorkspaceService);
   private router = inject(Router);
+  private translate = inject(TranslateService);
+
+  idiomaActual = this.translate.currentLang || 'es';
 
   navItems: NavItem[] = this.router.config
     .filter(r => r.data?.['nav'] === true)
