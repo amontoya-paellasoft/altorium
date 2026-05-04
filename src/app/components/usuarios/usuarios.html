@@ -1,9 +1,8 @@
 <div class="page">
-
   <!-- TOP BAR -->
   <div class="page-header">
     <div class="page-header-left">
-      <button class="btn-back" (click)="goBack()">ATRÁS</button>
+      <button class="btn-back" (click)="volver()">ATRÁS</button>
       <h1 class="page-title">USUARIOS</h1>
     </div>
     <div class="empresa-wrap">
@@ -12,49 +11,92 @@
         <option>Cliente Existente SL - cliente001</option>
       </select>
     </div>
-    <button class="btn-invite">&#43; Invitar usuario</button>
+    <button class="btn-invite" (click)="abrirModalInvitar()">+ Invitar usuario</button>
   </div>
 
-  <!-- GOLD LINE -->
-  <div class="gold-line"></div>
+  <div class="separator"></div>
 
   <!-- TABS -->
   <div class="tabs-row">
-    <button class="tab-btn" [class.active]="activeTab() === 'usuarios'" (click)="setTab('usuarios')">Usuarios</button>
-    <button class="tab-btn" [class.active]="activeTab() === 'invitaciones'" (click)="setTab('invitaciones')">Invitaciones</button>
-    <button class="tab-btn" [class.active]="activeTab() === 'roles'" (click)="setTab('roles')">Roles</button>
+    <button
+      class="tab-btn"
+      [class.active]="activeTab === 'usuarios'"
+      (click)="cambiarTab('usuarios')"
+    >
+      Usuarios
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="activeTab === 'invitaciones'"
+      (click)="cambiarTab('invitaciones')"
+    >
+      Invitaciones
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="activeTab === 'actividad'"
+      (click)="cambiarTab('actividad')"
+    >
+      Actividad
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'roles'" (click)="cambiarTab('roles')">
+      Roles
+    </button>
   </div>
 
-  <!-- ==================== TAB USUARIOS ==================== -->
-  @if (activeTab() === 'usuarios') {
+  <!--  TAB USUARIOS  -->
+  @if (activeTab === 'usuarios') {
     <div class="filter-bar">
       <div class="search-box">
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        <svg
+          class="search-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.35-4.35" />
         </svg>
         <input
           type="text"
           class="search-input"
           placeholder="Buscar usuarios por nombre o email..."
-          [ngModel]="userSearch()"
-          (ngModelChange)="userSearch.set($event)"
+          [(ngModel)]="userSearch"
         />
       </div>
       <div class="filter-group">
         <span class="filter-label">Rol</span>
-        <select class="filter-select" [ngModel]="userRoleFilter()" (ngModelChange)="userRoleFilter.set($event)">
+        <select class="filter-select" [(ngModel)]="userRoleFilter">
           <option value="Todos">Todos los roles</option>
           <option value="ADMIN">ADMIN</option>
           <option value="DEVELOPER">DEVELOPER</option>
         </select>
       </div>
       <div class="badge-filters">
-        <span class="badge-toggle admin" [class.active]="userRoleFilter() === 'ADMIN'" (click)="toggleUserRole('ADMIN')">ADMIN</span>
-        <span class="badge-toggle developer" [class.active]="userRoleFilter() === 'DEVELOPER'" (click)="toggleUserRole('DEVELOPER')">DEVELOPER</span>
+        <span
+          class="badge-toggle admin"
+          [class.active]="userRoleFilter === 'ADMIN'"
+          (click)="alternarRolUsuario('ADMIN')"
+          >ADMIN</span
+        >
+        <span
+          class="badge-toggle developer"
+          [class.active]="userRoleFilter === 'DEVELOPER'"
+          (click)="alternarRolUsuario('DEVELOPER')"
+          >DEVELOPER</span
+        >
       </div>
-      <button class="btn-clear" (click)="clearUserFilters()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
-          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+      <button class="btn-clear" (click)="limpiarFiltrosUsuarios()">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          width="13"
+          height="13"
+        >
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
         </svg>
         Limpiar
       </button>
@@ -69,12 +111,12 @@
             <th>Auth Project</th>
             <th>Empresas</th>
             <th>Creado</th>
-            <th>Roles en empresa</th>
+            <th>Rol en empresa</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          @for (u of filteredUsers(); track u.userId) {
+          @for (u of usuariosFiltrados(); track u.userId) {
             <tr>
               <td>
                 <div class="user-cell">
@@ -84,13 +126,37 @@
                 </div>
               </td>
               <td>
-                <span class="ext-id">{{ u.userExtId }}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                <span class="ext-id"
+                  >{{ u.userExtId }}
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    width="11"
+                    height="11"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
                 </span>
               </td>
               <td>
-                <span class="ext-id">{{ u.authProjectId }}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                <span class="ext-id"
+                  >{{ u.authProjectId }}
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    width="11"
+                    height="11"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
                 </span>
               </td>
               <td>
@@ -98,19 +164,27 @@
                   <span class="company-badge">{{ cid }}</span>
                 }
               </td>
-              <td class="date-cell">{{ u.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+              <td class="date-cell">{{ u.createdAt | date: 'dd/MM/yyyy HH:mm' }}</td>
               <td>
-                <span class="role-badge" [class.admin]="u.roleInCompany === 'ADMIN'" [class.developer]="u.roleInCompany === 'DEVELOPER'">
+                <span
+                  class="role-badge"
+                  [class.admin]="u.roleInCompany === 'ADMIN'"
+                  [class.developer]="u.roleInCompany === 'DEVELOPER'"
+                >
                   {{ u.roleInCompany }}
                 </span>
               </td>
               <td>
                 <div class="actions-cell">
-                  <button class="btn-action">Ver</button>
-                  <button class="btn-action">Gestionar roles</button>
-                  <button class="btn-action danger">Quitar</button>
+                  <button class="btn-action" (click)="verUsuario(u)">Ver</button>
+                  <button class="btn-action" (click)="gestionarRoles(u)">Gestionar roles</button>
+                  <button class="btn-action danger" (click)="quitarUsuario(u)">Quitar</button>
                 </div>
               </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7" class="empty-cell">No se encontraron usuarios</td>
             </tr>
           }
         </tbody>
@@ -118,24 +192,30 @@
     </div>
   }
 
-  <!-- ==================== TAB INVITACIONES ==================== -->
-  @if (activeTab() === 'invitaciones') {
+  <!--  TAB INVITACIONES  -->
+  @if (activeTab === 'invitaciones') {
     <div class="filter-bar">
       <div class="search-box">
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        <svg
+          class="search-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.35-4.35" />
         </svg>
         <input
           type="text"
           class="search-input"
           placeholder="Buscar por email..."
-          [ngModel]="inviteSearch()"
-          (ngModelChange)="inviteSearch.set($event)"
+          [(ngModel)]="inviteSearch"
         />
       </div>
       <div class="filter-group">
         <span class="filter-label">Estado</span>
-        <select class="filter-select" [ngModel]="inviteStatusFilter()" (ngModelChange)="inviteStatusFilter.set($event)">
+        <select class="filter-select" [(ngModel)]="inviteStatusFilter">
           <option value="Todas">Todas</option>
           <option value="SENT">SENT</option>
           <option value="ERROR">ERROR</option>
@@ -143,25 +223,57 @@
         </select>
       </div>
       <div class="badge-filters">
-        <span class="badge-toggle draft" [class.active]="inviteStatusFilter() === 'DRAFT'" (click)="toggleInviteStatus('DRAFT')">DRAFT</span>
-        <span class="badge-toggle sent"  [class.active]="inviteStatusFilter() === 'SENT'"  (click)="toggleInviteStatus('SENT')">SENT</span>
-        <span class="badge-toggle error" [class.active]="inviteStatusFilter() === 'ERROR'" (click)="toggleInviteStatus('ERROR')">ERROR</span>
+        <span
+          class="badge-toggle draft"
+          [class.active]="inviteStatusFilter === 'DRAFT'"
+          (click)="alternarEstadoInvitacion('DRAFT')"
+          >DRAFT</span
+        >
+        <span
+          class="badge-toggle sent"
+          [class.active]="inviteStatusFilter === 'SENT'"
+          (click)="alternarEstadoInvitacion('SENT')"
+          >SENT</span
+        >
+        <span
+          class="badge-toggle error"
+          [class.active]="inviteStatusFilter === 'ERROR'"
+          (click)="alternarEstadoInvitacion('ERROR')"
+          >ERROR</span
+        >
       </div>
       <div class="filter-group">
         <span class="filter-label">Rol</span>
-        <select class="filter-select" [ngModel]="inviteRoleFilter()" (ngModelChange)="inviteRoleFilter.set($event)">
+        <select class="filter-select" [(ngModel)]="inviteRoleFilter">
           <option value="Todos">Todos</option>
           <option value="ADMIN">ADMIN</option>
           <option value="DEVELOPER">DEVELOPER</option>
         </select>
       </div>
       <div class="badge-filters">
-        <span class="badge-toggle admin" [class.active]="inviteRoleFilter() === 'ADMIN'" (click)="toggleInviteRole('ADMIN')">ADMIN</span>
-        <span class="badge-toggle developer" [class.active]="inviteRoleFilter() === 'DEVELOPER'" (click)="toggleInviteRole('DEVELOPER')">DEVELOPER</span>
+        <span
+          class="badge-toggle admin"
+          [class.active]="inviteRoleFilter === 'ADMIN'"
+          (click)="alternarRolInvitacion('ADMIN')"
+          >ADMIN</span
+        >
+        <span
+          class="badge-toggle developer"
+          [class.active]="inviteRoleFilter === 'DEVELOPER'"
+          (click)="alternarRolInvitacion('DEVELOPER')"
+          >DEVELOPER</span
+        >
       </div>
-      <button class="btn-clear" (click)="clearInviteFilters()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
-          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+      <button class="btn-clear" (click)="limpiarFiltrosInvitaciones()">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          width="13"
+          height="13"
+        >
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
         </svg>
         Limpiar
       </button>
@@ -172,6 +284,7 @@
         <thead>
           <tr>
             <th>Email</th>
+            <th>Empresa</th>
             <th>Rol</th>
             <th>Estado</th>
             <th>Último envío</th>
@@ -182,29 +295,45 @@
           </tr>
         </thead>
         <tbody>
-          @for (inv of filteredInvites(); track inv.id) {
+          @for (inv of invitacionesFiltradas(); track inv.id) {
             <tr>
               <td class="email-cell">{{ inv.email }}</td>
               <td>
-                <span class="role-badge" [class.admin]="inv.role === 'ADMIN'" [class.developer]="inv.role === 'DEVELOPER'">
+                <span class="company-label-cell">{{ nombreEmpresa(inv.company) }}</span>
+              </td>
+              <td>
+                <span
+                  class="role-badge"
+                  [class.admin]="inv.role === 'ADMIN'"
+                  [class.developer]="inv.role === 'DEVELOPER'"
+                >
                   {{ inv.role }}
                 </span>
               </td>
               <td>
-                <span class="status-badge" [class.sent]="inv.status === 'SENT'" [class.error]="inv.status === 'ERROR'" [class.draft]="inv.status === 'DRAFT'">
+                <span
+                  class="status-badge"
+                  [class.sent]="inv.status === 'SENT'"
+                  [class.error]="inv.status === 'ERROR'"
+                  [class.draft]="inv.status === 'DRAFT'"
+                >
                   {{ inv.status }}
                 </span>
               </td>
-              <td class="date-cell">{{ inv.lastSentAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+              <td class="date-cell">{{ inv.lastSentAt | date: 'dd/MM/yyyy HH:mm' }}</td>
               <td class="center-cell">{{ inv.retries }}</td>
               <td class="error-cell">{{ inv.errorDesc ?? '—' }}</td>
-              <td class="date-cell">{{ inv.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+              <td class="date-cell">{{ inv.createdAt | date: 'dd/MM/yyyy HH:mm' }}</td>
               <td>
                 <div class="actions-cell">
-                  <button class="btn-action">Reenviar</button>
-                  <button class="btn-action danger">Eliminar</button>
+                  <button class="btn-action" (click)="reenviarInvitacion(inv)">Reenviar</button>
+                  <button class="btn-action danger" (click)="eliminarInvitacion(inv)">Eliminar</button>
                 </div>
               </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="9" class="empty-cell">No se encontraron invitaciones</td>
             </tr>
           }
         </tbody>
@@ -212,25 +341,184 @@
     </div>
   }
 
-  <!-- ==================== TAB ROLES ==================== -->
-  @if (activeTab() === 'roles') {
+  <!--  TAB ACTIVIDAD  -->
+  @if (activeTab === 'actividad') {
+    <div class="actividad-layout">
+      <div class="filter-bar">
+        <div class="filter-group">
+          <span class="filter-label">Usuario</span>
+          <select
+            class="filter-select"
+            [ngModel]="actividadUserId"
+            (ngModelChange)="actividadUserId = +$event"
+          >
+            @for (u of companyUsers; track u.userId) {
+              <option [value]="u.userId">{{ u.name }} {{ u.surname }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <!-- Tareas asignadas -->
+      <div class="actividad-section">
+        <h3 class="roles-section-title">Tareas asignadas</h3>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th>Estado</th>
+                <th>Estimación</th>
+                <th>Iteración</th>
+                <th>Actualizada</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (t of tareasDelUsuario(); track t.taskId) {
+                <tr>
+                  <td>
+                    <span class="id-badge">{{ t.taskId }}</span>
+                  </td>
+                  <td>{{ t.title }}</td>
+                  <td>
+                    <span class="state-badge {{ t.state.toLowerCase() }}">
+                      {{ etiquetaEstado(t.state) }}
+                    </span>
+                  </td>
+                  <td>
+                    @if (estimacionTarea(t.taskId); as est) {
+                      <span class="estimate-pill"
+                        >{{ est.finalMinutes }}min · {{ est.estimatedPrice }}€</span
+                      >
+                    } @else {
+                      <span class="no-data">—</span>
+                    }
+                  </td>
+                  <td class="center-cell">{{ t.currentIteration }}</td>
+                  <td class="date-cell">{{ t.updatedAt | date: 'dd/MM/yyyy' }}</td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="6" class="empty-cell">Sin tareas asignadas</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Aprobaciones -->
+      <div class="actividad-section">
+        <h3 class="roles-section-title">Aprobaciones realizadas</h3>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tarea</th>
+                <th>Estado</th>
+                <th>Horas extra</th>
+                <th>Aprobado el</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (a of aprobacionesDelUsuario(); track a.approvalId) {
+                <tr>
+                  <td>
+                    <span class="id-badge">{{ a.approvalId }}</span>
+                  </td>
+                  <td>
+                    <span class="id-badge">#{{ a.taskId }}</span>
+                  </td>
+                  <td>
+                    <span class="approval-badge {{ a.status.toLowerCase() }}">
+                      {{ etiquetaAprobacion(a.status) }}
+                    </span>
+                  </td>
+                  <td class="center-cell">{{ a.promoHoursApplied }}h</td>
+                  <td class="date-cell">{{ a.approvedAt | date: 'dd/MM/yyyy HH:mm' }}</td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5" class="empty-cell">Sin aprobaciones</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Eventos -->
+      <div class="actividad-section">
+        <h3 class="roles-section-title">Eventos recientes</h3>
+        <div class="events-list">
+          @for (ev of eventosDelUsuario(); track ev.timelineEventId) {
+            <div class="event-item">
+              <div class="event-header">
+                <span class="event-type">{{ ev.eventType }}</span>
+                <span class="date-cell">{{ ev.createdAt | date: 'dd/MM/yyyy HH:mm' }}</span>
+              </div>
+              <span class="event-title">{{ ev.title }}</span>
+              <span class="event-summary">{{ ev.summary }}</span>
+              @if (ev.fromState) {
+                <span class="state-change">{{ ev.fromState }} → {{ ev.toState }}</span>
+              }
+            </div>
+          } @empty {
+            <span class="no-data">Sin eventos recientes</span>
+          }
+        </div>
+      </div>
+
+      <!-- Comentarios -->
+      <div class="actividad-section">
+        <h3 class="roles-section-title">Comentarios</h3>
+        <div class="comments-list">
+          @for (c of comentariosDelUsuario(); track c.commentId) {
+            <div class="comment-item">
+              <div class="comment-header">
+                <span class="comment-author">{{ c.authorName }}</span>
+                <span class="id-badge">Tarea #{{ c.taskId }}</span>
+                <span class="date-cell">{{ c.createdAt | date: 'dd/MM/yyyy HH:mm' }}</span>
+              </div>
+              <p class="comment-body">{{ c.body }}</p>
+            </div>
+          } @empty {
+            <span class="no-data">Sin comentarios</span>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <!--  TAB ROLES  -->
+  @if (activeTab === 'roles') {
     <div class="roles-layout">
       <!-- LEFT: selector + card -->
       <div class="roles-left">
         <label class="field-label">Seleccionar usuario</label>
-        <select class="user-select" [ngModel]="selectedUserId()" (ngModelChange)="selectedUserId.set(+$event)">
+        <select
+          class="user-select"
+          [ngModel]="selectedUserId"
+          (ngModelChange)="selectedUserId = +$event"
+        >
           @for (u of companyUsers; track u.userId) {
             <option [value]="u.userId">{{ u.name }} {{ u.surname }} ({{ u.email }})</option>
           }
         </select>
 
-        @if (selectedUser(); as u) {
+        @if (usuarioSeleccionado(); as u) {
           <div class="user-card">
-            <div class="avatar">{{ getInitials(u) }}</div>
+            <div class="avatar">{{ iniciales(u.name, u.surname) }}</div>
             <div class="user-card-info">
               <span class="user-card-name">{{ u.name }} {{ u.surname }}</span>
               <span class="user-card-email">{{ u.email }}</span>
-              <span class="role-badge" [class.admin]="u.roleInCompany === 'ADMIN'" [class.developer]="u.roleInCompany === 'DEVELOPER'">
+              <span
+                class="role-badge"
+                [class.admin]="u.roleInCompany === 'ADMIN'"
+                [class.developer]="u.roleInCompany === 'DEVELOPER'"
+              >
                 {{ u.roleInCompany }}
               </span>
             </div>
@@ -238,18 +526,18 @@
         }
       </div>
 
-      <!-- RIGHT: assign + current roles -->
+      <!-- RIGHT: asignar + roles actuales -->
       <div class="roles-right">
         <div class="roles-section">
           <h3 class="roles-section-title">ASIGNAR ROL EN EMPRESA</h3>
           <label class="field-label">Rol</label>
           <div class="assign-row">
-            <select class="filter-select" [ngModel]="selectedRoleToAssign()" (ngModelChange)="selectedRoleToAssign.set($event)">
+            <select class="filter-select" [(ngModel)]="rolSelecAsignr">
               <option value="">Selecciona rol</option>
               <option value="ADMIN">ADMIN</option>
               <option value="DEVELOPER">DEVELOPER</option>
             </select>
-            <button class="btn-assign" (click)="assignRole()">Asignar rol</button>
+            <button class="btn-assign" (click)="asignarRol()">Asignar rol</button>
           </div>
         </div>
 
@@ -258,25 +546,33 @@
           <table class="data-table">
             <thead>
               <tr>
-                <th>roleAssignmentId</th>
-                <th>role</th>
-                <th>active</th>
-                <th>createdAt</th>
+                <th>ID Asignación</th>
+                <th>Rol</th>
+                <th>Activo</th>
+                <th>Creado</th>
               </tr>
             </thead>
             <tbody>
-              @for (ra of roleAssignments(); track ra.roleAssignmentId) {
+              @for (ra of rolesAsignados; track ra.roleAssignmentId) {
                 <tr>
-                  <td>{{ ra.roleAssignmentId }}</td>
                   <td>
-                    <span class="role-badge" [class.admin]="ra.role === 'ADMIN'" [class.developer]="ra.role === 'DEVELOPER'">
+                    <span class="id-badge">{{ ra.roleAssignmentId }}</span>
+                  </td>
+                  <td>
+                    <span
+                      class="role-badge"
+                      [class.admin]="ra.role === 'ADMIN'"
+                      [class.developer]="ra.role === 'DEVELOPER'"
+                    >
                       {{ ra.role }}
                     </span>
                   </td>
                   <td>
-                    <span class="active-badge" [class.yes]="ra.active">{{ ra.active ? 'Sí' : 'No' }}</span>
+                    <span class="active-badge" [class.yes]="ra.active">{{
+                      ra.active ? 'Sí' : 'No'
+                    }}</span>
                   </td>
-                  <td class="date-cell">{{ ra.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                  <td class="date-cell">{{ ra.createdAt | date: 'dd/MM/yyyy HH:mm' }}</td>
                 </tr>
               }
             </tbody>
@@ -286,4 +582,40 @@
     </div>
   }
 
+  <!-- TOAST -->
+  @if (toast) {
+    <div class="toast">{{ toast }}</div>
+  }
+
+  <!-- MODAL INVITAR -->
+  @if (modalInvitarAbierto) {
+    <div class="modal-overlay" (click)="cerrarModalInvitar()">
+      <div class="modal-box" (click)="$event.stopPropagation()">
+        <h2 class="modal-titulo">Invitar usuario</h2>
+
+        <label class="field-label">Email</label>
+        <input
+          class="modal-input"
+          type="email"
+          placeholder="usuario@empresa.com"
+          [(ngModel)]="nuevoEmail"
+          (ngModelChange)="errorEmail = ''"
+        />
+        @if (errorEmail) {
+          <span class="modal-error">{{ errorEmail }}</span>
+        }
+
+        <label class="field-label" style="margin-top: 14px">Rol</label>
+        <select class="filter-select modal-select" [(ngModel)]="nuevoRol">
+          <option value="DEVELOPER">DEVELOPER</option>
+          <option value="ADMIN">ADMIN</option>
+        </select>
+
+        <div class="modal-acciones">
+          <button class="btn-action" (click)="cerrarModalInvitar()">Cancelar</button>
+          <button class="btn-invite modal-submit" (click)="enviarInvitacion()">Enviar invitación</button>
+        </div>
+      </div>
+    </div>
+  }
 </div>
