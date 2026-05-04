@@ -2,16 +2,16 @@
   <!-- TOP BAR -->
   <div class="page-header">
     <div class="page-header-left">
-      <button class="btn-back" (click)="volver()">ATRÁS</button>
-      <h1 class="page-title">USUARIOS</h1>
+      <button class="btn-back" (click)="volver()">{{ 'USERS.BTN_BACK' | translate }}</button>
+      <h1 class="page-title">{{ 'USERS.TITLE' | translate }}</h1>
     </div>
     <div class="empresa-wrap">
-      <span class="empresa-label">Empresa</span>
+      <span class="empresa-label">{{ 'USERS.EMPRESA_LABEL' | translate }}</span>
       <select class="empresa-select">
         <option>Cliente Existente SL - cliente001</option>
       </select>
     </div>
-    <button class="btn-invite" (click)="abrirModalInvitar()">+ Invitar usuario</button>
+    <button class="btn-invite" (click)="abrirModalInvitar()">{{ 'USERS.BTN_INVITE' | translate }}</button>
   </div>
 
   <div class="separator"></div>
@@ -23,24 +23,24 @@
       [class.active]="activeTab === 'usuarios'"
       (click)="cambiarTab('usuarios')"
     >
-      Usuarios
+      {{ 'USERS.TABS.USUARIOS' | translate }}
     </button>
     <button
       class="tab-btn"
       [class.active]="activeTab === 'invitaciones'"
       (click)="cambiarTab('invitaciones')"
     >
-      Invitaciones
+      {{ 'USERS.TABS.INVITACIONES' | translate }}
     </button>
     <button
       class="tab-btn"
       [class.active]="activeTab === 'actividad'"
       (click)="cambiarTab('actividad')"
     >
-      Actividad
+      {{ 'USERS.TABS.ACTIVIDAD' | translate }}
     </button>
     <button class="tab-btn" [class.active]="activeTab === 'roles'" (click)="cambiarTab('roles')">
-      Roles
+      {{ 'USERS.TABS.ROLES' | translate }}
     </button>
   </div>
 
@@ -61,14 +61,14 @@
         <input
           type="text"
           class="search-input"
-          placeholder="Buscar usuarios por nombre o email..."
+          [placeholder]="'USERS.FILTERS.SEARCH_USERS' | translate"
           [(ngModel)]="userSearch"
         />
       </div>
       <div class="filter-group">
-        <span class="filter-label">Rol</span>
+        <span class="filter-label">{{ 'USERS.FILTERS.ROL' | translate }}</span>
         <select class="filter-select" [(ngModel)]="userRoleFilter">
-          <option value="Todos">Todos los roles</option>
+          <option value="Todos">{{ 'USERS.FILTERS.ALL_ROLES' | translate }}</option>
           <option value="ADMIN">ADMIN</option>
           <option value="DEVELOPER">DEVELOPER</option>
         </select>
@@ -98,7 +98,7 @@
         >
           <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
         </svg>
-        Limpiar
+        {{ 'USERS.FILTERS.CLEAR' | translate }}
       </button>
     </div>
 
@@ -106,13 +106,13 @@
       <table class="data-table">
         <thead>
           <tr>
-            <th>Usuario</th>
-            <th>Identificador externo</th>
-            <th>Auth Project</th>
-            <th>Empresas</th>
-            <th>Creado</th>
-            <th>Rol en empresa</th>
-            <th>Acciones</th>
+            <th>{{ 'USERS.TABLE.USUARIO' | translate }}</th>
+            <th>{{ 'USERS.TABLE.EXT_ID' | translate }}</th>
+            <th>{{ 'USERS.TABLE.AUTH_PROJECT' | translate }}</th>
+            <th>{{ 'USERS.TABLE.EMPRESAS' | translate }}</th>
+            <th>{{ 'USERS.TABLE.CREADO' | translate }}</th>
+            <th>{{ 'USERS.TABLE.ROL_EMPRESA' | translate }}</th>
+            <th>{{ 'USERS.TABLE.ACCIONES' | translate }}</th>
           </tr>
         </thead>
         <tbody>
@@ -176,15 +176,15 @@
               </td>
               <td>
                 <div class="actions-cell">
-                  <button class="btn-action" (click)="verUsuario(u)">Ver</button>
-                  <button class="btn-action" (click)="gestionarRoles(u)">Gestionar roles</button>
-                  <button class="btn-action danger" (click)="quitarUsuario(u)">Quitar</button>
+                  <button class="btn-action" (click)="verUsuario(u)">{{ 'USERS.ACTIONS.VER' | translate }}</button>
+                  <button class="btn-action" (click)="gestionarRoles(u)">{{ 'USERS.ACTIONS.GESTIONAR_ROLES' | translate }}</button>
+                  <button class="btn-action danger" (click)="quitarUsuario(u)">{{ 'USERS.ACTIONS.QUITAR' | translate }}</button>
                 </div>
               </td>
             </tr>
           } @empty {
             <tr>
-              <td colspan="7" class="empty-cell">No se encontraron usuarios</td>
+              <td colspan="7" class="empty-cell">{{ 'USERS.EMPTY.USUARIOS' | translate }}</td>
             </tr>
           }
         </tbody>
@@ -209,14 +209,14 @@
         <input
           type="text"
           class="search-input"
-          placeholder="Buscar por email..."
+          [placeholder]="'USERS.FILTERS.SEARCH_INVITES' | translate"
           [(ngModel)]="inviteSearch"
         />
       </div>
       <div class="filter-group">
-        <span class="filter-label">Estado</span>
+        <span class="filter-label">{{ 'USERS.FILTERS.ESTADO' | translate }}</span>
         <select class="filter-select" [(ngModel)]="inviteStatusFilter">
-          <option value="Todas">Todas</option>
+          <option value="Todas">{{ 'USERS.FILTERS.ALL_ESTADOS' | translate }}</option>
           <option value="SENT">SENT</option>
           <option value="ERROR">ERROR</option>
           <option value="DRAFT">DRAFT</option>
@@ -243,9 +243,9 @@
         >
       </div>
       <div class="filter-group">
-        <span class="filter-label">Rol</span>
+        <span class="filter-label">{{ 'USERS.FILTERS.ROL' | translate }}</span>
         <select class="filter-select" [(ngModel)]="inviteRoleFilter">
-          <option value="Todos">Todos</option>
+          <option value="Todos">{{ 'USERS.FILTERS.ALL_ROLES_SHORT' | translate }}</option>
           <option value="ADMIN">ADMIN</option>
           <option value="DEVELOPER">DEVELOPER</option>
         </select>
@@ -275,7 +275,7 @@
         >
           <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
         </svg>
-        Limpiar
+        {{ 'USERS.FILTERS.CLEAR' | translate }}
       </button>
     </div>
 
@@ -283,15 +283,15 @@
       <table class="data-table">
         <thead>
           <tr>
-            <th>Email</th>
-            <th>Empresa</th>
-            <th>Rol</th>
-            <th>Estado</th>
-            <th>Último envío</th>
-            <th>Reintentos</th>
-            <th>Error</th>
-            <th>Creada</th>
-            <th>Acciones</th>
+            <th>{{ 'USERS.TABLE.EMAIL' | translate }}</th>
+            <th>{{ 'USERS.TABLE.EMPRESA' | translate }}</th>
+            <th>{{ 'USERS.TABLE.ROL' | translate }}</th>
+            <th>{{ 'USERS.TABLE.ESTADO' | translate }}</th>
+            <th>{{ 'USERS.TABLE.ULTIMO_ENVIO' | translate }}</th>
+            <th>{{ 'USERS.TABLE.REINTENTOS' | translate }}</th>
+            <th>{{ 'USERS.TABLE.ERROR' | translate }}</th>
+            <th>{{ 'USERS.TABLE.CREADA' | translate }}</th>
+            <th>{{ 'USERS.TABLE.ACCIONES' | translate }}</th>
           </tr>
         </thead>
         <tbody>
@@ -326,14 +326,14 @@
               <td class="date-cell">{{ inv.createdAt | date: 'dd/MM/yyyy HH:mm' }}</td>
               <td>
                 <div class="actions-cell">
-                  <button class="btn-action" (click)="reenviarInvitacion(inv)">Reenviar</button>
-                  <button class="btn-action danger" (click)="eliminarInvitacion(inv)">Eliminar</button>
+                  <button class="btn-action" (click)="reenviarInvitacion(inv)">{{ 'USERS.ACTIONS.REENVIAR' | translate }}</button>
+                  <button class="btn-action danger" (click)="eliminarInvitacion(inv)">{{ 'USERS.ACTIONS.ELIMINAR' | translate }}</button>
                 </div>
               </td>
             </tr>
           } @empty {
             <tr>
-              <td colspan="9" class="empty-cell">No se encontraron invitaciones</td>
+              <td colspan="9" class="empty-cell">{{ 'USERS.EMPTY.INVITACIONES' | translate }}</td>
             </tr>
           }
         </tbody>
@@ -346,7 +346,7 @@
     <div class="actividad-layout">
       <div class="filter-bar">
         <div class="filter-group">
-          <span class="filter-label">Usuario</span>
+          <span class="filter-label">{{ 'USERS.FILTERS.USUARIO' | translate }}</span>
           <select
             class="filter-select"
             [ngModel]="actividadUserId"
@@ -361,17 +361,17 @@
 
       <!-- Tareas asignadas -->
       <div class="actividad-section">
-        <h3 class="roles-section-title">Tareas asignadas</h3>
+        <h3 class="roles-section-title">{{ 'USERS.ACTIVIDAD.TAREAS' | translate }}</h3>
         <div class="table-wrap">
           <table class="data-table">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Título</th>
-                <th>Estado</th>
-                <th>Estimación</th>
-                <th>Iteración</th>
-                <th>Actualizada</th>
+                <th>{{ 'USERS.TABLE.NUM' | translate }}</th>
+                <th>{{ 'USERS.TABLE.TITULO' | translate }}</th>
+                <th>{{ 'USERS.TABLE.ESTADO' | translate }}</th>
+                <th>{{ 'USERS.TABLE.ESTIMACION' | translate }}</th>
+                <th>{{ 'USERS.TABLE.ITERACION' | translate }}</th>
+                <th>{{ 'USERS.TABLE.ACTUALIZADA' | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -383,7 +383,7 @@
                   <td>{{ t.title }}</td>
                   <td>
                     <span class="state-badge {{ t.state.toLowerCase() }}">
-                      {{ etiquetaEstado(t.state) }}
+                      {{ estadoKey(t.state) | translate }}
                     </span>
                   </td>
                   <td>
@@ -400,7 +400,7 @@
                 </tr>
               } @empty {
                 <tr>
-                  <td colspan="6" class="empty-cell">Sin tareas asignadas</td>
+                  <td colspan="6" class="empty-cell">{{ 'USERS.EMPTY.TAREAS' | translate }}</td>
                 </tr>
               }
             </tbody>
@@ -410,16 +410,16 @@
 
       <!-- Aprobaciones -->
       <div class="actividad-section">
-        <h3 class="roles-section-title">Aprobaciones realizadas</h3>
+        <h3 class="roles-section-title">{{ 'USERS.ACTIVIDAD.APROBACIONES' | translate }}</h3>
         <div class="table-wrap">
           <table class="data-table">
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Tarea</th>
-                <th>Estado</th>
-                <th>Horas extra</th>
-                <th>Aprobado el</th>
+                <th>{{ 'USERS.TABLE.TAREA' | translate }}</th>
+                <th>{{ 'USERS.TABLE.ESTADO' | translate }}</th>
+                <th>{{ 'USERS.TABLE.HORAS_EXTRA' | translate }}</th>
+                <th>{{ 'USERS.TABLE.APROBADO_EL' | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -433,7 +433,7 @@
                   </td>
                   <td>
                     <span class="approval-badge {{ a.status.toLowerCase() }}">
-                      {{ etiquetaAprobacion(a.status) }}
+                      {{ aprobacionKey(a.status) | translate }}
                     </span>
                   </td>
                   <td class="center-cell">{{ a.promoHoursApplied }}h</td>
@@ -441,7 +441,7 @@
                 </tr>
               } @empty {
                 <tr>
-                  <td colspan="5" class="empty-cell">Sin aprobaciones</td>
+                  <td colspan="5" class="empty-cell">{{ 'USERS.EMPTY.APROBACIONES' | translate }}</td>
                 </tr>
               }
             </tbody>
@@ -451,7 +451,7 @@
 
       <!-- Eventos -->
       <div class="actividad-section">
-        <h3 class="roles-section-title">Eventos recientes</h3>
+        <h3 class="roles-section-title">{{ 'USERS.ACTIVIDAD.EVENTOS' | translate }}</h3>
         <div class="events-list">
           @for (ev of eventosDelUsuario(); track ev.timelineEventId) {
             <div class="event-item">
@@ -466,26 +466,26 @@
               }
             </div>
           } @empty {
-            <span class="no-data">Sin eventos recientes</span>
+            <span class="no-data">{{ 'USERS.EMPTY.EVENTOS' | translate }}</span>
           }
         </div>
       </div>
 
       <!-- Comentarios -->
       <div class="actividad-section">
-        <h3 class="roles-section-title">Comentarios</h3>
+        <h3 class="roles-section-title">{{ 'USERS.ACTIVIDAD.COMENTARIOS' | translate }}</h3>
         <div class="comments-list">
           @for (c of comentariosDelUsuario(); track c.commentId) {
             <div class="comment-item">
               <div class="comment-header">
                 <span class="comment-author">{{ c.authorName }}</span>
-                <span class="id-badge">Tarea #{{ c.taskId }}</span>
+                <span class="id-badge">{{ 'USERS.TABLE.TAREA' | translate }} #{{ c.taskId }}</span>
                 <span class="date-cell">{{ c.createdAt | date: 'dd/MM/yyyy HH:mm' }}</span>
               </div>
               <p class="comment-body">{{ c.body }}</p>
             </div>
           } @empty {
-            <span class="no-data">Sin comentarios</span>
+            <span class="no-data">{{ 'USERS.EMPTY.COMENTARIOS' | translate }}</span>
           }
         </div>
       </div>
@@ -497,7 +497,7 @@
     <div class="roles-layout">
       <!-- LEFT: selector + card -->
       <div class="roles-left">
-        <label class="field-label">Seleccionar usuario</label>
+        <label class="field-label">{{ 'USERS.ROLES.SELECT_USER' | translate }}</label>
         <select
           class="user-select"
           [ngModel]="selectedUserId"
@@ -529,27 +529,27 @@
       <!-- RIGHT: asignar + roles actuales -->
       <div class="roles-right">
         <div class="roles-section">
-          <h3 class="roles-section-title">ASIGNAR ROL EN EMPRESA</h3>
-          <label class="field-label">Rol</label>
+          <h3 class="roles-section-title">{{ 'USERS.ROLES.ASSIGN_SECTION' | translate }}</h3>
+          <label class="field-label">{{ 'USERS.ROLES.ROL_LABEL' | translate }}</label>
           <div class="assign-row">
             <select class="filter-select" [(ngModel)]="rolSelecAsignr">
-              <option value="">Selecciona rol</option>
+              <option value="">{{ 'USERS.ROLES.SELECT_ROL' | translate }}</option>
               <option value="ADMIN">ADMIN</option>
               <option value="DEVELOPER">DEVELOPER</option>
             </select>
-            <button class="btn-assign" (click)="asignarRol()">Asignar rol</button>
+            <button class="btn-assign" (click)="asignarRol()">{{ 'USERS.ACTIONS.ASIGNAR_ROL' | translate }}</button>
           </div>
         </div>
 
         <div class="roles-section">
-          <h3 class="roles-section-title">ROLES ACTUALES EN LA EMPRESA</h3>
+          <h3 class="roles-section-title">{{ 'USERS.ROLES.CURRENT_SECTION' | translate }}</h3>
           <table class="data-table">
             <thead>
               <tr>
-                <th>ID Asignación</th>
-                <th>Rol</th>
-                <th>Activo</th>
-                <th>Creado</th>
+                <th>{{ 'USERS.TABLE.ID_ASIGNACION' | translate }}</th>
+                <th>{{ 'USERS.TABLE.ROL' | translate }}</th>
+                <th>{{ 'USERS.TABLE.ACTIVO' | translate }}</th>
+                <th>{{ 'USERS.TABLE.CREADO' | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -569,7 +569,7 @@
                   </td>
                   <td>
                     <span class="active-badge" [class.yes]="ra.active">{{
-                      ra.active ? 'Sí' : 'No'
+                      ra.active ? ('USERS.VALUES.SI' | translate) : ('USERS.VALUES.NO' | translate)
                     }}</span>
                   </td>
                   <td class="date-cell">{{ ra.createdAt | date: 'dd/MM/yyyy HH:mm' }}</td>
@@ -591,13 +591,13 @@
   @if (modalInvitarAbierto) {
     <div class="modal-overlay" (click)="cerrarModalInvitar()">
       <div class="modal-box" (click)="$event.stopPropagation()">
-        <h2 class="modal-titulo">Invitar usuario</h2>
+        <h2 class="modal-titulo">{{ 'USERS.MODAL.TITULO' | translate }}</h2>
 
-        <label class="field-label">Email</label>
+        <label class="field-label">{{ 'USERS.MODAL.EMAIL_LABEL' | translate }}</label>
         <input
           class="modal-input"
           type="email"
-          placeholder="usuario@empresa.com"
+          [placeholder]="'USERS.MODAL.EMAIL_PLACEHOLDER' | translate"
           [(ngModel)]="nuevoEmail"
           (ngModelChange)="errorEmail = ''"
         />
@@ -605,15 +605,15 @@
           <span class="modal-error">{{ errorEmail }}</span>
         }
 
-        <label class="field-label" style="margin-top: 14px">Rol</label>
+        <label class="field-label" style="margin-top: 14px">{{ 'USERS.MODAL.ROL_LABEL' | translate }}</label>
         <select class="filter-select modal-select" [(ngModel)]="nuevoRol">
           <option value="DEVELOPER">DEVELOPER</option>
           <option value="ADMIN">ADMIN</option>
         </select>
 
         <div class="modal-acciones">
-          <button class="btn-action" (click)="cerrarModalInvitar()">Cancelar</button>
-          <button class="btn-invite modal-submit" (click)="enviarInvitacion()">Enviar invitación</button>
+          <button class="btn-action" (click)="cerrarModalInvitar()">{{ 'COMMON.CANCEL' | translate }}</button>
+          <button class="btn-invite modal-submit" (click)="enviarInvitacion()">{{ 'USERS.ACTIONS.ENVIAR_INVITACION' | translate }}</button>
         </div>
       </div>
     </div>
