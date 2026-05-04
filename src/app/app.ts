@@ -6,13 +6,15 @@ import { AgentPanel } from './components/agent-panel/agent-panel';
 import { ControlPanel } from './components/structure/control-panel/control-panel';
 import { Stats } from './components/stats/stats';
 import { FloatingLogPanel } from './components/floating-log-panel/floating-log-panel';
+import { SidebarMenu } from './components/sidebar-menu/sidebar-menu';
+import { ConsolaSistema } from './components/consola-sistema/consola-sistema';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [Header, ControlPanel, AgentPanel, Stats, FloatingLogPanel, RouterOutlet],
+  imports: [Header, SidebarMenu, ConsolaSistema, ControlPanel, AgentPanel, Stats, FloatingLogPanel, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

@@ -1,24 +1,9 @@
 <header class="topbar">
+
   <div class="nav-left">
     <span class="status-led"></span>
-    <span class="topbar-title">{{ 'APP_1001_TITLE' | translate }}</span>
-    <span class="topbar-sub">{{ 'APP_1002_SUBTITLE' | translate }}</span>
+    <h1 class="page-title">{{ pageTitle() }}</h1>
   </div>
-
-  <nav class="nav-center">
-    <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <span class="full-text">{{ 'MAP_TITLE' | translate }}</span>
-      <span class="mobile-text">{{ 'AGENT_SHORT' | translate }}</span>
-    </a>
-    <a class="nav-link" routerLink="/to-do" routerLinkActive="active">
-      <span class="full-text">{{ 'TODO.TITLE' | translate }}</span>
-      <span class="mobile-text">{{ 'TASKS_SHORT' | translate }}</span>
-    </a>
-    <a class="nav-link" routerLink="/empresas" routerLinkActive="active">
-      <span class="full-text">Mantenimiento de Empresa</span>
-      <span class="mobile-text">Empresa</span>
-    </a>
-  </nav>
 
   <div class="lang-wrapper">
     <div class="lang-selector" [class.expanded]="isLangMenuOpen">
@@ -39,4 +24,5 @@
       </div>
     </div>
   </div>
+
 </header>
