@@ -2,14 +2,18 @@
   <!-- Header / Filters Area -->
   <div class="main-header">
     <div class="header-top">
-      <button class="btn-back" (click)="goBack()"><i class="fas fa-arrow-left"></i> {{ 'COMMON.CANCEL' | translate | uppercase }}</button>
+      <button class="btn-back" (click)="goBack()">
+        <fa-icon [icon]="faArrowLeft"></fa-icon> {{ 'COMMON.CANCEL' | translate | uppercase }}
+      </button>
       <h1>{{ 'TASK_DETAIL.META.COMPANY' | translate | uppercase }}S</h1>
-      <button class="btn-primary-dark" (click)="openNewDrawer()">+ {{ 'TASK_DETAIL.META.COMPANY' | translate }}</button>
+      <button class="btn-primary-dark" (click)="openNewDrawer()">
+        <fa-icon [icon]="faPlus"></fa-icon> {{ 'TASK_DETAIL.META.COMPANY' | translate }}
+      </button>
     </div>
 
     <div class="filters-bar">
       <div class="search-wrapper">
-        <i class="fas fa-search search-icon"></i>
+        <fa-icon [icon]="faSearch" class="search-icon"></fa-icon>
         <input 
           type="text" 
           [ngModel]="searchTerm()" 
@@ -33,29 +37,81 @@
       </div>
 
       <button class="btn-clear" (click)="clearFilters()">
-        <i class="fas fa-undo"></i> {{ 'COMMON.RESET' | translate }}
+        <fa-icon [icon]="faUndo"></fa-icon> {{ 'COMMON.RESET' | translate }}
       </button>
 
       <div class="mobile-sort" *ngIf="isMobile()">
         <span>{{ 'COMPANY.LIST.SORT_BY_CREATED' | translate }}</span>
-        <i class="fas fa-sort-amount-down"></i>
+        <fa-icon [icon]="faSortAmountDown"></fa-icon>
       </div>
     </div>
   </div>
 
   <!-- Content Area -->
   <div class="content-body">
+    <!-- Loading State -->
+    @if (isLoading()) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>{{ 'COMMON.LOADING' | translate }}...</p>
+      </div>
+    }
+
+    <!-- Error State -->
+    @if (error()) {
+      <div class="empty-state error">
+        <div class="icon-circle">
+          <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+        </div>
+        <h3>{{ 'TASK_DETAIL.STATUS.ERROR' | translate }}</h3>
+        <p>{{ error() }}</p>
+        <button class="btn-action-call retry" (click)="retryLoad()">
+          <fa-icon [icon]="faSync"></fa-icon> {{ 'TODO.BUTTONS.RETRY' | translate }}
+        </button>
+      </div>
+    }
+
+    <!-- Empty State (No Data) -->
+    @if (isEmpty()) {
+      <div class="empty-state empty">
+        <div class="icon-circle">
+          <fa-icon [icon]="faInbox"></fa-icon>
+        </div>
+        <h3>{{ 'COMPANY.LIST.NO_COMPANIES' | translate }}</h3>
+        <p>{{ 'COMPANY.LIST.NO_COMPANIES_DESC' | translate }}</p>
+        <button class="btn-action-call create" (click)="openNewDrawer()">
+          <fa-icon [icon]="faPlus"></fa-icon> {{ 'TASK_DETAIL.META.COMPANY' | translate }}
+        </button>
+      </div>
+    }
+
+    <!-- Empty State (No Results with Filters) -->
+    @if (isFilteredEmpty()) {
+      <div class="empty-state filtered">
+        <div class="icon-circle">
+          <fa-icon [icon]="faSearchMinus"></fa-icon>
+        </div>
+        <h3>{{ 'COMPANY.LIST.NO_RESULTS' | translate }}</h3>
+        <p>{{ 'COMPANY.LIST.NO_RESULTS_DESC' | translate }}</p>
+        <button class="btn-action-call reset" (click)="clearFilters()">
+          <fa-icon [icon]="faUndo"></fa-icon> {{ 'COMMON.RESET' | translate }}
+        </button>
+      </div>
+    }
+
     <!-- Desktop Table -->
-    <app-empresa-table 
-      *ngIf="!isMobile()"
-      [empresas]="filteredEmpresas()"
-      (view)="openDetails($any($event))"
-      (edit)="openEditDrawer($any($event))"
-      (delete)="openDeleteModal($any($event))"
-    ></app-empresa-table>
+    @if (!isLoading() && !error() && filteredEmpresas().length > 0) {
+      <app-empresa-table 
+        *ngIf="!isMobile()"
+        [empresas]="filteredEmpresas()"
+        (view)="openDetails($any($event))"
+        (edit)="openEditDrawer($any($event))"
+        (delete)="openDeleteModal($any($event))"
+      ></app-empresa-table>
+    }
 
     <!-- Mobile Cards -->
-    <div class="mobile-grid" *ngIf="isMobile()">
+    <div class="mobile-grid" *ngIf="isMobile() && !isLoading() && !error() && filteredEmpresas().length > 0">
       @for (empresa of filteredEmpresas(); track empresa.id) {
         <app-empresa-card 
           [empresa]="empresa"
@@ -65,14 +121,6 @@
         ></app-empresa-card>
       }
     </div>
-
-    <!-- Empty State / Skeleton (Simulated) -->
-    @if (filteredEmpresas().length === 0) {
-      <div class="empty-state">
-        <i class="fas fa-building-slash"></i>
-        <p>No se encontraron empresas con estos filtros</p>
-      </div>
-    }
   </div>
 
   <!-- Side Panels / Modals -->

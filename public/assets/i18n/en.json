@@ -57,7 +57,8 @@
       "ADD": "Add Task",
       "VIEW": "View",
       "ALL": "All",
-      "VIEW_INFO": "View Info"
+      "VIEW_INFO": "View Info",
+      "RETRY": "Retry"
     },
     "DETAIL_PANEL": {
       "ORIGIN_LABEL": "REQUIREMENT ORIGIN:",
@@ -209,7 +210,11 @@
       "EDIT": "Edit",
       "DELETE": "Delete",
       "ALL_PLANS": "All plans",
-      "SORT_BY_CREATED": "Sort by: Created at"
+      "SORT_BY_CREATED": "Sort by: Created at",
+      "NO_COMPANIES": "No companies",
+      "NO_COMPANIES_DESC": "There are no companies created in the system yet.",
+      "NO_RESULTS": "No results",
+      "NO_RESULTS_DESC": "No results were found for the applied filters."
     },
     "DRAWER": {
       "NEW_TITLE": "New company",
@@ -276,6 +281,7 @@
     "SAVE": "Save",
     "RESET": "Reset",
     "CANCEL": "Cancel",
-    "ACTIONS": "Actions"
+    "ACTIONS": "Actions",
+    "LOADING": "Loading"
   }
 }

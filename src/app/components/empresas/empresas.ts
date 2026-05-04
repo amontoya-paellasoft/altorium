@@ -9,6 +9,19 @@ import { EmpresaCard } from './empresa-card/empresa-card';
 import { EmpresaDeleteModal } from './empresa-delete-modal/empresa-delete-modal';
 import { EmpresaDetails } from './empresa-details/empresa-details';
 import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { 
+  faSearch, 
+  faInbox, 
+  faExclamationTriangle, 
+  faPlus, 
+  faUndo, 
+  faSync, 
+  faArrowLeft,
+  faSearchMinus,
+  faBuilding,
+  faSortAmountDown
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-empresas',
@@ -21,7 +34,8 @@ import { TranslateModule } from '@ngx-translate/core';
     EmpresaCard,
     EmpresaDeleteModal,
     EmpresaDetails,
-    TranslateModule
+    TranslateModule,
+    FontAwesomeModule
   ],
   templateUrl: './empresas.html',
   styleUrl: './empresas.css'
@@ -30,6 +44,18 @@ export class EmpresasComponent {
   private empresaService = inject(EmpresaService);
   
   @ViewChild(EmpresaTable) table!: EmpresaTable;
+
+  // Icons
+  faSearch = faSearch;
+  faInbox = faInbox;
+  faExclamationTriangle = faExclamationTriangle;
+  faPlus = faPlus;
+  faUndo = faUndo;
+  faSync = faSync;
+  faArrowLeft = faArrowLeft;
+  faSearchMinus = faSearchMinus;
+  faBuilding = faBuilding;
+  faSortAmountDown = faSortAmountDown;
 
   // Search and Filter State
   searchTerm = signal('');
@@ -45,9 +71,15 @@ export class EmpresasComponent {
   selectedEmpresa = signal<Empresa | null>(null);
   isEditing = signal(false);
 
+  // Service exposure
+  isLoading = this.empresaService.loading;
+  error = this.empresaService.error;
+
   // Computed data
+  allEmpresas = this.empresaService.empresas;
+  
   filteredEmpresas = computed(() => {
-    let list = this.empresaService.empresas();
+    let list = this.allEmpresas();
     
     if (this.searchTerm()) {
       const term = this.searchTerm().toLowerCase();
@@ -65,12 +97,22 @@ export class EmpresasComponent {
     return list;
   });
 
+  isEmpty = computed(() => !this.isLoading() && !this.error() && this.allEmpresas().length === 0);
+  isFilteredEmpty = computed(() => !this.isLoading() && !this.error() && !this.isEmpty() && this.filteredEmpresas().length === 0);
+
   empresaCount = computed(() => this.filteredEmpresas().length);
 
   constructor() {
     window.addEventListener('resize', () => {
       this.isMobile.set(window.innerWidth < 768);
     });
+  }
+
+  retryLoad() {
+    // Simulated retry logic if there was a real API
+    console.log('Retrying to load companies...');
+    // For now just clear error to simulate fix
+    this.empresaService.error.set(null);
   }
 
   clearFilters() {

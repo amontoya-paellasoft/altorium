@@ -57,7 +57,8 @@
       "ADD": "Añadir Tarea",
       "VIEW": "Ver",
       "ALL": "Todas",
-      "VIEW_INFO": "Ver Info"
+      "VIEW_INFO": "Ver Info",
+      "RETRY": "Reintentar"
     },
     "DETAIL_PANEL": {
       "ORIGIN_LABEL": "ORIGEN DEL REQUERIMIENTO:",
@@ -213,7 +214,11 @@
       "EDIT": "Editar",
       "DELETE": "Eliminar",
       "ALL_PLANS": "Todos los planes",
-      "SORT_BY_CREATED": "Ordenar por: Creado el"
+      "SORT_BY_CREATED": "Ordenar por: Creado el",
+      "NO_COMPANIES": "No hay empresas",
+      "NO_COMPANIES_DESC": "No hay empresas creadas en el sistema aún.",
+      "NO_RESULTS": "Sin resultados",
+      "NO_RESULTS_DESC": "No se encontraron resultados para los filtros aplicados."
     },
     "DRAWER": {
       "NEW_TITLE": "Nueva empresa",
@@ -280,6 +285,7 @@
     "SAVE": "Guardar",
     "RESET": "Restablecer",
     "CANCEL": "Cancelar",
-    "ACTIONS": "Acciones"
+    "ACTIONS": "Acciones",
+    "LOADING": "Cargando"
   }
 }
