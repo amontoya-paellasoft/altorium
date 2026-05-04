@@ -28,7 +28,7 @@ export const routes: Routes = [
     data: { title: 'Usuarios', nav: true, icon: '🗣', exact: false },
   },
 
-  // nav: false → no aparecen en el sidebar
+  // nav: false -> no aparecen en el sidebar
   { path: 'to-do/:userId/:userName', component: TodoComponent },
   { path: 'to-do/:userId', component: TodoComponent },
   { path: 'to-do/:id/:agentId', component: TodoComponent },

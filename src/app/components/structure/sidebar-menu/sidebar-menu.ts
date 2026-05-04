@@ -33,12 +33,12 @@ export class SidebarMenu {
   idiomaActual = this.translate.currentLang || 'es';
 
   navItems: NavItem[] = this.router.config
-    .filter(r => r.data?.['nav'] === true)
-    .map(r => ({
-      label: r.data!['title'] as string,
-      icon:  r.data!['icon']  as string ?? '•',
-      ruta:  '/' + r.path,
-      exact: r.data!['exact'] as boolean ?? false,
+    .filter(ruta => ruta.data?.['nav'] === true)
+    .map(ruta => ({
+      label: ruta.data!['title'] as string,
+      icon:  ruta.data!['icon']  as string ?? '•',
+      ruta:  '/' + ruta.path,
+      exact: ruta.data!['exact'] as boolean ?? false,
     }));
 
   proyectos = signal<Proyecto[]>([
