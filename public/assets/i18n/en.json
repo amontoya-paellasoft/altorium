@@ -233,6 +233,115 @@
   "COMMON": {
     "SAVE": "Save",
     "RESET": "Reset",
+<<<<<<< Updated upstream
     "CANCEL": "Cancel"
+=======
+    "CANCEL": "Cancel",
+    "ACTIONS": "Actions",
+    "LOADING": "Loading"
+  },
+  "USERS": {
+    "TITLE": "USERS",
+    "BTN_BACK": "BACK",
+    "BTN_INVITE": "+ Invite user",
+    "EMPRESA_LABEL": "Company",
+    "TABS": {
+      "USUARIOS": "Users",
+      "INVITACIONES": "Invitations",
+      "ACTIVIDAD": "Activity",
+      "ROLES": "Roles"
+    },
+    "FILTERS": {
+      "SEARCH_USERS": "Search users by name or email...",
+      "SEARCH_INVITES": "Search by email...",
+      "ROL": "Role",
+      "ALL_ROLES": "All roles",
+      "ALL_ROLES_SHORT": "All",
+      "ESTADO": "Status",
+      "ALL_ESTADOS": "All",
+      "CLEAR": "Clear",
+      "USUARIO": "User"
+    },
+    "TABLE": {
+      "USUARIO": "User",
+      "EXT_ID": "External identifier",
+      "AUTH_PROJECT": "Auth Project",
+      "EMPRESAS": "Companies",
+      "CREADO": "Created",
+      "ROL_EMPRESA": "Role in company",
+      "ACCIONES": "Actions",
+      "EMAIL": "Email",
+      "EMPRESA": "Company",
+      "ROL": "Role",
+      "ESTADO": "Status",
+      "ULTIMO_ENVIO": "Last sent",
+      "REINTENTOS": "Retries",
+      "ERROR": "Error",
+      "CREADA": "Created",
+      "NUM": "#",
+      "TITULO": "Title",
+      "ESTIMACION": "Estimate",
+      "ITERACION": "Iteration",
+      "ACTUALIZADA": "Updated",
+      "TAREA": "Task",
+      "HORAS_EXTRA": "Extra hours",
+      "APROBADO_EL": "Approved at",
+      "ID_ASIGNACION": "Assignment ID",
+      "ACTIVO": "Active"
+    },
+    "ACTIONS": {
+      "VER": "View",
+      "GESTIONAR_ROLES": "Manage roles",
+      "QUITAR": "Remove",
+      "REENVIAR": "Resend",
+      "ELIMINAR": "Delete",
+      "ASIGNAR_ROL": "Assign role",
+      "ENVIAR_INVITACION": "Send invitation"
+    },
+    "EMPTY": {
+      "USUARIOS": "No users found",
+      "INVITACIONES": "No invitations found",
+      "TAREAS": "No assigned tasks",
+      "APROBACIONES": "No approvals",
+      "EVENTOS": "No recent events",
+      "COMENTARIOS": "No comments"
+    },
+    "ACTIVIDAD": {
+      "TAREAS": "Assigned tasks",
+      "APROBACIONES": "Completed approvals",
+      "EVENTOS": "Recent events",
+      "COMENTARIOS": "Comments"
+    },
+    "ROLES": {
+      "SELECT_USER": "Select user",
+      "ASSIGN_SECTION": "ASSIGN ROLE IN COMPANY",
+      "SELECT_ROL": "Select role",
+      "CURRENT_SECTION": "CURRENT ROLES IN COMPANY",
+      "ROL_LABEL": "Role"
+    },
+    "MODAL": {
+      "TITULO": "Invite user",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_PLACEHOLDER": "user@company.com",
+      "EMAIL_ERROR": "Please enter a valid email.",
+      "ROL_LABEL": "Role"
+    },
+    "VALUES": {
+      "SI": "Yes",
+      "NO": "No",
+      "STATE_BACKLOG": "Backlog",
+      "STATE_TODO": "To do",
+      "STATE_DOING": "In progress",
+      "STATE_TEST": "In testing",
+      "STATE_DONE": "Done",
+      "APPROVAL_APPROVED": "Approved",
+      "APPROVAL_REJECTED": "Rejected",
+      "APPROVAL_PENDING": "Pending"
+    },
+    "TOAST": {
+      "QUITAR": "You tried to remove {{nombre}}",
+      "ELIMINAR": "You tried to delete the invitation for {{email}}"
+    }
+>>>>>>> Stashed changes
   }
 }

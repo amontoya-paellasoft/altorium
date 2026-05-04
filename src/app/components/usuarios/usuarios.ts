@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { InviteDTO, CompanyDTO } from '../../models/altorium/invite-dto';
 import { TaskDTO } from '../../models/altorium/task-dto';
 import { TaskEstimateDTO } from '../../models/altorium/estimate-dto';
@@ -267,12 +268,15 @@ const MOCK_ROLE_ASSIGNMENTS: RoleAssignment[] = [
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './usuarios.html',
   styleUrl: './usuarios.css',
 })
 export class Usuarios {
-  constructor(private location: Location) {}
+  private location = inject(Location);
+  private translate = inject(TranslateService);
+
+  constructor() {}
 
   companyUsers = [...MOCK_COMPANY_USERS];
   invitaciones = [...MOCK_INVITES];
@@ -455,34 +459,24 @@ export class Usuarios {
     return resultado;
   }
 
-  etiquetaEstado(state: string): string {
-    switch (state) {
-      case 'BACKLOG':
-        return 'Backlog';
-      case 'TODO':
-        return 'Por hacer';
-      case 'DOING':
-        return 'En progreso';
-      case 'TEST':
-        return 'En pruebas';
-      case 'DONE':
-        return 'Hecho';
-      default:
-        return state;
-    }
+  estadoKey(state: string): string {
+    const keys: Record<string, string> = {
+      BACKLOG: 'USERS.VALUES.STATE_BACKLOG',
+      TODO:    'USERS.VALUES.STATE_TODO',
+      DOING:   'USERS.VALUES.STATE_DOING',
+      TEST:    'USERS.VALUES.STATE_TEST',
+      DONE:    'USERS.VALUES.STATE_DONE',
+    };
+    return keys[state] ?? state;
   }
 
-  etiquetaAprobacion(status: string): string {
-    switch (status) {
-      case 'APPROVED':
-        return 'Aprobado';
-      case 'REJECTED':
-        return 'Rechazado';
-      case 'PENDING':
-        return 'Pendiente';
-      default:
-        return status;
-    }
+  aprobacionKey(status: string): string {
+    const keys: Record<string, string> = {
+      APPROVED: 'USERS.VALUES.APPROVAL_APPROVED',
+      REJECTED: 'USERS.VALUES.APPROVAL_REJECTED',
+      PENDING:  'USERS.VALUES.APPROVAL_PENDING',
+    };
+    return keys[status] ?? status;
   }
 
   // Tab Roles
@@ -532,7 +526,7 @@ export class Usuarios {
   }
 
   quitarUsuario(u: CompanyUser) {
-    this.mostrarToast(`Has intentado quitar a ${u.name} ${u.surname}`);
+    this.mostrarToast(this.translate.instant('USERS.TOAST.QUITAR', { nombre: `${u.name} ${u.surname}` }));
   }
 
   // Acciones Tab Invitaciones
@@ -545,7 +539,7 @@ export class Usuarios {
   }
 
   eliminarInvitacion(inv: InviteDTO) {
-    this.mostrarToast(`Has intentado eliminar la invitación de ${inv.email}`);
+    this.mostrarToast(this.translate.instant('USERS.TOAST.ELIMINAR', { email: inv.email }));
   }
 
   // Modal Invitar usuario
@@ -567,7 +561,7 @@ export class Usuarios {
 
   enviarInvitacion() {
     if (!this.nuevoEmail.includes('@')) {
-      this.errorEmail = 'Introduce un email válido.';
+      this.errorEmail = this.translate.instant('USERS.MODAL.EMAIL_ERROR');
       return;
     }
     const nueva: InviteDTO = {
