@@ -38,7 +38,7 @@ import {
     FontAwesomeModule
   ],
   templateUrl: './empresas.html',
-  styleUrl: './empresas.css'
+  styleUrls: ['./empresas.css', './empresas-mobile.css']
 })
 export class EmpresasComponent {
   private empresaService = inject(EmpresaService);
