@@ -201,5 +201,38 @@
       "MESSAGES_BY_AGENT": "MESSAGES BY AGENT",
       "PUBLIC_VS_PRIVATE": "PUBLIC VS PRIVATE"
     }
+  },
+  "COMPANY": {
+    "FORM": {
+      "TITLE": "Company Form",
+      "SUBTITLE": "Manage corporate and contact information",
+      "SECTIONS": {
+        "BASIC": "Basic Information",
+        "CONTACT": "Contact Details",
+        "ADDRESS": "Legal Address"
+      },
+      "FIELDS": {
+        "NAME": "Trade Name",
+        "LEGAL_NAME": "Legal Name",
+        "TAX_ID": "Tax ID / VAT",
+        "SECTOR": "Sector",
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "WEBSITE": "Website",
+        "STREET": "Street & Number",
+        "CITY": "City",
+        "STATE": "State / Province",
+        "ZIP": "Zip Code",
+        "COUNTRY": "Country"
+      },
+      "ERRORS": {
+        "NAME_REQUIRED": "Trade name is required"
+      }
+    }
+  },
+  "COMMON": {
+    "SAVE": "Save",
+    "RESET": "Reset",
+    "CANCEL": "Cancel"
   }
 }

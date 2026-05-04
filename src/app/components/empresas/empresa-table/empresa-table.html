@@ -1,0 +1,56 @@
+<div class="table-wrapper">
+  <table class="premium-table">
+    <thead>
+      <tr>
+        <th>Empresa <i class="fas fa-sort"></i></th>
+        <th>NIF <i class="fas fa-sort"></i></th>
+        <th>Plan <i class="fas fa-sort"></i></th>
+        <th>Factura email <i class="fas fa-sort"></i></th>
+        <th>Pago <i class="fas fa-sort"></i></th>
+        <th>Válido hasta <i class="fas fa-sort"></i></th>
+        <th>Creada <i class="fas fa-sort"></i></th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (empresa of empresas; track empresa.id) {
+        <tr>
+          <td class="company-cell">
+            <div class="company-info">
+              <span class="company-name">{{ empresa.nombre }}</span>
+              <div class="company-meta">
+                <span class="alias">{{ empresa.alias }}</span>
+                <span class="id">ID: {{ empresa.id.substring(0, 8) }}...</span>
+              </div>
+            </div>
+          </td>
+          <td>{{ empresa.nif || '-' }}</td>
+          <td>
+            <span class="badge" [ngClass]="getPlanClass(empresa.plan)">{{ empresa.plan }}</span>
+          </td>
+          <td>
+            <span class="badge-pill" [class.email]="empresa.facturaEmail" [class.no-email]="!empresa.facturaEmail">
+              {{ empresa.facturaEmail ? 'Email' : 'No email' }}
+            </span>
+          </td>
+          <td>
+            <span class="badge" [ngClass]="getPagoClass(empresa.pagoEstado)">{{ empresa.pagoEstado }}</span>
+          </td>
+          <td>{{ empresa.validoHasta ? (empresa.validoHasta | date:'dd/MM/yyyy') : '-' }}</td>
+          <td>{{ empresa.creadoEn | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td class="actions-cell">
+            <button class="btn-text" (click)="view.emit(empresa)" title="Ver detalles">
+              <i class="fas fa-eye"></i> Ver
+            </button>
+            <button class="btn-text" (click)="edit.emit(empresa)" title="Editar">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+            <button class="btn-text delete" (click)="delete.emit(empresa)" title="Eliminar">
+              <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,100 @@
+<div class="empresas-container">
+  <!-- Header / Filters Area -->
+  <div class="main-header">
+    <div class="header-top">
+      <button class="btn-back" (click)="goBack()"><i class="fas fa-arrow-left"></i> ATRÁS</button>
+      <h1>EMPRESAS</h1>
+      <button class="btn-primary-dark" (click)="openNewDrawer()">Nueva empresa</button>
+    </div>
+
+    <div class="filters-bar">
+      <div class="search-wrapper">
+        <i class="fas fa-search search-icon"></i>
+        <input 
+          type="text" 
+          [ngModel]="searchTerm()" 
+          (ngModelChange)="searchTerm.set($event)"
+          placeholder="Buscar empresas..."
+          class="search-input"
+        >
+      </div>
+
+      <div class="select-wrapper">
+        <select [ngModel]="planFilter()" (ngModelChange)="planFilter.set($event)" class="filter-select">
+          <option>Todos los planes</option>
+          <option>BASIC</option>
+          <option>GROWTH</option>
+          <option>PREMIUM</option>
+        </select>
+      </div>
+
+      <div class="record-count">
+        {{ empresaCount() }} empresas
+      </div>
+
+      <button class="btn-clear" (click)="clearFilters()">
+        <i class="fas fa-undo"></i> Limpiar
+      </button>
+
+      <div class="mobile-sort" *ngIf="isMobile()">
+        <span>Ordenar por: Creado el</span>
+        <i class="fas fa-sort-amount-down"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="content-body">
+    <!-- Desktop Table -->
+    <app-empresa-table 
+      *ngIf="!isMobile()"
+      [empresas]="filteredEmpresas()"
+      (view)="openDetails($any($event))"
+      (edit)="openEditDrawer($any($event))"
+      (delete)="openDeleteModal($any($event))"
+    ></app-empresa-table>
+
+    <!-- Mobile Cards -->
+    <div class="mobile-grid" *ngIf="isMobile()">
+      @for (empresa of filteredEmpresas(); track empresa.id) {
+        <app-empresa-card 
+          [empresa]="empresa"
+          (edit)="openEditDrawer(empresa)"
+          (delete)="openDeleteModal(empresa)"
+        ></app-empresa-card>
+      }
+    </div>
+
+    <!-- Empty State / Skeleton (Simulated) -->
+    @if (filteredEmpresas().length === 0) {
+      <div class="empty-state">
+        <i class="fas fa-building-slash"></i>
+        <p>No se encontraron empresas con estos filtros</p>
+      </div>
+    }
+  </div>
+
+  <!-- Side Panels / Modals -->
+  <app-empresa-drawer
+    *ngIf="drawerOpen()"
+    [empresa]="selectedEmpresa()"
+    [isEditing]="isEditing()"
+    (close)="drawerOpen.set(false)"
+    (save)="handleSave($any($event))"
+  ></app-empresa-drawer>
+
+  <app-empresa-details
+    *ngIf="detailsOpen()"
+    [empresa]="selectedEmpresa()!"
+    (close)="detailsOpen.set(false)"
+    (edit)="detailsOpen.set(false); openEditDrawer(selectedEmpresa()!)"
+    (delete)="detailsOpen.set(false); openDeleteModal(selectedEmpresa()!)"
+  ></app-empresa-details>
+
+  <app-empresa-delete-modal
+    *ngIf="deleteModalOpen()"
+    [empresa]="selectedEmpresa()!"
+    (close)="deleteModalOpen.set(false)"
+    (confirm)="handleDelete($any($event))"
+  ></app-empresa-delete-modal>
+</div>
