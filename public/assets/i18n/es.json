@@ -287,5 +287,108 @@
     "CANCEL": "Cancelar",
     "ACTIONS": "Acciones",
     "LOADING": "Cargando"
+  },
+  "USERS": {
+    "TITLE": "USUARIOS",
+    "BTN_BACK": "ATRÁS",
+    "BTN_INVITE": "+ Invitar usuario",
+    "EMPRESA_LABEL": "Empresa",
+    "TABS": {
+      "USUARIOS": "Usuarios",
+      "INVITACIONES": "Invitaciones",
+      "ACTIVIDAD": "Actividad",
+      "ROLES": "Roles"
+    },
+    "FILTERS": {
+      "SEARCH_USERS": "Buscar usuarios por nombre o email...",
+      "SEARCH_INVITES": "Buscar por email...",
+      "ROL": "Rol",
+      "ALL_ROLES": "Todos los roles",
+      "ALL_ROLES_SHORT": "Todos",
+      "ESTADO": "Estado",
+      "ALL_ESTADOS": "Todas",
+      "CLEAR": "Limpiar",
+      "USUARIO": "Usuario"
+    },
+    "TABLE": {
+      "USUARIO": "Usuario",
+      "EXT_ID": "Identificador externo",
+      "AUTH_PROJECT": "Auth Project",
+      "EMPRESAS": "Empresas",
+      "CREADO": "Creado",
+      "ROL_EMPRESA": "Rol en empresa",
+      "ACCIONES": "Acciones",
+      "EMAIL": "Email",
+      "EMPRESA": "Empresa",
+      "ROL": "Rol",
+      "ESTADO": "Estado",
+      "ULTIMO_ENVIO": "Último envío",
+      "REINTENTOS": "Reintentos",
+      "ERROR": "Error",
+      "CREADA": "Creada",
+      "NUM": "#",
+      "TITULO": "Título",
+      "ESTIMACION": "Estimación",
+      "ITERACION": "Iteración",
+      "ACTUALIZADA": "Actualizada",
+      "TAREA": "Tarea",
+      "HORAS_EXTRA": "Horas extra",
+      "APROBADO_EL": "Aprobado el",
+      "ID_ASIGNACION": "ID Asignación",
+      "ACTIVO": "Activo"
+    },
+    "ACTIONS": {
+      "VER": "Ver",
+      "GESTIONAR_ROLES": "Gestionar roles",
+      "QUITAR": "Quitar",
+      "REENVIAR": "Reenviar",
+      "ELIMINAR": "Eliminar",
+      "ASIGNAR_ROL": "Asignar rol",
+      "ENVIAR_INVITACION": "Enviar invitación"
+    },
+    "EMPTY": {
+      "USUARIOS": "No se encontraron usuarios",
+      "INVITACIONES": "No se encontraron invitaciones",
+      "TAREAS": "Sin tareas asignadas",
+      "APROBACIONES": "Sin aprobaciones",
+      "EVENTOS": "Sin eventos recientes",
+      "COMENTARIOS": "Sin comentarios"
+    },
+    "ACTIVIDAD": {
+      "TAREAS": "Tareas asignadas",
+      "APROBACIONES": "Aprobaciones realizadas",
+      "EVENTOS": "Eventos recientes",
+      "COMENTARIOS": "Comentarios"
+    },
+    "ROLES": {
+      "SELECT_USER": "Seleccionar usuario",
+      "ASSIGN_SECTION": "ASIGNAR ROL EN EMPRESA",
+      "SELECT_ROL": "Selecciona rol",
+      "CURRENT_SECTION": "ROLES ACTUALES EN LA EMPRESA",
+      "ROL_LABEL": "Rol"
+    },
+    "MODAL": {
+      "TITULO": "Invitar usuario",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_PLACEHOLDER": "usuario@empresa.com",
+      "EMAIL_ERROR": "Introduce un email válido.",
+      "ROL_LABEL": "Rol"
+    },
+    "VALUES": {
+      "SI": "Sí",
+      "NO": "No",
+      "STATE_BACKLOG": "Backlog",
+      "STATE_TODO": "Por hacer",
+      "STATE_DOING": "En progreso",
+      "STATE_TEST": "En pruebas",
+      "STATE_DONE": "Hecho",
+      "APPROVAL_APPROVED": "Aprobado",
+      "APPROVAL_REJECTED": "Rechazado",
+      "APPROVAL_PENDING": "Pendiente"
+    },
+    "TOAST": {
+      "QUITAR": "Has intentado quitar a {{nombre}}",
+      "ELIMINAR": "Has intentado eliminar la invitación de {{email}}"
+    }
   }
 }
