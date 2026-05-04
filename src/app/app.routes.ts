@@ -32,4 +32,6 @@ export const routes: Routes = [
   { path: 'to-do/:userId/:userName', component: TodoComponent },
   { path: 'to-do/:userId', component: TodoComponent },
   { path: 'to-do/:id/:agentId', component: TodoComponent },
+  { path: 'empresas', component: EmpresasComponent, data: { title: 'Gestión de Empresas' } },
+  { path: 'configuracion', component: Configuracion, data: { title: 'Configuración' } }
 ];

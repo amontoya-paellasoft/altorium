@@ -2,7 +2,7 @@
   <div class="drawer-content" (click)="$event.stopPropagation()">
     <div class="drawer-header">
       <div class="header-titles">
-        <h2>{{ isEditing ? 'Editar empresa' : 'Nueva empresa' }}</h2>
+        <h2>{{ (isEditing ? 'COMPANY.DRAWER.EDIT_TITLE' : 'COMPANY.DRAWER.NEW_TITLE') | translate }}</h2>
         @if (isEditing && empresa) {
           <div class="metadata">
             <span class="uuid">ID: {{ empresa.id }}</span>
@@ -10,7 +10,7 @@
           </div>
         }
       </div>
-      <button class="btn-close" (click)="close.emit()" aria-label="Cerrar">
+      <button class="btn-close" (click)="close.emit()" [attr.aria-label]="'TODO.CLOSE' | translate">
         <i class="fas fa-times"></i>
       </button>
     </div>
@@ -18,18 +18,18 @@
     <form [formGroup]="empresaForm" (ngSubmit)="onSubmit()" class="drawer-form">
       <!-- Nombre -->
       <div class="form-field">
-        <label for="nombre">Nombre de empresa*</label>
+        <label for="nombre">{{ 'COMPANY.DRAWER.NAME_LABEL' | translate }}*</label>
         <div class="input-wrapper">
           <input 
             id="nombre" 
             type="text" 
             formControlName="nombre" 
-            placeholder="Escribe el nombre de la empresa"
+            [placeholder]="'COMPANY.DRAWER.NAME_PLACEHOLDER' | translate"
             [class.invalid]="empresaForm.get('nombre')?.invalid && empresaForm.get('nombre')?.touched"
           >
           <div class="field-info">
             <span class="error-text" *ngIf="empresaForm.get('nombre')?.errors?.['required'] && empresaForm.get('nombre')?.touched">
-              Campo obligatorio
+              {{ 'COMPANY.FORM.ERRORS.NAME_REQUIRED' | translate }}
             </span>
             <span class="char-count">{{ charCountNombre }}/300</span>
           </div>
@@ -38,16 +38,16 @@
 
       <!-- NIF -->
       <div class="form-field">
-        <label for="nif">NIF (opcional)</label>
+        <label for="nif">{{ 'COMPANY.DRAWER.NIF_LABEL' | translate }}</label>
         <div class="input-wrapper">
           <input 
             id="nif" 
             type="text" 
             formControlName="nif" 
-            placeholder="Escribe el NIF"
+            [placeholder]="'COMPANY.DRAWER.NIF_PLACEHOLDER' | translate"
           >
           <div class="field-info">
-            <span class="note" *ngIf="isEditing">Formato de NIF: 9 caracteres</span>
+            <span class="note" *ngIf="isEditing">{{ 'COMPANY.DRAWER.NIF_FORMAT' | translate }}</span>
             <span class="char-count">{{ charCountNif }}/40</span>
           </div>
         </div>
@@ -55,7 +55,7 @@
 
       <!-- Plan -->
       <div class="form-field">
-        <label for="plan">Plan*</label>
+        <label for="plan">{{ 'COMPANY.DRAWER.PLAN_LABEL' | translate }}*</label>
         <select id="plan" formControlName="plan">
           <option value="BASIC">BASIC</option>
           <option value="GROWTH">GROWTH</option>
@@ -70,14 +70,14 @@
             <input type="checkbox" formControlName="facturaEmail">
             <span class="slider round"></span>
           </label>
-          <span class="switch-label">Factura por email</span>
+          <span class="switch-label">{{ 'COMPANY.DRAWER.EMAIL_INVOICE' | translate }}</span>
         </div>
-        <p class="switch-hint">La factura se enviará por correo electrónico.</p>
+        <p class="switch-hint">{{ 'COMPANY.DRAWER.EMAIL_HINT' | translate }}</p>
       </div>
 
       <div class="drawer-actions">
-        <button type="button" class="btn-cancel" (click)="close.emit()">Cancelar</button>
-        <button type="submit" class="btn-save" [disabled]="empresaForm.invalid">Guardar</button>
+        <button type="button" class="btn-cancel" (click)="close.emit()">{{ 'COMMON.CANCEL' | translate }}</button>
+        <button type="submit" class="btn-save" [disabled]="empresaForm.invalid">{{ 'COMMON.SAVE' | translate }}</button>
       </div>
     </form>
   </div>

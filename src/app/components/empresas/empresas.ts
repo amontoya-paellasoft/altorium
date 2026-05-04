@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EmpresaService } from '../../services/empresa.service';
@@ -8,7 +8,20 @@ import { EmpresaTable } from './empresa-table/empresa-table';
 import { EmpresaCard } from './empresa-card/empresa-card';
 import { EmpresaDeleteModal } from './empresa-delete-modal/empresa-delete-modal';
 import { EmpresaDetails } from './empresa-details/empresa-details';
-// import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { 
+  faSearch, 
+  faInbox, 
+  faExclamationTriangle, 
+  faPlus, 
+  faUndo, 
+  faSync, 
+  faArrowLeft,
+  faSearchMinus,
+  faBuilding,
+  faSortAmountDown
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-empresas',
@@ -20,17 +33,33 @@ import { EmpresaDetails } from './empresa-details/empresa-details';
     EmpresaTable,
     EmpresaCard,
     EmpresaDeleteModal,
-    EmpresaDetails
+    EmpresaDetails,
+    TranslateModule,
+    FontAwesomeModule
   ],
   templateUrl: './empresas.html',
-  styleUrl: './empresas.css'
+  styleUrls: ['./empresas.css', './empresas-mobile.css']
 })
 export class EmpresasComponent {
   private empresaService = inject(EmpresaService);
+  
+  @ViewChild(EmpresaTable) table!: EmpresaTable;
+
+  // Icons
+  faSearch = faSearch;
+  faInbox = faInbox;
+  faExclamationTriangle = faExclamationTriangle;
+  faPlus = faPlus;
+  faUndo = faUndo;
+  faSync = faSync;
+  faArrowLeft = faArrowLeft;
+  faSearchMinus = faSearchMinus;
+  faBuilding = faBuilding;
+  faSortAmountDown = faSortAmountDown;
 
   // Search and Filter State
   searchTerm = signal('');
-  planFilter = signal('Todos los planes');
+  planFilter = signal('');
   
   // View State
   isMobile = signal(window.innerWidth < 768);
@@ -42,9 +71,15 @@ export class EmpresasComponent {
   selectedEmpresa = signal<Empresa | null>(null);
   isEditing = signal(false);
 
+  // Service exposure
+  isLoading = this.empresaService.loading;
+  error = this.empresaService.error;
+
   // Computed data
+  allEmpresas = this.empresaService.empresas;
+  
   filteredEmpresas = computed(() => {
-    let list = this.empresaService.empresas();
+    let list = this.allEmpresas();
     
     if (this.searchTerm()) {
       const term = this.searchTerm().toLowerCase();
@@ -55,18 +90,37 @@ export class EmpresasComponent {
       );
     }
     
-    if (this.planFilter() !== 'Todos los planes') {
+    if (this.planFilter()) {
       list = list.filter(e => e.plan === this.planFilter());
     }
     
     return list;
   });
 
+  isEmpty = computed(() => !this.isLoading() && !this.error() && this.allEmpresas().length === 0);
+  isFilteredEmpty = computed(() => !this.isLoading() && !this.error() && !this.isEmpty() && this.filteredEmpresas().length === 0);
+
   empresaCount = computed(() => this.filteredEmpresas().length);
+
+  constructor() {
+    window.addEventListener('resize', () => {
+      this.isMobile.set(window.innerWidth < 768);
+    });
+  }
+
+  retryLoad() {
+    // Simulated retry logic if there was a real API
+    console.log('Retrying to load companies...');
+    // For now just clear error to simulate fix
+    this.empresaService.error.set(null);
+  }
 
   clearFilters() {
     this.searchTerm.set('');
-    this.planFilter.set('Todos los planes');
+    this.planFilter.set('');
+    if (this.table) {
+        this.table.resetSort();
+    }
   }
 
   goBack() {

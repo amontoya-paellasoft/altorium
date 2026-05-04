@@ -18,7 +18,6 @@ import { TarjetasToDo } from '../tarjetas-to-do/tarjetas-to-do';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterLink,
     TranslateModule,
     DragDropModule,
     Busqueda,

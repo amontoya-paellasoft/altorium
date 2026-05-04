@@ -213,3 +213,39 @@
 .sidebar.colapsado .proyecto-chevron {
   display: none;
 }
+
+/* Footer */
+.sidebar-footer {
+  margin-top: auto;
+  padding: 1rem;
+  border-top: 1px solid #1a2e3d;
+}
+
+.lang-selector {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.lang-btn {
+  background: #1a2e3d;
+  color: #94a3b8;
+  border: 1px solid #2d455c;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.lang-btn.active {
+  background: #d4af37;
+  color: #0f172a;
+  border-color: #d4af37;
+}
+
+.lang-btn:hover {
+  border-color: #d4af37;
+  color: #ffffff;
+}

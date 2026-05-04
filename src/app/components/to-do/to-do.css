@@ -104,10 +104,10 @@
 }
 
 .column-container {
-  /* Calculamos el ancho para que quepan las 6 columnas exactamente en el viewport */
-  /* (100vw - padding total - gaps totales) / 6 */
-  flex: 0 0 calc((100vw - 7.5rem) / 6); 
-  min-width: calc((100vw - 7.5rem) / 6);
+  /* Flex 1 allows columns to shrink/expand to fit container when space allows */
+  flex: 1; 
+  /* Minimum width before it forces scroll */
+  min-width: 150px; 
   background: #ffffff;
   border: 1px solid #cbd5e1;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);

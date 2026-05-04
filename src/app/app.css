@@ -8,7 +8,7 @@
 
 .main-area {
   flex: 1;
-  min-width: 0;
+  min-width: 0; /* Crucial for preventing flex children from overflowing */
   display: flex;
   flex-direction: column;
   overflow: hidden;

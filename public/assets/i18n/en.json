@@ -57,7 +57,8 @@
       "ADD": "Add Task",
       "VIEW": "View",
       "ALL": "All",
-      "VIEW_INFO": "View Info"
+      "VIEW_INFO": "View Info",
+      "RETRY": "Retry"
     },
     "DETAIL_PANEL": {
       "ORIGIN_LABEL": "REQUIREMENT ORIGIN:",
@@ -203,6 +204,52 @@
     }
   },
   "COMPANY": {
+    "LIST": {
+      "PAYMENT": "Payment",
+      "VALID_UNTIL": "Valid until",
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "ALL_PLANS": "All plans",
+      "SORT_BY_CREATED": "Sort by: Created at",
+      "NO_COMPANIES": "No companies",
+      "NO_COMPANIES_DESC": "There are no companies created in the system yet.",
+      "NO_RESULTS": "No results",
+      "NO_RESULTS_DESC": "No results were found for the applied filters."
+    },
+    "DRAWER": {
+      "NEW_TITLE": "New company",
+      "EDIT_TITLE": "Edit company",
+      "NAME_LABEL": "Company name",
+      "NAME_PLACEHOLDER": "Type the company name",
+      "NIF_LABEL": "Tax ID (optional)",
+      "NIF_PLACEHOLDER": "Type the Tax ID",
+      "NIF_FORMAT": "Tax ID format: 9 characters",
+      "PLAN_LABEL": "Plan",
+      "EMAIL_INVOICE": "Invoice by email",
+      "EMAIL_HINT": "The invoice will be sent by email."
+    },
+    "DETAILS": {
+      "FOUNDER": "Founder (User ID)",
+      "BILLING": "Billing",
+      "PAYMENT_PENDING": "Payment pending",
+      "PENDING_DATE": "Pending date",
+      "FILES": "Files",
+      "UPLOAD": "Upload file",
+      "VISIBILITY": "Visibility",
+      "PRIVATE": "Private",
+      "PUBLIC": "Public",
+      "UP_TO_DATE": "Up to date",
+      "PENDING": "Pending",
+      "EMAIL": "Email",
+      "NO_EMAIL": "No email"
+    },
+    "DELETE": {
+      "TITLE": "Delete company",
+      "WARNING": "The company and all its associated projects will be logically deleted.",
+      "CONFIRM_LABEL": "Type the company alias to confirm",
+      "INSTRUCTION": "Type '{{alias}}' to continue",
+      "PLACEHOLDER": "Type the alias"
+    },
     "FORM": {
       "TITLE": "Company Form",
       "SUBTITLE": "Manage corporate and contact information",
@@ -236,108 +283,5 @@
     "CANCEL": "Cancel",
     "ACTIONS": "Actions",
     "LOADING": "Loading"
-  },
-  "USERS": {
-    "TITLE": "USERS",
-    "BTN_BACK": "BACK",
-    "BTN_INVITE": "+ Invite user",
-    "EMPRESA_LABEL": "Company",
-    "TABS": {
-      "USUARIOS": "Users",
-      "INVITACIONES": "Invitations",
-      "ACTIVIDAD": "Activity",
-      "ROLES": "Roles"
-    },
-    "FILTERS": {
-      "SEARCH_USERS": "Search users by name or email...",
-      "SEARCH_INVITES": "Search by email...",
-      "ROL": "Role",
-      "ALL_ROLES": "All roles",
-      "ALL_ROLES_SHORT": "All",
-      "ESTADO": "Status",
-      "ALL_ESTADOS": "All",
-      "CLEAR": "Clear",
-      "USUARIO": "User"
-    },
-    "TABLE": {
-      "USUARIO": "User",
-      "EXT_ID": "External identifier",
-      "AUTH_PROJECT": "Auth Project",
-      "EMPRESAS": "Companies",
-      "CREADO": "Created",
-      "ROL_EMPRESA": "Role in company",
-      "ACCIONES": "Actions",
-      "EMAIL": "Email",
-      "EMPRESA": "Company",
-      "ROL": "Role",
-      "ESTADO": "Status",
-      "ULTIMO_ENVIO": "Last sent",
-      "REINTENTOS": "Retries",
-      "ERROR": "Error",
-      "CREADA": "Created",
-      "NUM": "#",
-      "TITULO": "Title",
-      "ESTIMACION": "Estimate",
-      "ITERACION": "Iteration",
-      "ACTUALIZADA": "Updated",
-      "TAREA": "Task",
-      "HORAS_EXTRA": "Extra hours",
-      "APROBADO_EL": "Approved at",
-      "ID_ASIGNACION": "Assignment ID",
-      "ACTIVO": "Active"
-    },
-    "ACTIONS": {
-      "VER": "View",
-      "GESTIONAR_ROLES": "Manage roles",
-      "QUITAR": "Remove",
-      "REENVIAR": "Resend",
-      "ELIMINAR": "Delete",
-      "ASIGNAR_ROL": "Assign role",
-      "ENVIAR_INVITACION": "Send invitation"
-    },
-    "EMPTY": {
-      "USUARIOS": "No users found",
-      "INVITACIONES": "No invitations found",
-      "TAREAS": "No assigned tasks",
-      "APROBACIONES": "No approvals",
-      "EVENTOS": "No recent events",
-      "COMENTARIOS": "No comments"
-    },
-    "ACTIVIDAD": {
-      "TAREAS": "Assigned tasks",
-      "APROBACIONES": "Completed approvals",
-      "EVENTOS": "Recent events",
-      "COMENTARIOS": "Comments"
-    },
-    "ROLES": {
-      "SELECT_USER": "Select user",
-      "ASSIGN_SECTION": "ASSIGN ROLE IN COMPANY",
-      "SELECT_ROL": "Select role",
-      "CURRENT_SECTION": "CURRENT ROLES IN COMPANY",
-      "ROL_LABEL": "Role"
-    },
-    "MODAL": {
-      "TITULO": "Invite user",
-      "EMAIL_LABEL": "Email",
-      "EMAIL_PLACEHOLDER": "user@company.com",
-      "EMAIL_ERROR": "Please enter a valid email.",
-      "ROL_LABEL": "Role"
-    },
-    "VALUES": {
-      "SI": "Yes",
-      "NO": "No",
-      "STATE_BACKLOG": "Backlog",
-      "STATE_TODO": "To do",
-      "STATE_DOING": "In progress",
-      "STATE_TEST": "In testing",
-      "STATE_DONE": "Done",
-      "APPROVAL_APPROVED": "Approved",
-      "APPROVAL_REJECTED": "Rejected",
-      "APPROVAL_PENDING": "Pending"
-    },
-    "TOAST": {
-      "QUITAR": "You tried to remove {{nombre}}",
-      "ELIMINAR": "You tried to delete the invitation for {{email}}"
-    }
   }
 }
