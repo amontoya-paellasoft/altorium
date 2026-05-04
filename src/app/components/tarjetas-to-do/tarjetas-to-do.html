@@ -57,7 +57,6 @@
     <!-- Bloque 2: Contenido -->
     <div class="block-context">
       <div class="task-title-bold">{{ taskItem.texto || taskItem.title }}</div>
-      <div class="task-description-soft">{{ taskItem.functionalSummary }}</div>
     </div>
 
     <!-- Bloque 3: Asignado (Nombre destacado) -->
@@ -71,10 +70,10 @@
     <!-- Bloque 4: Estimación y Aprobación (Más grandes) -->
     <div class="block-footer-large">
       <div class="action-boxes-large">
-        <div class="action-box est-box-large">
+        <div class="action-box-large est-box-large">
           <span class="box-label">Est:</span> {{ taskItem.estimatedMinutes }}m / €{{ taskItem.estimatedPrice }}
         </div>
-        <div class="action-box aprob-box-large">
+        <div class="action-box-large aprob-box-large">
           <span class="box-label">{{ 'TODO.CARD.APROB_LABEL' | translate }}</span> {{ getApprovalLabel(taskItem.approvalStatus) }}
         </div>
       </div>
@@ -84,9 +83,9 @@
     <div class="block-metadata-large">
       <div class="context-tags-top">
         <span class="tag-context tag-blue-large">Origen: {{ taskItem.originType }}</span>
-        <span class="tag-context tag-green-large">{{ ('TODO.CARD.VALIDATION_MODES.' + taskItem.validationMode) | translate }}</span>
       </div>
       <div class="context-tags-bottom">
+        <span class="tag-context tag-green-large">{{ ('TODO.CARD.VALIDATION_MODES.' + taskItem.validationMode) | translate }}</span>
         <span class="tag-context tag-gray-large">{{ 'TODO.CARD.ITERATION_PREFIX' | translate }} {{ taskItem.currentIteration }}</span>
       </div>
     </div>

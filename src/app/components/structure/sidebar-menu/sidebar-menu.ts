@@ -1,6 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule, UpperCasePipe } from '@angular/common';
 import { WorkspaceService } from '../../../services/workspace-service';
+import { TranslateService } from '@ngx-translate/core';
 
 interface NavItem {
   label: string;
@@ -19,16 +21,20 @@ interface Proyecto {
 @Component({
   selector: 'app-sidebar-menu',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './sidebar-menu.html',
   styleUrl: './sidebar-menu.css',
 })
 export class SidebarMenu {
   ws = inject(WorkspaceService);
+  private translate = inject(TranslateService);
+
+  idiomaActual = localStorage.getItem('idioma_preferido') || 'es';
 
   navItems: NavItem[] = [
     { label: 'Mapa de Agentes', icon: '◈', ruta: '/',             exact: true  },
     { label: 'Tablero',         icon: '⊞', ruta: '/to-do',        exact: false },
+    { label: 'Empresas',        icon: '🏢', ruta: '/empresas',     exact: false },
     { label: 'Configuración',   icon: '⚙', ruta: '/configuracion', exact: false },
   ];
 
@@ -41,5 +47,11 @@ export class SidebarMenu {
     this.proyectos.update(ps =>
       ps.map(p => p.id === id ? { ...p, expandido: !p.expandido } : p)
     );
+  }
+
+  selectLanguage(lang: string): void {
+    this.translate.use(lang);
+    localStorage.setItem('idioma_preferido', lang);
+    this.idiomaActual = lang;
   }
 }

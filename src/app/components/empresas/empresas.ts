@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EmpresaService } from '../../services/empresa.service';
@@ -8,7 +8,7 @@ import { EmpresaTable } from './empresa-table/empresa-table';
 import { EmpresaCard } from './empresa-card/empresa-card';
 import { EmpresaDeleteModal } from './empresa-delete-modal/empresa-delete-modal';
 import { EmpresaDetails } from './empresa-details/empresa-details';
-// import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-empresas',
@@ -20,17 +20,20 @@ import { EmpresaDetails } from './empresa-details/empresa-details';
     EmpresaTable,
     EmpresaCard,
     EmpresaDeleteModal,
-    EmpresaDetails
+    EmpresaDetails,
+    TranslateModule
   ],
   templateUrl: './empresas.html',
   styleUrl: './empresas.css'
 })
 export class EmpresasComponent {
   private empresaService = inject(EmpresaService);
+  
+  @ViewChild(EmpresaTable) table!: EmpresaTable;
 
   // Search and Filter State
   searchTerm = signal('');
-  planFilter = signal('Todos los planes');
+  planFilter = signal('');
   
   // View State
   isMobile = signal(window.innerWidth < 768);
@@ -55,7 +58,7 @@ export class EmpresasComponent {
       );
     }
     
-    if (this.planFilter() !== 'Todos los planes') {
+    if (this.planFilter()) {
       list = list.filter(e => e.plan === this.planFilter());
     }
     
@@ -64,9 +67,18 @@ export class EmpresasComponent {
 
   empresaCount = computed(() => this.filteredEmpresas().length);
 
+  constructor() {
+    window.addEventListener('resize', () => {
+      this.isMobile.set(window.innerWidth < 768);
+    });
+  }
+
   clearFilters() {
     this.searchTerm.set('');
-    this.planFilter.set('Todos los planes');
+    this.planFilter.set('');
+    if (this.table) {
+        this.table.resetSort();
+    }
   }
 
   goBack() {

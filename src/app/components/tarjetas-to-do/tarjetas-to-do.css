@@ -396,6 +396,10 @@
   border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .assignee-area-large {
@@ -424,17 +428,33 @@
 
 .action-boxes-large {
   display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 
-.est-box-large, .aprob-box-large {
-  flex: 1;
-  padding: 8px;
+.action-box-large {
+  width: 100%;
+  padding: 6px;
   border: 1px dashed #cbd5e1;
   border-radius: 4px;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.est-box-large {
+    border-color: #10b981;
+    color: #047857;
+    background: #ecfdf5;
+}
+
+.aprob-box-large {
+    border-color: #f97316;
+    color: #c2410c;
+    background: #fff7ed;
 }
 
 .block-metadata-large {
@@ -759,31 +779,32 @@
   flex-direction: column;
   gap: 10px;
 }
-
 .action-boxes {
   display: flex;
   gap: 6px;
   width: 100%;
+  flex-wrap: wrap; /* Permitir que las cajas se ajusten en varias líneas */
 }
 
 .action-box {
-  flex: 1; /* Reparten el espacio equitativamente */
-  min-width: 0; /* Permite que la caja se encoja si es necesario */
+  flex: 1 1 auto; /* Permitir que se ajusten mejor */
+  min-width: 80px; /* Asegurar que no sean minúsculas */
   border: 1px dashed;
   border-radius: 4px;
-  padding: 4px; /* Padding equilibrado */
+  padding: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 3px;
-  font-size: 9px; /* Reducimos un punto para asegurar que quepa en 180px */
+  font-size: 9px;
   white-space: nowrap;
 }
 
-.box-label {
-  font-weight: 800;
+.context-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap; /* Permitir que los tags se ajusten */
 }
-
 .est-box {
   border-color: #10b981;
   color: #047857;

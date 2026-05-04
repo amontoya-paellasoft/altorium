@@ -2,12 +2,14 @@
     background: #fff;
     border-radius: 12px;
     border: 1px solid #e2e8f0;
-    overflow: hidden;
+    overflow-x: auto;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
 .premium-table {
     width: 100%;
+    min-width: 1000px; /* Ensure table has enough space for columns */
     border-collapse: collapse;
     font-size: 0.85rem;
 }
@@ -22,10 +24,21 @@
     white-space: nowrap;
 }
 
+.sortable-header {
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+}
+
+.sortable-header:hover {
+    background: #edf2f7;
+}
+
 .premium-table th i {
-    font-size: 0.75rem;
-    margin-left: 0.25rem;
-    color: #cbd5e0;
+    font-size: 0.85rem;
+    margin-left: 0.5rem;
+    color: #334155 !important;
+    opacity: 1;
 }
 
 .premium-table td {
@@ -43,6 +56,10 @@
     font-weight: 700;
     color: #0f172a;
     margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
 }
 
 .company-meta {
@@ -58,6 +75,10 @@
     background: #eef2ff;
     padding: 0.1rem 0.3rem;
     border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
 }
 
 .id {

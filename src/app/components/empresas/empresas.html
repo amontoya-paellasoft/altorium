@@ -2,9 +2,9 @@
   <!-- Header / Filters Area -->
   <div class="main-header">
     <div class="header-top">
-      <button class="btn-back" (click)="goBack()"><i class="fas fa-arrow-left"></i> ATRÁS</button>
-      <h1>EMPRESAS</h1>
-      <button class="btn-primary-dark" (click)="openNewDrawer()">Nueva empresa</button>
+      <button class="btn-back" (click)="goBack()"><i class="fas fa-arrow-left"></i> {{ 'COMMON.CANCEL' | translate | uppercase }}</button>
+      <h1>{{ 'TASK_DETAIL.META.COMPANY' | translate | uppercase }}S</h1>
+      <button class="btn-primary-dark" (click)="openNewDrawer()">+ {{ 'TASK_DETAIL.META.COMPANY' | translate }}</button>
     </div>
 
     <div class="filters-bar">
@@ -14,30 +14,30 @@
           type="text" 
           [ngModel]="searchTerm()" 
           (ngModelChange)="searchTerm.set($event)"
-          placeholder="Buscar empresas..."
+          [placeholder]="'TODO.PLACEHOLDERS.SEARCH' | translate"
           class="search-input"
         >
       </div>
 
       <div class="select-wrapper">
         <select [ngModel]="planFilter()" (ngModelChange)="planFilter.set($event)" class="filter-select">
-          <option>Todos los planes</option>
-          <option>BASIC</option>
-          <option>GROWTH</option>
-          <option>PREMIUM</option>
+          <option value="">{{ 'COMPANY.LIST.ALL_PLANS' | translate }}</option>
+          <option value="BASIC">BASIC</option>
+          <option value="GROWTH">GROWTH</option>
+          <option value="PREMIUM">PREMIUM</option>
         </select>
       </div>
 
       <div class="record-count">
-        {{ empresaCount() }} empresas
+        {{ empresaCount() }} {{ 'TASK_DETAIL.META.COMPANY' | translate | lowercase }}s
       </div>
 
       <button class="btn-clear" (click)="clearFilters()">
-        <i class="fas fa-undo"></i> Limpiar
+        <i class="fas fa-undo"></i> {{ 'COMMON.RESET' | translate }}
       </button>
 
       <div class="mobile-sort" *ngIf="isMobile()">
-        <span>Ordenar por: Creado el</span>
+        <span>{{ 'COMPANY.LIST.SORT_BY_CREATED' | translate }}</span>
         <i class="fas fa-sort-amount-down"></i>
       </div>
     </div>
@@ -59,6 +59,7 @@
       @for (empresa of filteredEmpresas(); track empresa.id) {
         <app-empresa-card 
           [empresa]="empresa"
+          (view)="openDetails(empresa)"
           (edit)="openEditDrawer(empresa)"
           (delete)="openDeleteModal(empresa)"
         ></app-empresa-card>

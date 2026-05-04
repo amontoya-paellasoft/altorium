@@ -1,6 +1,6 @@
 <div class="modal-overlay" (click)="close.emit()">
   <div class="modal-content" (click)="$event.stopPropagation()">
-    <button class="btn-close-top" (click)="close.emit()" aria-label="Cerrar">
+    <button class="btn-close-top" (click)="close.emit()" [attr.aria-label]="'TODO.CLOSE' | translate">
       <i class="fas fa-times"></i>
     </button>
 
@@ -11,29 +11,31 @@
         </div>
       </div>
 
-      <h2>Eliminar empresa</h2>
-      <p class="warning-text">Se borrará lógicamente la empresa y todos sus proyectos asociados.</p>
+      <h2>{{ 'COMPANY.DELETE.TITLE' | translate }}</h2>
+      <p class="warning-text">{{ 'COMPANY.DELETE.WARNING' | translate }}</p>
 
       <div class="confirm-section">
-        <label>Escribe el alias de la empresa para confirmar</label>
-        <p class="instruction">Escribe '<strong>{{ empresa.alias }}</strong>' para continuar</p>
+        <label>{{ 'COMPANY.DELETE.CONFIRM_LABEL' | translate }}</label>
+        <p class="instruction">
+          {{ 'COMPANY.DELETE.INSTRUCTION' | translate:{ alias: empresa.alias } }}
+        </p>
         <input 
           type="text" 
           [(ngModel)]="confirmInput" 
-          placeholder="Escribe el alias"
+          [placeholder]="'COMPANY.DELETE.PLACEHOLDER' | translate"
           class="confirm-input"
         >
       </div>
     </div>
 
     <div class="modal-actions">
-      <button class="btn-cancel" (click)="close.emit()">Cancelar</button>
+      <button class="btn-cancel" (click)="close.emit()">{{ 'COMMON.CANCEL' | translate }}</button>
       <button 
         class="btn-delete" 
         [disabled]="!isConfirmed"
         (click)="onConfirm()"
       >
-        Eliminar empresa
+        {{ 'COMPANY.DELETE.TITLE' | translate }}
       </button>
     </div>
   </div>
