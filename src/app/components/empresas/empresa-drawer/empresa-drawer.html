@@ -1,0 +1,84 @@
+<div class="drawer-overlay" (click)="close.emit()">
+  <div class="drawer-content" (click)="$event.stopPropagation()">
+    <div class="drawer-header">
+      <div class="header-titles">
+        <h2>{{ isEditing ? 'Editar empresa' : 'Nueva empresa' }}</h2>
+        @if (isEditing && empresa) {
+          <div class="metadata">
+            <span class="uuid">ID: {{ empresa.id }}</span>
+            <span class="alias-tag">Alias: {{ empresa.alias }}</span>
+          </div>
+        }
+      </div>
+      <button class="btn-close" (click)="close.emit()" aria-label="Cerrar">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <form [formGroup]="empresaForm" (ngSubmit)="onSubmit()" class="drawer-form">
+      <!-- Nombre -->
+      <div class="form-field">
+        <label for="nombre">Nombre de empresa*</label>
+        <div class="input-wrapper">
+          <input 
+            id="nombre" 
+            type="text" 
+            formControlName="nombre" 
+            placeholder="Escribe el nombre de la empresa"
+            [class.invalid]="empresaForm.get('nombre')?.invalid && empresaForm.get('nombre')?.touched"
+          >
+          <div class="field-info">
+            <span class="error-text" *ngIf="empresaForm.get('nombre')?.errors?.['required'] && empresaForm.get('nombre')?.touched">
+              Campo obligatorio
+            </span>
+            <span class="char-count">{{ charCountNombre }}/300</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- NIF -->
+      <div class="form-field">
+        <label for="nif">NIF (opcional)</label>
+        <div class="input-wrapper">
+          <input 
+            id="nif" 
+            type="text" 
+            formControlName="nif" 
+            placeholder="Escribe el NIF"
+          >
+          <div class="field-info">
+            <span class="note" *ngIf="isEditing">Formato de NIF: 9 caracteres</span>
+            <span class="char-count">{{ charCountNif }}/40</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan -->
+      <div class="form-field">
+        <label for="plan">Plan*</label>
+        <select id="plan" formControlName="plan">
+          <option value="BASIC">BASIC</option>
+          <option value="GROWTH">GROWTH</option>
+          <option value="PREMIUM">PREMIUM</option>
+        </select>
+      </div>
+
+      <!-- Factura por email -->
+      <div class="form-field switch-field">
+        <div class="switch-row">
+          <label class="switch">
+            <input type="checkbox" formControlName="facturaEmail">
+            <span class="slider round"></span>
+          </label>
+          <span class="switch-label">Factura por email</span>
+        </div>
+        <p class="switch-hint">La factura se enviará por correo electrónico.</p>
+      </div>
+
+      <div class="drawer-actions">
+        <button type="button" class="btn-cancel" (click)="close.emit()">Cancelar</button>
+        <button type="submit" class="btn-save" [disabled]="empresaForm.invalid">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,13 +1,16 @@
 import { Routes } from '@angular/router';
 import { AgentMap } from './components/agent-map/agent-map';
 import { TodoComponent } from './components/to-do/to-do';
-import { Configuracion } from './components/configuracion/configuracion';
+import { EmpresasComponent } from './components/empresas/empresas';
+
 
 export const routes: Routes = [
-  { path: '', component: AgentMap, data: { title: 'Inicio' } },
-  { path: 'to-do', component: TodoComponent, data: { title: 'Tablero' } },
-  { path: 'to-do/:userId/:userName', component: TodoComponent, data: { title: 'Tablero' } },
-  { path: 'to-do/:userId', component: TodoComponent, data: { title: 'Tablero' } },
-  { path: 'to-do/:id/:agentId', component: TodoComponent, data: { title: 'Tablero' } },
-  { path: 'configuracion', component: Configuracion, data: { title: 'Configuración' } },
+  { path: '', component: AgentMap },
+  { path: 'to-do', component: TodoComponent },
+  { path: 'to-do/:userId/:userName', component: TodoComponent },
+  { path: 'to-do/:userId', component: TodoComponent },
+  { path: 'to-do/:id/:agentId', component: TodoComponent },
+  { path: 'empresas', component: EmpresasComponent },
+  { path: 'configuracion', component: Configuracion, data: { title: 'Configuración' } }
 ];
+

@@ -205,5 +205,38 @@
       "MESSAGES_BY_AGENT": "MENSAJES POR AGENTE",
       "PUBLIC_VS_PRIVATE": "PÚBLICO VS PRIVADO"
     }
+  },
+  "COMPANY": {
+    "FORM": {
+      "TITLE": "Formulario de Compañía",
+      "SUBTITLE": "Gestione la información corporativa y de contacto",
+      "SECTIONS": {
+        "BASIC": "Información Básica",
+        "CONTACT": "Datos de Contacto",
+        "ADDRESS": "Dirección Fiscal"
+      },
+      "FIELDS": {
+        "NAME": "Nombre Comercial",
+        "LEGAL_NAME": "Razón Social",
+        "TAX_ID": "CIF / NIF",
+        "SECTOR": "Sector de Actividad",
+        "EMAIL": "Correo Electrónico",
+        "PHONE": "Teléfono",
+        "WEBSITE": "Sitio Web",
+        "STREET": "Calle y Número",
+        "CITY": "Ciudad",
+        "STATE": "Provincia / Estado",
+        "ZIP": "Código Postal",
+        "COUNTRY": "País"
+      },
+      "ERRORS": {
+        "NAME_REQUIRED": "El nombre comercial es obligatorio"
+      }
+    }
+  },
+  "COMMON": {
+    "SAVE": "Guardar",
+    "RESET": "Restablecer",
+    "CANCEL": "Cancelar"
   }
 }

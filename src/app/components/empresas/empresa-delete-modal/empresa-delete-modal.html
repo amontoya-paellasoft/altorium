@@ -1,0 +1,40 @@
+<div class="modal-overlay" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="btn-close-top" (click)="close.emit()" aria-label="Cerrar">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <div class="modal-body">
+      <div class="alert-icon">
+        <div class="icon-circle">
+          <i class="fas fa-trash-alt"></i>
+        </div>
+      </div>
+
+      <h2>Eliminar empresa</h2>
+      <p class="warning-text">Se borrará lógicamente la empresa y todos sus proyectos asociados.</p>
+
+      <div class="confirm-section">
+        <label>Escribe el alias de la empresa para confirmar</label>
+        <p class="instruction">Escribe '<strong>{{ empresa.alias }}</strong>' para continuar</p>
+        <input 
+          type="text" 
+          [(ngModel)]="confirmInput" 
+          placeholder="Escribe el alias"
+          class="confirm-input"
+        >
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="close.emit()">Cancelar</button>
+      <button 
+        class="btn-delete" 
+        [disabled]="!isConfirmed"
+        (click)="onConfirm()"
+      >
+        Eliminar empresa
+      </button>
+    </div>
+  </div>
+</div>
