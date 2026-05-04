@@ -8,9 +8,8 @@ import { ToDoTask, MiseEnPlaceItem, Column } from '../../models/to-do-interface'
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { Busqueda } from '../busqueda/busqueda';
-
-import { TarjetasToDo } from '../tarjetas-to-do/tarjetas-to-do';
 import { TaskDetail } from '../task-detail/task-detail';
+import { TarjetasToDo } from '../tarjetas-to-do/tarjetas-to-do';
 
 @Component({
   selector: 'app-to-do',
