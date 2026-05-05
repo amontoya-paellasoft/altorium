@@ -1,6 +1,6 @@
 <div class="proyectos-container">
   <!-- Header / Filters Area -->
-  <div class="main-header">
+  <header class="main-header">
     <div class="header-top">
       <button class="btn-back" (click)="goBack()">
         <fa-icon [icon]="faArrowLeft"></fa-icon> {{ 'USERS.BTN_BACK' | translate }}
@@ -25,116 +25,24 @@
           class="search-input"
         >
       </div>
-
+      <!-- Filtros -->
       <div class="select-group">
         <label>{{ 'PROYECTOS.FILTERS.COMPANY' | translate }}</label>
-        <div class="select-wrapper">
-          <select [ngModel]="svc.companyFilter()" (ngModelChange)="svc.companyFilter.set($event)" class="filter-select">
-            <option value="">{{ 'PROYECTOS.FILTERS.ALL_COMPANIES' | translate }}</option>
-            <option value="31">Empresa 31</option>
-          </select>
-        </div>
+        <select [ngModel]="svc.companyFilter()" (ngModelChange)="svc.companyFilter.set($event)" class="filter-select">
+          <option value="">{{ 'PROYECTOS.FILTERS.ALL_COMPANIES' | translate }}</option>
+          <option value="31">Empresa 31</option>
+        </select>
       </div>
-
-      <div class="select-group">
-        <label>{{ 'PROYECTOS.FILTERS.TYPE' | translate }}</label>
-        <div class="select-wrapper">
-          <select [ngModel]="svc.typeFilter()" (ngModelChange)="svc.typeFilter.set($event)" class="filter-select">
-            <option value="">{{ 'PROYECTOS.FILTERS.ALL_TYPES' | translate }}</option>
-            <option value="SPRING_BOOT">SPRING_BOOT</option>
-            <option value="ODOO">ODOO</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="select-group">
-        <label>{{ 'PROYECTOS.FILTERS.STATUS' | translate }}</label>
-        <div class="select-wrapper">
-          <select [ngModel]="svc.statusFilter()" (ngModelChange)="svc.statusFilter.set($event)" class="filter-select">
-            <option value="">{{ 'PROYECTOS.FILTERS.ALL_STATUS' | translate }}</option>
-            <option value="READY">READY</option>
-            <option value="PAUSED">PAUSED</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="select-group">
-        <label>{{ 'PROYECTOS.FILTERS.INACTIVE' | translate }}</label>
-        <div class="toggle-group">
-          <button [class.active]="inactiveFilter() === 'all'" (click)="inactiveFilter.set('all')">{{ 'PROYECTOS.FILTERS.INACTIVE_ALL' | translate }}</button>
-          <button [class.active]="inactiveFilter() === 'active'" (click)="inactiveFilter.set('active')">{{ 'PROYECTOS.FILTERS.INACTIVE_ACTIVE' | translate }}</button>
-          <button [class.active]="inactiveFilter() === 'inactive'" (click)="inactiveFilter.set('inactive')">{{ 'PROYECTOS.FILTERS.INACTIVE_INACTIVE' | translate }}</button>
-        </div>
-      </div>
-
       <button class="btn-clear" (click)="clearFilters()">
         <fa-icon [icon]="faFilter"></fa-icon> {{ 'PROYECTOS.FILTERS.CLEAR' | translate }}
       </button>
-
-      @if (isMobile()) {
-        <div class="mobile-sort">
-          <span>Ordenar por creación</span>
-          <fa-icon [icon]="faSortAmountDown"></fa-icon>
-        </div>
-      }
     </div>
-  </div>
+  </header>
 
   <!-- Content Area -->
   <div class="content-body">
-    <!-- Loading State -->
-    @if (isLoading()) {
-      <div class="loading-state">
-        <div class="spinner"></div>
-        <p>Cargando proyectos...</p>
-      </div>
-    }
-
-    <!-- Error State -->
-    @if (error()) {
-      <div class="empty-state error">
-        <div class="icon-circle">
-          <fa-icon [icon]="faExclamationTriangle"></fa-icon>
-        </div>
-        <h3>No se pudo cargar la lista de proyectos</h3>
-        <p>Intenta nuevamente.</p>
-        <p class="correlation-id">Correlation ID: {{ error() }}</p>
-        <button class="btn-action-call retry" (click)="retryLoad()">
-          REINTENTAR
-        </button>
-      </div>
-    }
-
-    <!-- Empty State (No Data) -->
-    @if (isEmpty()) {
-      <div class="empty-state empty">
-        <div class="icon-circle">
-          <fa-icon [icon]="faFolderOpen"></fa-icon>
-        </div>
-        <h3>No hay proyectos visibles</h3>
-        <p>Crea un nuevo proyecto para comenzar.</p>
-        <button class="btn-action-call create" (click)="openNewDrawer()">
-          <fa-icon [icon]="faPlus"></fa-icon> NUEVO PROYECTO
-        </button>
-      </div>
-    }
-
-    <!-- Empty State (No Results with Filters) -->
-    @if (isFilteredEmpty()) {
-      <div class="empty-state filtered">
-        <div class="icon-circle">
-          <fa-icon [icon]="faFilter"></fa-icon>
-        </div>
-        <h3>No hay proyectos con estos filtros</h3>
-        <p>Intenta ajustar los filtros de búsqueda.</p>
-        <button class="btn-action-call reset" (click)="clearFilters()">
-          LIMPIAR FILTROS
-        </button>
-      </div>
-    }
-
     <!-- Desktop Table -->
-    @if (!isLoading() && !error() && svc.filteredProyectos().length > 0 && !isMobile()) {
+    @if (!isLoading() && !error() && svc.filteredProyectos().length > 0) {
       <app-proyecto-table 
         [proyectos]="svc.filteredProyectos()"
         (view)="openDetails($any($event))"
@@ -142,23 +50,9 @@
         (delete)="openDeleteModal($any($event))"
       ></app-proyecto-table>
     }
-
-    <!-- Mobile Cards -->
-    @if (isMobile() && !isLoading() && !error() && svc.filteredProyectos().length > 0) {
-      <div class="mobile-grid">
-        @for (proyecto of svc.filteredProyectos(); track proyecto.id) {
-          <app-proyecto-card 
-            [proyecto]="proyecto"
-            (view)="openDetails(proyecto)"
-            (edit)="openEditDrawer(proyecto)"
-            (delete)="openDeleteModal(proyecto)"
-          ></app-proyecto-card>
-        }
-      </div>
-    }
   </div>
 
-  <!-- Side Panels / Modals -->
+  <!-- Side Panels -->
   @if (drawerOpen()) {
     <app-proyecto-drawer
       [isEditing]="overlay.isEditing()"

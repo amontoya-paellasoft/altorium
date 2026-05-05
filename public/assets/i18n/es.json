@@ -437,6 +437,12 @@
       "LEGACY": "AJUSTES LEGACY",
       "FILES": "FICHEROS",
       "MATRIX": "MATRIZ DE ACCIONES"
+    },
+    "EMPTY": {
+      "NO_PROJECTS": "No hay proyectos visibles",
+      "CREATE_DESC": "Crea un nuevo proyecto para comenzar.",
+      "NO_FILTER_RESULTS": "No hay proyectos con estos filtros",
+      "FILTER_DESC": "Intenta ajustar los filtros de búsqueda."
     }
   }
 }

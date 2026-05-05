@@ -11,7 +11,6 @@ import { ProyectoDeleteModal } from './proyecto-delete-modal/proyecto-delete-mod
 import { ProyectoDetails } from './proyecto-details/proyecto-details';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSearch, faFolderOpen, faExclamationTriangle, faPlus, faFilter, faArrowLeft, faSortAmountDown } from '@fortawesome/free-solid-svg-icons';
-
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -25,7 +24,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     ProyectoDeleteModal, 
     ProyectoDetails,
     FontAwesomeModule,
-    ProyectoCard,
+    
     TranslateModule
   ],
   templateUrl: './proyectos.html',
@@ -35,7 +34,6 @@ export class ProyectosComponent {
   svc = inject(ProyectoService);
   overlay = inject(ProjectOverlayService);
   translate = inject(TranslateService);
-
   
   @ViewChild(ProyectoTable) table!: ProyectoTable;
 
@@ -56,22 +54,22 @@ export class ProyectosComponent {
   
   selectedProyecto = signal<Proyecto | null>(null);
   
-  // Binding a la señal del servicio
   inactiveFilter = this.svc.inactiveFilter;
-
-  // Service exposure
   isLoading = this.svc.loading;
   error = this.svc.error;
 
   isEmpty = computed(() => !this.isLoading() && !this.error() && this.svc.proyectos().length === 0);
   isFilteredEmpty = computed(() => !this.isLoading() && !this.error() && !this.isEmpty() && this.svc.filteredProyectos().length === 0);
 
+  t(key: string): string {
+    return this.translate.instant(key);
+  }
+
   constructor() {
     window.addEventListener('resize', () => this.isMobile.set(window.innerWidth < 768));
   }
 
   goBack() { window.history.back(); }
-  
   openNewDrawer() { this.overlay.openDrawer(false); }
   openEditDrawer(p: Proyecto) { this.overlay.openDrawer(true, p); }
   openDetails(p: Proyecto) { this.selectedProyecto.set(p); this.detailsOpen.set(true); }
