@@ -41,8 +41,9 @@ export class ProyectosComponent {
   deleteModalOpen = this.overlay.modalDeleteOpen;
   
   selectedProyecto = signal<Proyecto | null>(null);
-  isEditing = signal(false);
-  inactiveFilter = signal<'all' | 'active' | 'inactive'>('all');
+  
+  // Binding a la señal del servicio
+  inactiveFilter = this.svc.inactiveFilter;
 
   // Service exposure
   isLoading = this.svc.loading;
@@ -62,10 +63,26 @@ export class ProyectosComponent {
   openDetails(p: Proyecto) { this.selectedProyecto.set(p); this.detailsOpen.set(true); }
   openDeleteModal(p: Proyecto) { this.selectedProyecto.set(p); this.overlay.openDeleteModal(); }
 
-  handleSave(data: Partial<Proyecto>) { this.drawerOpen.set(false); }
-  handleDelete() { this.overlay.modalDeleteOpen.set(false); }
+  handleSave(data: Partial<Proyecto>) {
+    if (this.overlay.isEditing() && this.overlay.editingProject()) {
+      this.svc.updateProyecto(this.overlay.editingProject()!.id, data);
+    } else {
+      this.svc.createProyecto(data);
+    }
+    this.overlay.drawerOpen.set(false);
+  }
+
+  handleDelete() {
+    if (this.selectedProyecto()) {
+      this.svc.deleteProyecto(this.selectedProyecto()!.id);
+      this.overlay.modalDeleteOpen.set(false);
+    }
+  }
   clearFilters() {
     this.svc.searchTerm.set('');
+    this.svc.companyFilter.set('');
+    this.svc.typeFilter.set('');
+    this.svc.statusFilter.set('');
     this.inactiveFilter.set('all');
   }
   retryLoad() { this.svc.error.set(null); }

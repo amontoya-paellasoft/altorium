@@ -71,11 +71,23 @@
     word-wrap: break-word; /* Permite ver el nombre completo */
 }
 
+.id-text { 
+    display: block; 
+    font-size: 0.75rem; 
+    color: #64748b; 
+    margin-top: 0.2rem; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    max-width: 120px; 
+}
+
 .project-meta {
     display: flex;
     gap: 0.5rem;
     align-items: center;
     font-size: 0.8rem;
+    min-width: 0; /* Necesario para que el truncate funcione en flex */
 }
 
 .alias {
@@ -84,6 +96,17 @@
     border-radius: 4px;
     color: #64748b;
     font-weight: 600;
+    white-space: nowrap;
+}
+
+.project-id-row {
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .id {
@@ -162,11 +185,12 @@
     font-size: 0.75rem;
 }
 
-.actions-cell {
-    display: flex;
-    gap: 0.5rem;
+.actions-cell { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 0.5rem; 
 }
-
 .btn-icon {
     background: transparent;
     border: 1px solid #e2e8f0;
@@ -185,6 +209,10 @@
     background: #f8fafc;
     color: #0f172a;
     border-color: #cbd5e1;
+}
+
+.btn-icon.delete {
+    color: #ef4444;
 }
 
 .btn-icon.delete:hover {

@@ -44,37 +44,75 @@ export class ProyectoService {
   loading = signal(false);
   error = signal<string | null>(null);
 
-  // Filtros reactivos
+  // Filtros y Ordenamiento
   searchTerm = signal('');
   companyFilter = signal('');
   typeFilter = signal('');
   statusFilter = signal('');
-  inactiveOnly = signal(false);
+  inactiveFilter = signal<'all' | 'active' | 'inactive'>('all');
+  sortField = signal<keyof Proyecto | null>('createdAt');
+  sortDirection = signal<'asc' | 'desc'>('desc');
 
   filteredProyectos = computed(() => {
-    let list = this._proyectos();
+    let list = [...this._proyectos()];
 
-    if (this.searchTerm()) {
-      const term = this.searchTerm().toLowerCase();
-      list = list.filter(p => p.domainName.toLowerCase().includes(term));
-    }
-    if (this.companyFilter()) {
-      list = list.filter(p => p.companyId === this.companyFilter());
-    }
-    if (this.typeFilter()) {
-      list = list.filter(p => p.projectType === this.typeFilter());
-    }
-    if (this.statusFilter()) {
-      list = list.filter(p => p.projectStatus === this.statusFilter());
-    }
-    if (this.inactiveOnly()) {
-      list = list.filter(p => p.inactiveFlag);
+    // Filtrado
+    const term = this.searchTerm().toLowerCase();
+    const company = this.companyFilter();
+    const type = this.typeFilter();
+    const status = this.statusFilter();
+    const inactiveMode = this.inactiveFilter();
+
+    list = list.filter(p => {
+      const matchTerm = !term || p.domainName.toLowerCase().includes(term) || (p.alias?.toLowerCase().includes(term) ?? false);
+      const matchCompany = !company || p.companyId === company;
+      const matchType = !type || p.projectType === type;
+      const matchStatus = !status || p.projectStatus === status;
+      let matchInactive = true;
+      if (inactiveMode === 'active') matchInactive = p.inactiveFlag === false;
+      else if (inactiveMode === 'inactive') matchInactive = p.inactiveFlag === true;
+      return matchTerm && matchCompany && matchType && matchStatus && matchInactive;
+    });
+
+    // Ordenamiento
+    const field = this.sortField();
+    if (field) {
+      list.sort((a, b) => {
+        const valA = a[field] ?? '';
+        const valB = b[field] ?? '';
+        const direction = this.sortDirection() === 'asc' ? 1 : -1;
+        return valA > valB ? direction : valA < valB ? -direction : 0;
+      });
     }
     
     return list;
   });
 
-  // Lógica de Estado (Acciones Permitidas)
+  createProyecto(data: Partial<Proyecto>) {
+    const nuevo: Proyecto = {
+      id: crypto.randomUUID(),
+      domainName: data.domainName || 'Nuevo Proyecto',
+      companyId: data.companyId || '',
+      domainUrl: data.domainUrl || '',
+      projectType: data.projectType || 'SPRING_BOOT',
+      projectStatus: 'READY',
+      activeVersionId: 1,
+      inactiveFlag: false,
+      createdAt: new Date().toISOString(),
+      alias: data.alias || 'proyecto-nuevo',
+      repositoryConfig: { provider: 'GITHUB', cloneUrl: '' }
+    };
+    this._proyectos.update(list => [...list, nuevo]);
+  }
+
+  updateProyecto(id: string, data: Partial<Proyecto>) {
+    this._proyectos.update(list => list.map(p => p.id === id ? { ...p, ...data } : p));
+  }
+
+  deleteProyecto(id: string) {
+    this._proyectos.update(list => list.filter(p => p.id !== id));
+  }
+
   canPerformAction(status: ProyectoStatus, action: 'PAUSE' | 'BLOCK' | 'RESUME' | 'ARCHIVE' | 'DELETE'): boolean {
     const matrix: Record<ProyectoStatus, Record<string, boolean>> = {
       CREATED:  { PAUSE: true,  BLOCK: true,  RESUME: false, ARCHIVE: true, DELETE: true },
@@ -88,4 +126,4 @@ export class ProyectoService {
     };
     return matrix[status]?.[action] ?? false;
   }
-}
+  }

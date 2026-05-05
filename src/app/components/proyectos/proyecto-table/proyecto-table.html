@@ -30,15 +30,17 @@
     <tbody>
       @for (p of proyectos; track p.id) {
         <tr>
-          <td class="project-cell">
-            <div class="project-info">
-              <span class="project-name">{{ p.domainName }}</span>
-              <div class="project-meta">
-                <span class="alias" *ngIf="p.alias">{{ p.alias }}</span>
-                <span class="id">ID: {{ p.id }}</span>
-              </div>
-            </div>
-          </td>
+            <td class="col-proyecto">
+                <div class="project-info">
+                  <span class="project-name">{{ p.domainName }}</span>
+                  <div class="project-meta">
+                    <span class="alias" *ngIf="p.alias">{{ p.alias }}</span>
+                  </div>
+                  <div class="project-id-row">
+                    <span class="id">ID: {{ p.id }}</span>
+                  </div>
+                </div>
+              </td>
           <td>Empresa {{ p.companyId }}</td>
           <td>
             <a [href]="p.domainUrl" target="_blank" class="url-link">{{ p.domainUrl }} <fa-icon [icon]="faExternalLinkAlt"></fa-icon></a>
@@ -61,7 +63,7 @@
               <span class="time">{{ p.createdAt | date:'HH:mm:ss' }}</span>
             </div>
           </td>
-          <td class="actions-cell">
+          <td class="col-acciones actions-cell">
             <button class="btn-icon" (click)="view.emit(p)" title="Ver detalle">
               <fa-icon [icon]="faEye"></fa-icon>
             </button>
@@ -69,9 +71,10 @@
               <fa-icon [icon]="faEdit"></fa-icon>
             </button>
             <button class="btn-icon delete" (click)="delete.emit(p)" title="Eliminar">
-              <fa-icon [icon]="faEllipsisH"></fa-icon>
+              <fa-icon [icon]="faTrash"></fa-icon>
             </button>
           </td>
+
         </tr>
       }
     </tbody>

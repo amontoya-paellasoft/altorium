@@ -166,10 +166,10 @@
   <!-- Side Panels / Modals -->
   <app-proyecto-drawer
     *ngIf="drawerOpen()"
-    [data]="selectedProyecto()"
-    [isEditing]="isEditing()"
-    (close)="drawerOpen.set(false)"
-    (save)="handleSave($any($event))"
+    [isEditing]="overlay.isEditing()"
+    [data]="overlay.editingProject()"
+    (close)="overlay.drawerOpen.set(false)"
+    (saveAction)="handleSave($event)"
   ></app-proyecto-drawer>
 
   <app-proyecto-details
@@ -183,7 +183,7 @@
   <app-proyecto-delete-modal
     *ngIf="deleteModalOpen()"
     [proyecto]="selectedProyecto()!"
-    (close)="deleteModalOpen.set(false)"
+    (close)="overlay.modalDeleteOpen.set(false)"
     (confirm)="handleDelete()"
   ></app-proyecto-delete-modal>
 </div>
