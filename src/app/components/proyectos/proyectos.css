@@ -1,0 +1,279 @@
+:host {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    background-color: #fcfcfc;
+}
+
+.proyectos-container {
+    padding: 2rem;
+    flex: 1;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.main-header {
+    margin-bottom: 2rem;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-right: 6rem;
+}
+
+.btn-back {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #ef4444; /* Changed to match image (orange/red) */
+    cursor: pointer;
+}
+
+.header-titles {
+    flex: 1;
+}
+
+.header-titles h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1a202c;
+    margin: 0;
+}
+
+.header-titles p {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin: 0.2rem 0 0 0;
+}
+
+.btn-primary-dark {
+    background: #0f172a;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary-dark:hover {
+    background: #1e293b;
+}
+
+.filters-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-top: 1px solid #f1f5f9;
+}
+
+.search-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 250px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a0aec0;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.6rem 1rem 0.6rem 2.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.select-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.select-group label {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.select-wrapper select {
+    padding: 0.6rem 2rem 0.6rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #fff;
+    min-width: 150px;
+    font-size: 0.9rem;
+    appearance: none;
+}
+
+.toggle-group {
+    display: flex;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.toggle-group button {
+    padding: 0.6rem 1rem;
+    background: #fff;
+    border: none;
+    border-right: 1px solid #e2e8f0;
+    color: #4a5568;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.toggle-group button:last-child {
+    border-right: none;
+}
+
+.toggle-group button.active {
+    background: #0f172a;
+    color: #fff;
+}
+
+.btn-clear {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4a5568;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.btn-clear:hover {
+    background: #f8fafc;
+    border-color: #cbd5e0;
+}
+
+.mobile-sort {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4a5568;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Empty states (same as empresas mostly) */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem;
+    color: #64748b;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    margin-top: 2rem;
+}
+
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    background: #f8fafc;
+    border-radius: 8px; /* Square with rounded corners in design */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.icon-circle fa-icon {
+    font-size: 2.5rem;
+}
+
+.empty-state.error .icon-circle { background: #fef2f2; }
+.empty-state.error fa-icon { color: #ef4444; }
+
+.empty-state.filtered .icon-circle { background: #f8fafc; }
+.empty-state.filtered fa-icon { color: #64748b; }
+
+.empty-state.empty .icon-circle { background: #f8fafc; }
+.empty-state.empty fa-icon { color: #cbd5e1; }
+
+.empty-state h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 0.5rem 0;
+}
+
+.empty-state p {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin: 0 0 1.5rem 0;
+}
+
+.correlation-id {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-bottom: 1.5rem;
+}
+
+.btn-action-call {
+    padding: 0.6rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-action-call.create {
+    background: #0f172a;
+    color: #fff;
+}
+.btn-action-call.reset {
+    background: #0f172a;
+    color: #fff;
+}
+.btn-action-call.retry {
+    background: #0f172a;
+    color: #fff;
+}
+
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f1f5f9;
+    border-top: 4px solid #0f172a;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

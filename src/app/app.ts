@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Header } from './components/structure/header/header';
 import { WorkspaceService } from './services/workspace-service';
 import { SimulationService } from './services/simulation-service';
 import { AgentPanel } from './components/agent-panel/agent-panel';
@@ -14,7 +13,7 @@ import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [Header, SidebarMenu, ConsolaSistema, ControlPanel, AgentPanel, Stats, FloatingLogPanel, RouterOutlet],
+  imports: [SidebarMenu, ConsolaSistema, ControlPanel, AgentPanel, Stats, FloatingLogPanel, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
