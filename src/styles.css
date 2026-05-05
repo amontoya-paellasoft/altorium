@@ -60,23 +60,18 @@ body {
   color: #1a1a18;
 }
 
-@font-face {
-  font-family: 'ModernDos';
-  src: url('/assets/fonts/modern-dos.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'vt323';
-  src: url('/assets/fonts/vt323-regular.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-
+/* Fuente oficial de la web Altorium */
 @font-face {
   font-family: 'geist';
   src: url(/assets/fonts/geist-regular.ttf);
+  font-weight: lighter;
+  font-style: normal;
+}
+
+/* Fuente para el terminal */
+@font-face {
+  font-family: 'handjet';
+  src: url(/assets/fonts/handjet.ttf);
   font-weight: normal;
   font-style: normal;
 }

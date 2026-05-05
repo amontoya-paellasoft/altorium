@@ -8,6 +8,7 @@
 .contenedor {
   width: 100%;
   height: 100%;
+  margin: 0;
   background: #f8fafc;
   position: relative;
   overflow: hidden;
@@ -15,7 +16,7 @@
 
 /* Grid de puntos */
 .contenedor::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background-image: radial-gradient(circle, #94a3b8 0.8px, transparent 0.8px);
@@ -65,7 +66,6 @@
   animation: msgsAllPulse 0.8s linear infinite;
 }
 
-
 .graph-svg {
   width: 100%;
   height: 100%;
@@ -92,28 +92,48 @@
 }
 
 @keyframes fwd {
-  from { stroke-dashoffset: 12; }
-  to   { stroke-dashoffset: 0;  }
+  from {
+    stroke-dashoffset: 12;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes bwd {
-  from { stroke-dashoffset: 0;  }
-  to   { stroke-dashoffset: 12; }
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 12;
+  }
 }
 
 @keyframes msgsAllPulse {
-  from { stroke-dashoffset: 8; }
-  to   { stroke-dashoffset: 0; }
+  from {
+    stroke-dashoffset: 8;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes flowAnim {
-  from { stroke-dashoffset: 12; }
-  to   { stroke-dashoffset: 0; }
+  from {
+    stroke-dashoffset: 12;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes particle {
-  from { stroke-dashoffset: 180; }
-  to   { stroke-dashoffset: -10; }
+  from {
+    stroke-dashoffset: 180;
+  }
+  to {
+    stroke-dashoffset: -10;
+  }
 }
 
 @media (max-width: 1250px) {

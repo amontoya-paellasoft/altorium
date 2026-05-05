@@ -95,23 +95,23 @@
 }
 
 .console-time {
-  color: #01ff00;
+  color: #2a8a2a;
   flex-shrink: 0;
   font-size: 0.7rem;
-  font-family: 'ModernDos', monospace;
+  font-family: monospace;
   letter-spacing: -0.5px;
 }
 
 .console-agent {
   flex-shrink: 0;
-  font-size: 0.8rem;
-  font-family: 'ModernDos', monospace;
+  font-size: 10px;
+  font-family: monospace;
   color: #01ff00;
   margin-left: 0.2rem;
 }
 
 .console-sep {
-  color: #01ff00;
+  color: #2a8a2a;
   flex-shrink: 0;
   font-weight: bold;
   font-size: 1.1rem;
@@ -121,8 +121,8 @@
   color: #01ff00;
   margin-top: 0;
   font-size: 1rem;
-  letter-spacing: 0.02rem;
-  font-family: 'vt323', monospace;
+  letter-spacing: 0.05rem;
+  font-family: 'handjet', monospace;
 }
 
 .console-code {
@@ -130,7 +130,7 @@
   margin-top: 5px;
   padding: 6px 10px;
   background: #050a057c;
-  border-left: 2px solid #1f6b1f;
+  border-left: 2px solid #2a8a2a;
   font-size: 11px;
   color: #01ff00;
   white-space: pre;
@@ -147,9 +147,9 @@
 }
 
 .console-arrow {
-  color: #41ff00;
+  color: #2a8a2a;
   flex-shrink: 0;
-  font-size: 14px;
+  font-size: 9px;
 }
 
 .console-to {

@@ -105,9 +105,9 @@
 
 .column-container {
   /* Flex 1 allows columns to shrink/expand to fit container when space allows */
-  flex: 1; 
+  flex: 1;
   /* Minimum width before it forces scroll */
-  min-width: 150px; 
+  min-width: 150px;
   background: #ffffff;
   border: 1px solid #cbd5e1;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -146,7 +146,7 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .btn-column-collapse:hover {
@@ -158,7 +158,9 @@
 .btn-column-collapse img {
   width: 10px;
   height: 10px;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.3s;
   filter: grayscale(1) opacity(0.6);
 }
 
@@ -189,12 +191,24 @@
   border-radius: 50%;
 }
 
-.bg-backlog { background: #94a3b8; } /* Gris */
-.bg-todo { background: #3b82f6; }     /* Azul */
-.bg-doing { background: #f97316; }    /* Naranja */
-.bg-test { background: #facc15; }     /* Amarillo */
-.bg-done { background: #10b981; }     /* Verde */
-.bg-mise-en-place { background: #475569; } /* Gris técnico */
+.bg-backlog {
+  background: #94a3b8;
+} /* Gris */
+.bg-todo {
+  background: #3b82f6;
+} /* Azul */
+.bg-doing {
+  background: #f97316;
+} /* Naranja */
+.bg-test {
+  background: #facc15;
+} /* Amarillo */
+.bg-done {
+  background: #10b981;
+} /* Verde */
+.bg-mise-en-place {
+  background: #475569;
+} /* Gris técnico */
 
 .column-title {
   font-size: 10px;
@@ -237,9 +251,17 @@
 }
 
 @keyframes settle-pulse {
-  0% { transform: scale(1.05); box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); }
-  50% { transform: scale(0.98); }
-  100% { transform: scale(1); box-shadow: none; }
+  0% {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+  }
+  50% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: none;
+  }
 }
 
 /* El 'hueco' (Ghost Preview) donde va a caer la tarjeta */
@@ -310,12 +332,23 @@
   border-radius: 3px;
 }
 
-.ghost-line.short { width: 30%; }
+.ghost-line.short {
+  width: 30%;
+}
 
 @keyframes ghost-pulse {
-  0% { opacity: 0.5; background: rgba(248, 250, 252, 0.7); }
-  50% { opacity: 0.8; background: rgba(248, 250, 252, 0.9); }
-  100% { opacity: 0.5; background: rgba(248, 250, 252, 0.7); }
+  0% {
+    opacity: 0.5;
+    background: rgba(248, 250, 252, 0.7);
+  }
+  50% {
+    opacity: 0.8;
+    background: rgba(248, 250, 252, 0.9);
+  }
+  100% {
+    opacity: 0.5;
+    background: rgba(248, 250, 252, 0.7);
+  }
 }
 
 /* La tarjeta mientras se arrastra (flotando) */
@@ -355,12 +388,6 @@
 .cdk-drop-list-receiving {
   background: rgba(254, 252, 232, 0.4) !important;
 }
-
-
-
-
-
-
 
 /* Detail Modal Enhancements */
 .detail-title-group {
@@ -475,8 +502,6 @@
   background: #e2e8f0;
 }
 
-
-
 /* Diseño tablero + panel lateral */
 .board-panel {
   display: flex;
@@ -512,8 +537,14 @@
 }
 
 @keyframes slideInRight {
-  from { transform: translateX(30px); opacity: 0; }
-  to   { transform: translateX(0);    opacity: 1; }
+  from {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 /* Modales / Overlays */
@@ -540,7 +571,9 @@
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
   animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
@@ -621,7 +654,6 @@
 }
 
 .origin-label {
-  font-family: 'ModernDos', sans-serif;
   font-size: 10px;
   font-weight: 800;
   color: #64748b;
@@ -670,7 +702,6 @@
 }
 
 .info-label {
-  font-family: 'ModernDos', sans-serif;
   font-size: 9px;
   font-weight: 800;
   color: #92400e;
@@ -774,8 +805,6 @@
   margin-top: 0.25rem;
   font-weight: 700;
 }
-
-
 
 /* Empty State */
 .empty-state-container {

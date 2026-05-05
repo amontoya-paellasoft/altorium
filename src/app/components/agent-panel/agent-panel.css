@@ -10,6 +10,7 @@
 .panel-ventana {
   pointer-events: auto;
   width: 28rem;
+
   min-width: 22rem;
   max-width: 60rem;
   height: 39rem;
@@ -73,7 +74,7 @@
 .agent-emoji { font-size: 22px; }
 
 .agent-name {
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 600;
   color: #3D3020;
   letter-spacing: 0.02em;
