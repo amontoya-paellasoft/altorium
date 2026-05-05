@@ -1,119 +1,72 @@
-<div class="panel-overlay" (click)="close.emit()">
-  <div class="side-panel" (click)="$event.stopPropagation()">
-    
-    <div class="panel-header">
+<div class="drawer-overlay" (click)="close.emit()">
+  <div class="drawer" (click)="$event.stopPropagation()">
+    <!-- 1. Cabecera -->
+    <header class="detail-header">
       <div class="header-main">
-        <h2>{{ p().domainName }} <a [href]="p().domainUrl" target="_blank" class="ext-link"><fa-icon [icon]="faExternalLinkAlt"></fa-icon></a></h2>
-        <button class="btn-close" (click)="close.emit()"><fa-icon [icon]="faTimes"></fa-icon></button>
+        <h1>{{p().domainName}} <fa-icon [icon]="faExternalLinkAlt"></fa-icon></h1>
+        <small>{{p().id}} | {{p().alias}}</small>
+
+        <div class="actions">
+          <button class="primary" (click)="openEdit()">EDITAR</button>
+          <button><fa-icon [icon]="faPause"></fa-icon> PAUSAR</button>
+          <button><fa-icon [icon]="faEllipsisV"></fa-icon></button>
+        </div>
       </div>
-      <div class="header-meta">
-        <span>ID: {{ p().id }}</span>
-        <span class="dot-sep">•</span>
-        <span>Alias: {{ p().alias || '-' }}</span>
-      </div>
-      <div class="header-badges">
-        <span class="badge status" [ngClass]="p().projectStatus.toLowerCase()">{{ p().projectStatus }}</span>
-        <span class="badge type" [ngClass]="p().projectType.toLowerCase()">{{ p().projectType }}</span>
-        <span class="badge-pill" [class.inactive]="p().inactiveFlag" [class.active]="!p().inactiveFlag">Inactivo: {{ p().inactiveFlag ? 'Sí' : 'No' }}</span>
-      </div>
+    </header>
+
+    <!-- Badges -->
+    <div class="status-pills">
+      <span class="badge status-ready">{{p().projectStatus}}</span>
+      <span class="badge">{{p().projectType}}</span>
+      <span class="badge">Inactivo: {{p().inactiveFlag ? 'Si' : 'No'}}</span>
     </div>
+...
 
-    <div class="panel-actions">
-      <button class="btn-outline" (click)="edit.emit()">EDITAR</button>
-      
-      <button class="btn-outline" 
-              *ngIf="canPause()" 
-              (click)="pauseProject()">
-        <fa-icon [icon]="faPause"></fa-icon> PAUSAR
-      </button>
+    <!-- 2. Datos Generales -->
+    <section class="card">
+      <h3>DATOS GENERALES</h3>
+      <ul>
+        <li><strong>Empresa:</strong> {{p().companyId}}</li>
+        <li><strong>URL:</strong> <a [href]="p().domainUrl" target="_blank">{{p().domainUrl}}</a></li>
+      </ul>
+    </section>
 
-      <button class="btn-outline" 
-              *ngIf="canResume()" 
-              (click)="resumeProject()">
-        <fa-icon [icon]="faPlay"></fa-icon> REANUDAR
-      </button>
-
-      <div class="dropdown-wrapper">
-        <button class="btn-outline" (click)="toggleMenu()">MÁS <fa-icon [icon]="faChevronDown"></fa-icon></button>
-        <div class="dropdown-menu" *ngIf="menuOpen">
-           <button class="menu-item delete" *ngIf="canDelete()" (click)="deleteProject()">Eliminar</button>
-        </div>
+    <!-- 3. Repositorio -->
+    <section class="card">
+      <h3>REPOSITORIO</h3>
+      <p><strong>{{p().repositoryConfig.provider}}</strong></p>
+      <div class="repo-clone">
+        <code>{{p().repositoryConfig.cloneUrl}}</code>
+        <button (click)="copy(p().repositoryConfig.cloneUrl)"><fa-icon [icon]="faCopy"></fa-icon></button>
       </div>
-    </div>
+    </section>
 
-    <div class="panel-content">
-      
-      <section class="info-section">
-        <h3>DATOS GENERALES</h3>
-        <div class="info-grid">
-          <div class="info-label">Empresa</div><div class="info-value">Empresa {{ p().companyId }} (ID: {{ p().companyId }})</div>
-          <div class="info-label">Nombre del proyecto</div><div class="info-value">{{ p().domainName }}</div>
-          <div class="info-label">URL del dominio</div><div class="info-value"><a [href]="p().domainUrl" target="_blank">{{ p().domainUrl }}</a></div>
-          <div class="info-label">Alias</div><div class="info-value">{{ p().alias || '-' }}</div>
-          <div class="info-label">Tipo de proyecto</div><div class="info-value"><span class="badge type" [ngClass]="p().projectType.toLowerCase()">{{ p().projectType }}</span></div>
-          <div class="info-label">Estado del proyecto</div><div class="info-value"><span class="badge status" [ngClass]="p().projectStatus.toLowerCase()">{{ p().projectStatus }}</span></div>
-          <div class="info-label">Versión activa</div><div class="info-value">{{ p().activeVersionId }}</div>
-          <div class="info-label">Proyecto inactivo</div><div class="info-value">{{ p().inactiveFlag ? 'Sí' : 'No' }}</div>
-          <div class="info-label">Alt imagen</div><div class="info-value">{{ p().altImage || '-' }}</div>
-        </div>
-      </section>
-
-      <section class="info-section">
-        <div class="section-header">
-          <h3>REPOSITORIO</h3>
-          <span class="badge status ready">Activo</span>
-        </div>
-        <div class="info-grid">
-          <div class="info-label">Provider</div><div class="info-value">{{ p().repositoryConfig.provider }}</div>
-          <div class="info-label">Workspace Key</div><div class="info-value">altorium</div>
-          <div class="info-label">Repository Slug</div><div class="info-value">{{ p().alias || 'repo' }}</div>
-          <div class="info-label">Clone URL</div>
-          <div class="info-value code-value">
-            {{ p().repositoryConfig.cloneUrl }}
-            <button class="btn-copy" (click)="copy()" title="Copiar"><fa-icon [icon]="faCopy"></fa-icon></button>
-          </div>
-          <div class="info-label">Main Branch</div><div class="info-value">main</div>
-        </div>
-      </section>
-
-      <section class="action-section">
+    <!-- 4. Gestión (Legacy/Ficheros) -->
+    <div class="settings-grid">
+      <section class="card-inline">
         <h3>AJUSTES LEGACY</h3>
-        <button class="btn-outline small">Ver</button>
+        <button class="secondary-btn">Ver JSON</button>
       </section>
-
-      <section class="action-section">
-        <h3>FICHEROS (4)</h3>
-        <button class="btn-outline small">Gestionar</button>
-      </section>
-
-      <section class="matrix-section">
-        <h3>MATRIZ DE ACCIONES POR ESTADO</h3>
-        <table class="matrix-table">
-          <thead>
-            <tr>
-              <th>Estado actual</th><th>Pausar</th><th>Bloquear</th><th>Archivar</th><th>Reanudar</th><th>Eliminar</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (status of allStatuses; track status) {
-              <tr>
-                <td class="status-col">{{ status }}</td>
-                <td><fa-icon [icon]="checkAction(status, 'PAUSE') ? faCheck : faMinus" [class]="checkAction(status, 'PAUSE') ? 'allowed' : 'denied'"></fa-icon></td>
-                <td><fa-icon [icon]="checkAction(status, 'BLOCK') ? faCheck : faMinus" [class]="checkAction(status, 'BLOCK') ? 'allowed' : 'denied'"></fa-icon></td>
-                <td><fa-icon [icon]="checkAction(status, 'ARCHIVE') ? faCheck : faMinus" [class]="checkAction(status, 'ARCHIVE') ? 'allowed' : 'denied'"></fa-icon></td>
-                <td><fa-icon [icon]="checkAction(status, 'RESUME') ? faCheck : faMinus" [class]="checkAction(status, 'RESUME') ? 'allowed' : 'denied'"></fa-icon></td>
-                <td><fa-icon [icon]="checkAction(status, 'DELETE') ? faCheck : faMinus" [class]="checkAction(status, 'DELETE') ? 'allowed' : 'denied'"></fa-icon></td>
-              </tr>
-            }
-          </tbody>
-        </table>
-        <div class="matrix-legend">
-          <span class="legend-item"><fa-icon [icon]="faCheck" class="allowed"></fa-icon> Permitido</span>
-          <span class="legend-item"><fa-icon [icon]="faMinus" class="denied"></fa-icon> No disponible</span>
+      <section class="card-inline">
+        <h3>FICHEROS</h3>
+        <div class="file-info">
+          <span>0 adjuntos</span>
+          <button class="secondary-btn"><fa-icon [icon]="faPaperclip"></fa-icon> Gestionar</button>
         </div>
-        <p class="legend-note">Las acciones pueden estar ocultas o deshabilitadas según permisos del usuario.</p>
       </section>
-
     </div>
+
+    <!-- 5. Matriz de Acciones -->
+    <section class="matrix">
+      <h3>MATRIZ DE ACCIONES</h3>
+      <table>
+        @for (act of actions; track act) {
+          <tr>
+            <td>{{act}}</td>
+            <td><fa-icon [icon]="checkAction(act) ? faCheck : faMinus"></fa-icon></td>
+          </tr>
+        }
+      </table>
+    </section>
   </div>
 </div>

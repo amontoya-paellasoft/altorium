@@ -1,9 +1,10 @@
-import { Component, inject, Input, Output, EventEmitter, Signal, computed } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Proyecto, ProyectoStatus } from '../../../models/proyecto.interface';
+import { Proyecto } from '../../../models/proyecto.interface';
 import { ProyectoService } from '../../../services/proyecto.service';
+import { ProjectOverlayService } from '../../../services/project-overlay.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faTimes, faExternalLinkAlt, faPause, faPlay, faChevronDown, faCopy, faCheck, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faExternalLinkAlt, faCopy, faEdit, faPause, faEllipsisV, faFileCode, faPaperclip, faCheck, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-proyecto-details',
@@ -13,59 +14,34 @@ import { faTimes, faExternalLinkAlt, faPause, faPlay, faChevronDown, faCopy, faC
   styleUrls: ['./proyecto-details.css']
 })
 export class ProyectoDetails {
-  @Input({ required: true }) p!: Proyecto | any; // Any is a workaround if signal input is passed as regular input due to how it's called
-  @Output() close = new EventEmitter<void>();
-  @Output() edit = new EventEmitter<void>();
-  @Output() delete = new EventEmitter<void>();
-
+  p = input.required<Proyecto>();
+  close = output<void>();
   svc = inject(ProyectoService);
+  overlay = inject(ProjectOverlayService);
 
   // Icons
-  faTimes = faTimes;
   faExternalLinkAlt = faExternalLinkAlt;
-  faPause = faPause;
-  faPlay = faPlay;
-  faChevronDown = faChevronDown;
   faCopy = faCopy;
+  faEdit = faEdit;
+  faPause = faPause;
+  faEllipsisV = faEllipsisV;
+  faFileCode = faFileCode;
+  faPaperclip = faPaperclip;
   faCheck = faCheck;
   faMinus = faMinus;
 
-  menuOpen = false;
+  actions = ['PAUSE', 'BLOCK', 'ARCHIVE', 'RESUME', 'DELETE'] as const;
 
-  allStatuses: ProyectoStatus[] = ['CREATED', 'INGESTING', 'ANALYZED', 'AUDITED', 'READY', 'PAUSED', 'BLOCKED', 'ARCHIVED'];
-
-  // Support for Signal input or regular input
-  get project(): Proyecto {
-    return typeof this.p === 'function' ? this.p() : this.p;
+  copy(url: string) { navigator.clipboard.writeText(url); }
+  
+  openEdit() {
+    this.overlay.openDrawer(true, this.p());
+    this.close.emit();
   }
 
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
-  }
-
-  checkAction(status: ProyectoStatus, action: string): boolean {
-    return this.svc.canPerformAction(status, action as any);
-  }
-
-  canPause(): boolean { return this.checkAction(this.project.projectStatus, 'PAUSE'); }
-  canResume(): boolean { return this.checkAction(this.project.projectStatus, 'RESUME'); }
-  canDelete(): boolean { return this.checkAction(this.project.projectStatus, 'DELETE'); }
-
-  pauseProject() {
-    // Logic to pause
-  }
-
-  resumeProject() {
-    // Logic to resume
-  }
-
-  deleteProject() {
-    this.menuOpen = false;
-    this.delete.emit();
-  }
-
-  copy() { 
-    navigator.clipboard.writeText(this.project.repositoryConfig.cloneUrl); 
+  checkAction(action: string): boolean {
+    const validActions = ['PAUSE', 'BLOCK', 'RESUME', 'ARCHIVE', 'DELETE'];
+    if (!validActions.includes(action)) return false;
+    return this.svc.canPerformAction(this.p().projectStatus, action as any);
   }
 }
-

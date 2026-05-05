@@ -10,6 +10,7 @@
     width: 100%;
     border-collapse: collapse;
     text-align: left;
+    table-layout: fixed;
 }
 
 .premium-table th {
@@ -22,7 +23,12 @@
     letter-spacing: 0.05em;
     border-bottom: 2px solid #e2e8f0;
     white-space: nowrap;
+    text-align: center;
 }
+
+/* Anchos ajustados: Proyecto 40%, Versión 60px */
+.col-proyecto { width: 40%; }
+.col-version { width: 60px; } 
 
 .sortable-header {
     cursor: pointer;
@@ -34,9 +40,11 @@
     background: #f1f5f9;
 }
 
-.sortable-header fa-icon {
-    margin-left: 0.4rem;
-    color: #cbd5e1;
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
 }
 
 .premium-table td {
@@ -60,6 +68,7 @@
 .project-name {
     font-weight: 700;
     color: #0f172a;
+    word-wrap: break-word; /* Permite ver el nombre completo */
 }
 
 .project-meta {

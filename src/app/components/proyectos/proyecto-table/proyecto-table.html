@@ -2,14 +2,28 @@
   <table class="premium-table">
     <thead>
       <tr>
-        <th (click)="toggleSort('domainName')" class="sortable-header">Proyecto <fa-icon [icon]="getSortIcon('domainName')"></fa-icon></th>
-        <th (click)="toggleSort('companyId')" class="sortable-header">Empresa <fa-icon [icon]="getSortIcon('companyId')"></fa-icon></th>
+        <th (click)="toggleSort('domainName')" class="sortable-header">
+            <div class="header-content">Proyecto <fa-icon [icon]="getSortIcon('domainName')"></fa-icon></div>
+        </th>
+        <th (click)="toggleSort('companyId')" class="sortable-header">
+            <div class="header-content">Empresa <fa-icon [icon]="getSortIcon('companyId')"></fa-icon></div>
+        </th>
         <th>URL</th>
-        <th (click)="toggleSort('projectType')" class="sortable-header">Tipo <fa-icon [icon]="getSortIcon('projectType')"></fa-icon></th>
-        <th (click)="toggleSort('projectStatus')" class="sortable-header">Estado <fa-icon [icon]="getSortIcon('projectStatus')"></fa-icon></th>
-        <th (click)="toggleSort('activeVersionId')" class="sortable-header">Versión activa <fa-icon [icon]="getSortIcon('activeVersionId')"></fa-icon></th>
-        <th (click)="toggleSort('inactiveFlag')" class="sortable-header">Inactivo <fa-icon [icon]="getSortIcon('inactiveFlag')"></fa-icon></th>
-        <th (click)="toggleSort('createdAt')" class="sortable-header">Creado <fa-icon [icon]="getSortIcon('createdAt')"></fa-icon></th>
+        <th (click)="toggleSort('projectType')" class="sortable-header">
+            <div class="header-content">Tipo <fa-icon [icon]="getSortIcon('projectType')"></fa-icon></div>
+        </th>
+        <th (click)="toggleSort('projectStatus')" class="sortable-header">
+            <div class="header-content">Estado <fa-icon [icon]="getSortIcon('projectStatus')"></fa-icon></div>
+        </th>
+        <th (click)="toggleSort('activeVersionId')" class="sortable-header col-version">
+            <div class="header-content">Versión <fa-icon [icon]="getSortIcon('activeVersionId')"></fa-icon></div>
+        </th>
+        <th (click)="toggleSort('inactiveFlag')" class="sortable-header">
+            <div class="header-content">Inactivo <fa-icon [icon]="getSortIcon('inactiveFlag')"></fa-icon></div>
+        </th>
+        <th (click)="toggleSort('createdAt')" class="sortable-header">
+            <div class="header-content">Creado <fa-icon [icon]="getSortIcon('createdAt')"></fa-icon></div>
+        </th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -35,7 +49,7 @@
           <td>
             <span class="badge status" [ngClass]="p.projectStatus.toLowerCase()">{{ p.projectStatus }}</span>
           </td>
-          <td>{{ p.activeVersionId }}</td>
+          <td class="col-version">{{ p.activeVersionId }}</td>
           <td>
             <span class="badge-pill" [class.inactive]="p.inactiveFlag" [class.active]="!p.inactiveFlag">
               {{ p.inactiveFlag ? 'Sí' : 'No' }}
