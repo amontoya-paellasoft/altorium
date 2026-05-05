@@ -7,7 +7,7 @@
   <!-- header -->
   <div class="panel-header" cdkDragHandle>
     <span class="panel-title">
-      {{ 'AGENT_4001_DETAIL_TITLE' | translate }} {{ agentId() | uppercase }} ]
+      {{ 'MAP_AGENTS.AGENT_4001_DETAIL_TITLE' | translate }} {{ agentId() | uppercase }} ]
     </span>
     <button class="close-btn" (click)="cerrar()">✕</button>
   </div>
@@ -35,7 +35,7 @@
     <div class="divider">─────────────────────────────────</div>
 
     <!-- agentes relacionados -->
-    <div class="section-label">{{ 'AGENT_4002_INTERACT' | translate }}</div>
+    <div class="section-label">{{ 'MAP_AGENTS.AGENT_4002_INTERACT' | translate }}</div>
     <div class="tags-row">
       @for (rel of agentesRelacionados(); track rel.id) {
         <span class="agent-tag">
@@ -43,7 +43,7 @@
           <span class="tag-count">{{ rel.count }}</span>
         </span>
       } @empty {
-        <span class="empty">{{ 'AGENT_4003_EMPTY' | translate }}</span>
+        <span class="empty">{{ 'MAP_AGENTS.AGENT_4003_EMPTY' | translate }}</span>
       }
     </div>
 
