@@ -5,7 +5,7 @@
 }
 
 .sidebar {
-  width: 220px;
+  width: 14rem;
   height: 100%;
   background: #0f1923;
   border-right: 1px solid #1a2e3d;
@@ -16,7 +16,7 @@
 }
 
 .sidebar.colapsado {
-  width: 52px;
+  width: 5.5rem;
 }
 
 /* CABECERA */
@@ -78,7 +78,7 @@
   display: flex;
   flex-direction: column;
   padding: 8px 0;
-  gap: 2px;
+  gap: 0.5rem;
 }
 
 .nav-item {
@@ -87,10 +87,9 @@
   gap: 10px;
   padding: 10px 14px;
   text-decoration: none;
-  color: #94a3b8;
+  color: #aabacf;
   font-size: 13px;
   border-left: 3px solid transparent;
-  white-space: nowrap;
   transition: all 0.15s;
 }
 
@@ -128,7 +127,6 @@
   font-size: 9px;
   letter-spacing: 0.15em;
   color: #475569;
-  font-family: 'Courier New', monospace;
 }
 
 /* CARPETAS DE PROYECTO */
@@ -175,7 +173,7 @@
 }
 
 .proyecto-chevron {
-  font-size: 10px;
+  font-size: 12px;
   flex-shrink: 0;
 }
 

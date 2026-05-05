@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, ViewChildren, QueryList, HostListener, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TodoService } from '../../services/todo-service';
 import { TareaService } from '../../services/tarea-service';
 import { ToDoTask, MiseEnPlaceItem, Column } from '../../models/to-do-interface';
@@ -33,6 +33,7 @@ export class TodoComponent implements OnInit {
   private todoService = inject(TodoService);
   private tareaService = inject(TareaService);
   private translate = inject(TranslateService);
+  private route = inject(ActivatedRoute);
 
   get columns() {
     return this.todoService.filteredColumns();
@@ -51,7 +52,17 @@ export class TodoComponent implements OnInit {
     this.isMobile.set(window.innerWidth < 1250);
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    const userIdParam = this.route.snapshot.paramMap.get('userId');
+    if (userIdParam) {
+      const userId = parseInt(userIdParam, 10);
+      if (!isNaN(userId)) {
+        this.todoService.setUsuarioIdFilter(userId);
+      }
+    } else {
+      this.todoService.setUsuarioIdFilter(null);
+    }
+  }
 
   toggleColumn(columnId: string) {
     const isCurrentlyExpanded = !!this.columnExpandedState[columnId];

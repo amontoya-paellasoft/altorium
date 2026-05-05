@@ -55,7 +55,7 @@
     <div class="tareas-lista">
       @for (tarea of tareas(); track tarea.id) {
         <div class="tarea-item"
-             [routerLink]="['/to-do', agente()?.id, getSlugAgente(usuarioReal()?.fullName || '')]"
+             [routerLink]="['/to-do', agente()?.userId, getSlugAgente(usuarioReal()?.fullName || '')]"
              (click)="ws.cerrarTodas()">
           <div class="tarea-header">
             <span class="tarea-estado" [style.color]="getColorEstado(tarea.estado)">

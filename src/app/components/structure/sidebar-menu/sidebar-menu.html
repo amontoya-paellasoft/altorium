@@ -41,11 +41,11 @@
         <span class="proyecto-chevron">{{ proyecto.expandido ? '▾' : '›' }}</span>
       </button>
 
-      <!-- Subitems de la carpeta -->
+      <!-- Subitems de la carpeta: lógica dependiente de los datos de la api -->
       @if (proyecto.expandido && ws.sidebarExpandido()) {
         <div class="proyecto-subitems">
           <a class="subitem" routerLink="/to-do" routerLinkActive="activo">✓ Tablero</a>
-          <a class="subitem" routerLink="/configuracion" routerLinkActive="activo">⊞ Configuración (prueba)</a>
+          <a class="subitem" routerLink="/configuracion" routerLinkActive="activo">⊞ Configuración</a>
         </div>
       }
     }
@@ -53,8 +53,8 @@
     <div class="sidebar-footer">
       <div class="lang-selector">
         @for (lang of ['es', 'en']; track lang) {
-          <button 
-            class="lang-btn" 
+          <button
+            class="lang-btn"
             [class.active]="idiomaActual === lang"
             (click)="selectLanguage(lang)">
             {{ lang | uppercase }}

@@ -7,263 +7,17 @@ import { TaskDTO } from '../../models/altorium/task-dto';
 import { TaskEstimateDTO } from '../../models/altorium/estimate-dto';
 import { TaskApprovalDTO } from '../../models/altorium/approval-dto';
 import { TimelineEventDTO, CommentDTO } from '../../models/altorium/activity-dto';
-
-/* INTERFACES PARA LOS MOCK */
-interface CompanyUser {
-  userId: number;
-  name: string;
-  surname: string;
-  email: string;
-  userExtId: string;
-  authProjectId: string;
-  companyIds: number[];
-  createdAt: string;
-  roleInCompany: 'ADMIN' | 'DEVELOPER';
-}
-
-interface RoleAssignment {
-  roleAssignmentId: number;
-  userId: number;
-  role: 'ADMIN' | 'DEVELOPER';
-  active: boolean;
-  createdAt: string;
-}
-
-const MOCK_COMPANY_USERS: CompanyUser[] = [
-  {
-    userId: 7,
-    name: 'Daniel',
-    surname: 'Morais',
-    email: 'daniel.morais@altorium.eu',
-    userExtId: 'auth-user-123',
-    authProjectId: 'altorium-main',
-    companyIds: [31],
-    createdAt: '2026-01-18T10:24:00+01:00',
-    roleInCompany: 'ADMIN',
-  },
-  {
-    userId: 14,
-    name: 'Olivia',
-    surname: 'Wilson',
-    email: 'olivia.wilson@cliente.example',
-    userExtId: 'auth-user-456',
-    authProjectId: 'cliente-main',
-    companyIds: [31],
-    createdAt: '2026-01-18T10:40:00+01:00',
-    roleInCompany: 'DEVELOPER',
-  },
-];
-
-const MOCK_INVITES: InviteDTO[] = [
-  {
-    id: 701,
-    createdAt: '2026-01-18T11:14:30+01:00',
-    email: 'dev.pending@cliente.example',
-    role: 'DEVELOPER',
-    status: 'SENT',
-    errorDesc: null,
-    lastSentAt: '2026-01-18T11:15:00+01:00',
-    retries: 1,
-    user: null,
-    userId: 7,
-    companyId: 31,
-    company: {
-      id: 31,
-      createdAt: '2026-01-18T10:00:00+01:00',
-      companyName: 'Cliente Existente SL',
-      nif: 'B12345678',
-      alias: 'cliente001',
-      founderUserId: 7,
-      planType: 'GROWTH',
-      mailBill: true,
-      pendingPayment: false,
-      dateIsPendingPayment: null,
-      validatePaidTo: '2026-12-31T23:59:59+01:00',
-      files: [],
-    },
-  },
-  {
-    id: 702,
-    createdAt: '2026-01-18T11:21:45+01:00',
-    email: 'admin.error@cliente.example',
-    role: 'ADMIN',
-    status: 'ERROR',
-    errorDesc: 'OAuth provider rejected invite',
-    lastSentAt: '2026-01-18T11:22:00+01:00',
-    retries: 3,
-    user: null,
-    userId: 7,
-    companyId: 31,
-    company: {
-      id: 31,
-      createdAt: '2026-01-18T10:00:00+01:00',
-      companyName: 'Cliente Existente SL',
-      nif: 'B12345678',
-      alias: 'cliente001',
-      founderUserId: 7,
-      planType: 'GROWTH',
-      mailBill: true,
-      pendingPayment: false,
-      dateIsPendingPayment: null,
-      validatePaidTo: '2026-12-31T23:59:59+01:00',
-      files: [],
-    },
-  },
-];
-
-const MOCK_TASKS: TaskDTO[] = [
-  {
-    taskId: 101,
-    companyId: 31,
-    projectId: 5,
-    originType: 'MANUAL',
-    title: 'Crear módulo de login',
-    functionalSummary: 'Implementar pantalla de login con OAuth',
-    assignedUserId: 7,
-    state: 'DOING',
-    createdBy: 7,
-    currentIteration: 2,
-    validationMode: 'MANUAL',
-    relatedTaskId: null,
-    automationActive: false,
-    automationBranchName: null,
-    createdAt: '2026-02-10T09:00:00+01:00',
-    updatedAt: '2026-04-01T14:00:00+01:00',
-  },
-  {
-    taskId: 102,
-    companyId: 31,
-    projectId: 5,
-    originType: 'MANUAL',
-    title: 'Dashboard de métricas',
-    functionalSummary: 'Mostrar gráficas de rendimiento',
-    assignedUserId: 14,
-    state: 'TODO',
-    createdBy: 7,
-    currentIteration: 1,
-    validationMode: 'AUTO',
-    relatedTaskId: null,
-    automationActive: true,
-    automationBranchName: 'feature/dashboard',
-    createdAt: '2026-03-05T10:30:00+01:00',
-    updatedAt: '2026-03-05T10:30:00+01:00',
-  },
-  {
-    taskId: 103,
-    companyId: 31,
-    projectId: 5,
-    originType: 'AUTO',
-    title: 'Tests de integración API',
-    functionalSummary: 'Cobertura del 80% en endpoints REST',
-    assignedUserId: 7,
-    state: 'DONE',
-    createdBy: 14,
-    currentIteration: 3,
-    validationMode: 'AUTO',
-    relatedTaskId: 101,
-    automationActive: true,
-    automationBranchName: 'feature/tests',
-    createdAt: '2026-01-20T08:00:00+01:00',
-    updatedAt: '2026-04-15T16:00:00+01:00',
-  },
-];
-
-const MOCK_ESTIMATES: TaskEstimateDTO[] = [
-  {
-    estimateId: 201,
-    taskId: 101,
-    baseMinutes: 120,
-    finalMinutes: 150,
-    estimatedPrice: 75.0,
-    estimatedSavings: 12.5,
-    approvalRequired: true,
-    createdAt: '2026-02-10T09:05:00+01:00',
-  },
-  {
-    estimateId: 202,
-    taskId: 103,
-    baseMinutes: 90,
-    finalMinutes: 90,
-    estimatedPrice: 45.0,
-    estimatedSavings: 0,
-    approvalRequired: false,
-    createdAt: '2026-01-20T08:05:00+01:00',
-  },
-];
-
-const MOCK_APPROVALS: TaskApprovalDTO[] = [
-  {
-    approvalId: 301,
-    taskId: 103,
-    estimateId: 202,
-    approvedBy: 7,
-    approvedAt: '2026-04-15T15:00:00+01:00',
-    status: 'APPROVED',
-    promoHoursApplied: 0,
-  },
-];
-
-const MOCK_EVENTS: TimelineEventDTO[] = [
-  {
-    timelineEventId: 401,
-    taskId: 101,
-    projectId: 5,
-    eventType: 'STATE_CHANGE',
-    title: 'Tarea movida a DOING',
-    summary: 'La tarea pasó de TODO a DOING',
-    fromState: 'TODO',
-    toState: 'DOING',
-    actorUserId: 7,
-    referenceType: 'TASK',
-    referenceId: '101',
-    createdAt: '2026-04-01T14:00:00+01:00',
-  },
-  {
-    timelineEventId: 402,
-    taskId: 103,
-    projectId: 5,
-    eventType: 'APPROVAL',
-    title: 'Tarea aprobada',
-    summary: 'La tarea fue aprobada y marcada como DONE',
-    fromState: 'TEST',
-    toState: 'DONE',
-    actorUserId: 7,
-    referenceType: 'TASK',
-    referenceId: '103',
-    createdAt: '2026-04-15T15:00:00+01:00',
-  },
-];
-
-const MOCK_COMMENTS: CommentDTO[] = [
-  {
-    commentId: 501,
-    taskId: 101,
-    projectId: 5,
-    authorUserId: 7,
-    authorName: 'Daniel Morais',
-    body: 'He terminado la parte de autenticación, falta el diseño.',
-    createdAt: '2026-03-20T11:00:00+01:00',
-  },
-  {
-    commentId: 502,
-    taskId: 103,
-    projectId: 5,
-    authorUserId: 7,
-    authorName: 'Daniel Morais',
-    body: 'Tests pasando al 82%, superamos el objetivo.',
-    createdAt: '2026-04-14T09:30:00+01:00',
-  },
-];
-
-const MOCK_ROLE_ASSIGNMENTS: RoleAssignment[] = [
-  {
-    roleAssignmentId: 901,
-    userId: 7,
-    role: 'ADMIN',
-    active: true,
-    createdAt: '2026-01-18T10:25:00+01:00',
-  },
-];
+import { CompanyUser, RoleAssignment } from '../../models/altorium/company-user-dto';
+import {
+  MOCK_COMPANY_USERS,
+  MOCK_INVITES,
+  MOCK_ESTIMATES,
+  MOCK_APPROVALS,
+  MOCK_EVENTS,
+  MOCK_COMMENTS,
+  MOCK_ROLE_ASSIGNMENTS,
+} from '../../mock/mock-data';
+import { MOCK_TASK_DATA } from '../../mock/task-data';
 
 @Component({
   selector: 'app-usuarios',
@@ -411,13 +165,7 @@ export class Usuarios {
   actividadUserId = MOCK_COMPANY_USERS[0].userId;
 
   tareasDelUsuario(): TaskDTO[] {
-    let resultado: TaskDTO[] = [];
-    for (let t of MOCK_TASKS) {
-      if (t.assignedUserId === this.actividadUserId) {
-        resultado.push(t);
-      }
-    }
-    return resultado;
+    return (MOCK_TASK_DATA as TaskDTO[]).filter(t => t.assignedUserId === this.actividadUserId);
   }
 
   estimacionTarea(taskId: number): TaskEstimateDTO | null {
@@ -430,33 +178,15 @@ export class Usuarios {
   }
 
   aprobacionesDelUsuario(): TaskApprovalDTO[] {
-    let resultado: TaskApprovalDTO[] = [];
-    for (let a of MOCK_APPROVALS) {
-      if (a.approvedBy === this.actividadUserId) {
-        resultado.push(a);
-      }
-    }
-    return resultado;
+    return MOCK_APPROVALS.filter(a => a.approvedBy === this.actividadUserId);
   }
 
   eventosDelUsuario(): TimelineEventDTO[] {
-    let resultado: TimelineEventDTO[] = [];
-    for (let e of MOCK_EVENTS) {
-      if (e.actorUserId === this.actividadUserId) {
-        resultado.push(e);
-      }
-    }
-    return resultado;
+    return MOCK_EVENTS.filter(e => e.actorUserId === this.actividadUserId);
   }
 
   comentariosDelUsuario(): CommentDTO[] {
-    let resultado: CommentDTO[] = [];
-    for (let c of MOCK_COMMENTS) {
-      if (c.authorUserId === this.actividadUserId) {
-        resultado.push(c);
-      }
-    }
-    return resultado;
+    return MOCK_COMMENTS.filter(c => c.authorUserId === this.actividadUserId);
   }
 
   estadoKey(state: string): string {
@@ -486,12 +216,7 @@ export class Usuarios {
   rolesAsignados: RoleAssignment[] = [...MOCK_ROLE_ASSIGNMENTS];
 
   usuarioSeleccionado(): CompanyUser | undefined {
-    for (let u of MOCK_COMPANY_USERS) {
-      if (u.userId === this.selectedUserId) {
-        return u;
-      }
-    }
-    return undefined;
+    return MOCK_COMPANY_USERS.find(u => u.userId === this.selectedUserId);
   }
 
   asignarRol() {
@@ -575,7 +300,7 @@ export class Usuarios {
       errorDesc: null,
       user: null,
       userId: 0,
-      companyId: 31,
+      companyId: 81,
       company: this.invitaciones[0].company,
     };
     this.invitaciones = [...this.invitaciones, nueva];

@@ -31,8 +31,10 @@ export class App implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      // La ruta del mapa es ''
       this.isMapRoute = event.url === '/' || event.url === '';
+      if (!this.isMapRoute) {
+        this.ws.cerrarPanel();
+      }
     });
   }
 
