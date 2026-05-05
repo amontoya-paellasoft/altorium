@@ -69,12 +69,20 @@
     background: #1e293b;
 }
 
-.filters-bar {
-    display: flex;
-    align-items: flex-end;
-    gap: 1rem;
-    padding: 1rem 0;
-    border-top: 1px solid #f1f5f9;
+/* Layout Responsive > 1250px */
+@media (min-width: 1250px) {
+    .filters-bar {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-top: 1px solid #f1f5f9;
+    }
+    
+    .select-group {
+        flex-direction: row;
+        align-items: center;
+    }
 }
 
 .search-wrapper {

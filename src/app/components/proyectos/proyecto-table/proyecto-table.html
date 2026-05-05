@@ -8,7 +8,7 @@
         <th (click)="toggleSort('companyId')" class="sortable-header">
             <div class="header-content">{{ 'PROYECTOS.TABLE.COMPANY' | translate }} <fa-icon [icon]="getSortIcon('companyId')"></fa-icon></div>
         </th>
-        <th>URL</th>
+        <th class="col-url">URL</th>
         <th (click)="toggleSort('projectType')" class="sortable-header">
             <div class="header-content">{{ 'PROYECTOS.TABLE.TYPE' | translate }} <fa-icon [icon]="getSortIcon('projectType')"></fa-icon></div>
         </th>
@@ -24,7 +24,7 @@
         <th (click)="toggleSort('createdAt')" class="sortable-header">
             <div class="header-content">Creado <fa-icon [icon]="getSortIcon('createdAt')"></fa-icon></div>
         </th>
-        <th>{{ 'PROYECTOS.TABLE.ACTIONS' | translate }}</th>
+        <th class="col-acciones">{{ 'PROYECTOS.TABLE.ACTIONS' | translate }}</th>
       </tr>
     </thead>
     <tbody>
@@ -42,7 +42,7 @@
                 </div>
               </td>
           <td>Empresa {{ p.companyId }}</td>
-          <td>
+          <td class="col-url">
             <a [href]="p.domainUrl" target="_blank" class="url-link">{{ p.domainUrl }} <fa-icon [icon]="faExternalLinkAlt"></fa-icon></a>
           </td>
           <td>
