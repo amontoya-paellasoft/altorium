@@ -3,24 +3,4 @@
     <span class="status-led"></span>
     <h1 class="page-title">{{ pageTitle() }}</h1>
   </div>
-
-  <div class="lang-wrapper">
-    <div class="lang-selector" [class.expanded]="isLangMenuOpen">
-      <div class="lang-current" (click)="toggleMenu()">
-        {{ idiomaActual }}
-      </div>
-
-      <div class="lang-options">
-        @for (lang of ['es', 'en']; track lang) {
-          <button
-            class="lang-btn"
-            [class.active]="idiomaActual === lang"
-            (click)="selectLanguage(lang)"
-          >
-            {{ lang }}
-          </button>
-        }
-      </div>
-    </div>
-  </div>
 </header>
