@@ -3,14 +3,14 @@
   <div class="main-header">
     <div class="header-top">
       <button class="btn-back" (click)="goBack()">
-        <fa-icon [icon]="faArrowLeft"></fa-icon> ATRÁS
+        <fa-icon [icon]="faArrowLeft"></fa-icon> {{ 'USERS.BTN_BACK' | translate }}
       </button>
       <div class="header-titles">
-        <h1>PROYECTOS</h1>
-        <p>Gestiona los proyectos de software de tus empresas.</p>
+        <h1>{{ 'PROYECTOS.TITLE' | translate }}</h1>
+        <p>{{ 'PROYECTOS.SUBTITLE' | translate }}</p>
       </div>
       <button class="btn-primary-dark" (click)="openNewDrawer()">
-        <fa-icon [icon]="faPlus"></fa-icon> NUEVO PROYECTO
+        {{ 'PROYECTOS.NEW_PROJECT' | translate }}
       </button>
     </div>
 
@@ -21,28 +21,26 @@
           type="text" 
           [ngModel]="svc.searchTerm()" 
           (ngModelChange)="svc.searchTerm.set($event)"
-          placeholder="Buscar proyectos..."
+          [placeholder]="'PROYECTOS.FILTERS.SEARCH' | translate"
           class="search-input"
         >
       </div>
 
       <div class="select-group">
-        <label>Empresa</label>
+        <label>{{ 'PROYECTOS.FILTERS.COMPANY' | translate }}</label>
         <div class="select-wrapper">
           <select [ngModel]="svc.companyFilter()" (ngModelChange)="svc.companyFilter.set($event)" class="filter-select">
-            <option value="">Todas las empresas</option>
+            <option value="">{{ 'PROYECTOS.FILTERS.ALL_COMPANIES' | translate }}</option>
             <option value="31">Empresa 31</option>
-            <option value="32">Empresa 32</option>
-            <option value="33">Empresa 33</option>
           </select>
         </div>
       </div>
 
       <div class="select-group">
-        <label>Tipo</label>
+        <label>{{ 'PROYECTOS.FILTERS.TYPE' | translate }}</label>
         <div class="select-wrapper">
           <select [ngModel]="svc.typeFilter()" (ngModelChange)="svc.typeFilter.set($event)" class="filter-select">
-            <option value="">Todos</option>
+            <option value="">{{ 'PROYECTOS.FILTERS.ALL_TYPES' | translate }}</option>
             <option value="SPRING_BOOT">SPRING_BOOT</option>
             <option value="ODOO">ODOO</option>
           </select>
@@ -50,39 +48,35 @@
       </div>
 
       <div class="select-group">
-        <label>Estado</label>
+        <label>{{ 'PROYECTOS.FILTERS.STATUS' | translate }}</label>
         <div class="select-wrapper">
           <select [ngModel]="svc.statusFilter()" (ngModelChange)="svc.statusFilter.set($event)" class="filter-select">
-            <option value="">Todos</option>
-            <option value="CREATED">CREATED</option>
-            <option value="INGESTING">INGESTING</option>
-            <option value="ANALYZED">ANALYZED</option>
-            <option value="AUDITED">AUDITED</option>
+            <option value="">{{ 'PROYECTOS.FILTERS.ALL_STATUS' | translate }}</option>
             <option value="READY">READY</option>
             <option value="PAUSED">PAUSED</option>
-            <option value="BLOCKED">BLOCKED</option>
-            <option value="ARCHIVED">ARCHIVED</option>
           </select>
         </div>
       </div>
 
       <div class="select-group">
-        <label>Inactivo</label>
+        <label>{{ 'PROYECTOS.FILTERS.INACTIVE' | translate }}</label>
         <div class="toggle-group">
-          <button [class.active]="inactiveFilter() === 'all'" (click)="inactiveFilter.set('all')">Todos</button>
-          <button [class.active]="inactiveFilter() === 'active'" (click)="inactiveFilter.set('active')">Activos</button>
-          <button [class.active]="inactiveFilter() === 'inactive'" (click)="inactiveFilter.set('inactive')">Inactivos</button>
+          <button [class.active]="inactiveFilter() === 'all'" (click)="inactiveFilter.set('all')">{{ 'PROYECTOS.FILTERS.INACTIVE_ALL' | translate }}</button>
+          <button [class.active]="inactiveFilter() === 'active'" (click)="inactiveFilter.set('active')">{{ 'PROYECTOS.FILTERS.INACTIVE_ACTIVE' | translate }}</button>
+          <button [class.active]="inactiveFilter() === 'inactive'" (click)="inactiveFilter.set('inactive')">{{ 'PROYECTOS.FILTERS.INACTIVE_INACTIVE' | translate }}</button>
         </div>
       </div>
 
       <button class="btn-clear" (click)="clearFilters()">
-        <fa-icon [icon]="faFilter"></fa-icon> Limpiar
+        <fa-icon [icon]="faFilter"></fa-icon> {{ 'PROYECTOS.FILTERS.CLEAR' | translate }}
       </button>
 
-      <div class="mobile-sort" *ngIf="isMobile()">
-        <span>Ordenar por creación</span>
-        <fa-icon [icon]="faSortAmountDown"></fa-icon>
-      </div>
+      @if (isMobile()) {
+        <div class="mobile-sort">
+          <span>Ordenar por creación</span>
+          <fa-icon [icon]="faSortAmountDown"></fa-icon>
+        </div>
+      }
     </div>
   </div>
 
@@ -140,9 +134,8 @@
     }
 
     <!-- Desktop Table -->
-    @if (!isLoading() && !error() && svc.filteredProyectos().length > 0) {
+    @if (!isLoading() && !error() && svc.filteredProyectos().length > 0 && !isMobile()) {
       <app-proyecto-table 
-        *ngIf="!isMobile()"
         [proyectos]="svc.filteredProyectos()"
         (view)="openDetails($any($event))"
         (edit)="openEditDrawer($any($event))"
@@ -151,39 +144,44 @@
     }
 
     <!-- Mobile Cards -->
-    <div class="mobile-grid" *ngIf="isMobile() && !isLoading() && !error() && svc.filteredProyectos().length > 0">
-      @for (proyecto of svc.filteredProyectos(); track proyecto.id) {
-        <app-proyecto-card 
-          [proyecto]="proyecto"
-          (view)="openDetails(proyecto)"
-          (edit)="openEditDrawer(proyecto)"
-          (delete)="openDeleteModal(proyecto)"
-        ></app-proyecto-card>
-      }
-    </div>
+    @if (isMobile() && !isLoading() && !error() && svc.filteredProyectos().length > 0) {
+      <div class="mobile-grid">
+        @for (proyecto of svc.filteredProyectos(); track proyecto.id) {
+          <app-proyecto-card 
+            [proyecto]="proyecto"
+            (view)="openDetails(proyecto)"
+            (edit)="openEditDrawer(proyecto)"
+            (delete)="openDeleteModal(proyecto)"
+          ></app-proyecto-card>
+        }
+      </div>
+    }
   </div>
 
   <!-- Side Panels / Modals -->
-  <app-proyecto-drawer
-    *ngIf="drawerOpen()"
-    [isEditing]="overlay.isEditing()"
-    [data]="overlay.editingProject()"
-    (close)="overlay.drawerOpen.set(false)"
-    (saveAction)="handleSave($event)"
-  ></app-proyecto-drawer>
+  @if (drawerOpen()) {
+    <app-proyecto-drawer
+      [isEditing]="overlay.isEditing()"
+      [data]="overlay.editingProject()"
+      (close)="overlay.drawerOpen.set(false)"
+      (saveAction)="handleSave($event)"
+    ></app-proyecto-drawer>
+  }
 
-  <app-proyecto-details
-    *ngIf="detailsOpen()"
-    [p]="selectedProyecto()!"
-    (close)="detailsOpen.set(false)"
-    (edit)="detailsOpen.set(false); openEditDrawer(selectedProyecto()!)"
-    (delete)="detailsOpen.set(false); openDeleteModal(selectedProyecto()!)"
-  ></app-proyecto-details>
+  @if (detailsOpen()) {
+    <app-proyecto-details
+      [p]="selectedProyecto()!"
+      (close)="detailsOpen.set(false)"
+      (edit)="detailsOpen.set(false); openEditDrawer(selectedProyecto()!)"
+      (delete)="detailsOpen.set(false); openDeleteModal(selectedProyecto()!)"
+    ></app-proyecto-details>
+  }
 
-  <app-proyecto-delete-modal
-    *ngIf="deleteModalOpen()"
-    [proyecto]="selectedProyecto()!"
-    (close)="overlay.modalDeleteOpen.set(false)"
-    (confirm)="handleDelete()"
-  ></app-proyecto-delete-modal>
+  @if (deleteModalOpen()) {
+    <app-proyecto-delete-modal
+      [proyecto]="selectedProyecto()!"
+      (close)="overlay.modalDeleteOpen.set(false)"
+      (confirm)="handleDelete()"
+    ></app-proyecto-delete-modal>
+  }
 </div>

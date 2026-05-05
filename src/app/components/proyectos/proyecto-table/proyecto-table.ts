@@ -4,16 +4,18 @@ import { Proyecto } from '../../../models/proyecto.interface';
 import { ProyectoService } from '../../../services/proyecto.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSort, faSortUp, faSortDown, faEye, faEdit, faTrash, faExternalLinkAlt, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-proyecto-table',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, TranslateModule],
   templateUrl: './proyecto-table.html',
   styleUrls: ['./proyecto-table.css']
 })
 export class ProyectoTable {
   svc = inject(ProyectoService);
+  translate = inject(TranslateService);
   @Input({ required: true }) proyectos: Proyecto[] = [];
   @Output() view = new EventEmitter<Proyecto>();
   @Output() edit = new EventEmitter<Proyecto>();

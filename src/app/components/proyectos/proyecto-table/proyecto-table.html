@@ -3,28 +3,28 @@
     <thead>
       <tr>
         <th (click)="toggleSort('domainName')" class="sortable-header">
-            <div class="header-content">Proyecto <fa-icon [icon]="getSortIcon('domainName')"></fa-icon></div>
+            <div class="header-content">{{ 'PROYECTOS.TABLE.PROJECT' | translate }} <fa-icon [icon]="getSortIcon('domainName')"></fa-icon></div>
         </th>
         <th (click)="toggleSort('companyId')" class="sortable-header">
-            <div class="header-content">Empresa <fa-icon [icon]="getSortIcon('companyId')"></fa-icon></div>
+            <div class="header-content">{{ 'PROYECTOS.TABLE.COMPANY' | translate }} <fa-icon [icon]="getSortIcon('companyId')"></fa-icon></div>
         </th>
         <th>URL</th>
         <th (click)="toggleSort('projectType')" class="sortable-header">
-            <div class="header-content">Tipo <fa-icon [icon]="getSortIcon('projectType')"></fa-icon></div>
+            <div class="header-content">{{ 'PROYECTOS.TABLE.TYPE' | translate }} <fa-icon [icon]="getSortIcon('projectType')"></fa-icon></div>
         </th>
         <th (click)="toggleSort('projectStatus')" class="sortable-header">
-            <div class="header-content">Estado <fa-icon [icon]="getSortIcon('projectStatus')"></fa-icon></div>
+            <div class="header-content">{{ 'PROYECTOS.TABLE.STATUS' | translate }} <fa-icon [icon]="getSortIcon('projectStatus')"></fa-icon></div>
         </th>
         <th (click)="toggleSort('activeVersionId')" class="sortable-header col-version">
-            <div class="header-content">Versión <fa-icon [icon]="getSortIcon('activeVersionId')"></fa-icon></div>
+            <div class="header-content">{{ 'PROYECTOS.TABLE.VERSION' | translate }} <fa-icon [icon]="getSortIcon('activeVersionId')"></fa-icon></div>
         </th>
         <th (click)="toggleSort('inactiveFlag')" class="sortable-header">
-            <div class="header-content">Inactivo <fa-icon [icon]="getSortIcon('inactiveFlag')"></fa-icon></div>
+            <div class="header-content">{{ 'PROYECTOS.FILTERS.INACTIVE' | translate }} <fa-icon [icon]="getSortIcon('inactiveFlag')"></fa-icon></div>
         </th>
         <th (click)="toggleSort('createdAt')" class="sortable-header">
             <div class="header-content">Creado <fa-icon [icon]="getSortIcon('createdAt')"></fa-icon></div>
         </th>
-        <th>Acciones</th>
+        <th>{{ 'PROYECTOS.TABLE.ACTIONS' | translate }}</th>
       </tr>
     </thead>
     <tbody>

@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { Proyecto } from '../../../models/proyecto.interface';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-proyecto-drawer',
   standalone: true,
-  imports: [CommonModule, FormsModule, FontAwesomeModule],
+  imports: [CommonModule, FormsModule, FontAwesomeModule, TranslateModule],
   templateUrl: './proyecto-drawer.html',
   styleUrls: ['./proyecto-drawer.css']
 })

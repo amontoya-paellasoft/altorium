@@ -12,16 +12,30 @@ import { ProyectoDetails } from './proyecto-details/proyecto-details';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSearch, faFolderOpen, faExclamationTriangle, faPlus, faFilter, faArrowLeft, faSortAmountDown } from '@fortawesome/free-solid-svg-icons';
 
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-proyectos',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProyectoDrawer, ProyectoTable, ProyectoDeleteModal, ProyectoDetails, FontAwesomeModule, ProyectoCard],
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    ProyectoDrawer, 
+    ProyectoTable, 
+    ProyectoDeleteModal, 
+    ProyectoDetails,
+    FontAwesomeModule,
+    ProyectoCard,
+    TranslateModule
+  ],
   templateUrl: './proyectos.html',
   styleUrls: ['./proyectos.css']
 })
 export class ProyectosComponent {
   svc = inject(ProyectoService);
   overlay = inject(ProjectOverlayService);
+  translate = inject(TranslateService);
+
   
   @ViewChild(ProyectoTable) table!: ProyectoTable;
 
