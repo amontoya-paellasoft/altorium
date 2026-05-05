@@ -74,12 +74,6 @@ export class ProyectosComponent {
       this.isMobile.set(window.innerWidth < 768);
     });
     
-    // Sync inactiveFilter with service
-    // Service has inactiveOnly boolean, but our UI has 3 states.
-    // Let's create an effect or just update the service's filteredProyectos to handle it.
-    // Since service `inactiveOnly` is boolean, we might need to modify the service or just filter it here.
-    // For now, let's assume we handle it in service or we override filteredProyectos here if needed.
-    // Wait, let's update service later to handle 'all' | 'active' | 'inactive' if needed, or do it here.
   }
 
   // Override filteredProyectos to support 3-state inactive filter if service only has 2
