@@ -4,9 +4,11 @@ import { TodoComponent } from './components/to-do/to-do';
 import { EmpresasComponent } from './components/empresas/empresas';
 import { Configuracion } from './components/configuracion/configuracion';
 import { Usuarios } from './components/usuarios/usuarios';
+import { ProyectosComponent } from './components/proyectos/proyectos';
 
 export const routes: Routes = [
   { path: '', component: AgentMap, data: { title: 'Inicio', nav: true, icon: '◈', exact: true } },
+  { path: 'proyectos', component: ProyectosComponent, data: { title: 'Proyectos', nav: true, icon: '📂', exact: true } },
   {
     path: 'empresas',
     component: EmpresasComponent,

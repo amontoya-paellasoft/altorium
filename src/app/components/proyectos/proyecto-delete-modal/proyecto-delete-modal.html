@@ -1,0 +1,31 @@
+<div class="modal-overlay" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="btn-close" (click)="close.emit()"><fa-icon [icon]="faTimes"></fa-icon></button>
+    
+    <div class="modal-header">
+      <div class="icon-circle danger">
+        <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+      </div>
+      <h2>Eliminar proyecto</h2>
+    </div>
+
+    <div class="modal-body">
+      <p>Se borrará lógicamente el proyecto.</p>
+      <p>Para confirmar escribe el alias o nombre del proyecto.</p>
+      
+      <div class="form-group">
+        <input type="text" 
+               [(ngModel)]="confirmInput" 
+               [placeholder]="'Escribe &quot;' + expectedMatch + '&quot; para confirmar'" 
+               class="form-control"
+               [class.invalid]="confirmInput && !isValid()"
+               [class.valid]="isValid()">
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="close.emit()">CANCELAR</button>
+      <button class="btn-danger" [disabled]="!isValid()" (click)="confirm.emit()">ELIMINAR PROYECTO</button>
+    </div>
+  </div>
+</div>

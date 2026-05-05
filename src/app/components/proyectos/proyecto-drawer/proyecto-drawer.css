@@ -1,0 +1,238 @@
+.drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(15, 23, 42, 0.4);
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-end;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.drawer-panel {
+    width: 400px;
+    max-width: 100vw;
+    background-color: #fff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.drawer-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.btn-close {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: #64748b;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.btn-close:hover {
+    color: #0f172a;
+}
+
+.drawer-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-row .company-group {
+    flex: 1;
+}
+
+.form-row .alias-group {
+    width: 120px;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 0.4rem;
+}
+
+.required {
+    color: #ef4444;
+}
+
+.form-control {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: #1a202c;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.form-control[readonly] {
+    background-color: #f8fafc;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+select.form-control {
+    background-color: #fff;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23cbd5e1%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem top 50%;
+    background-size: 0.65rem auto;
+}
+
+.inline-group {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inline-group label {
+    margin-bottom: 0;
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #cbd5e1;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #10b981;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #10b981;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+.slider.round {
+  border-radius: 24px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.char-count {
+    text-align: right;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-top: 0.3rem;
+}
+
+.drawer-footer {
+    padding: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.btn-cancel {
+    background: transparent;
+    border: 1px solid #cbd5e1;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 700;
+    color: #4a5568;
+    cursor: pointer;
+    flex: 1;
+}
+
+.btn-cancel:hover {
+    background: #f8fafc;
+}
+
+.btn-save {
+    background: #0f172a;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    flex: 1;
+}
+
+.btn-save:hover {
+    background: #1e293b;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

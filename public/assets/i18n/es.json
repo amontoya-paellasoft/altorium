@@ -392,5 +392,51 @@
       "QUITAR": "Has intentado quitar a {{nombre}}",
       "ELIMINAR": "Has intentado eliminar la invitación de {{email}}"
     }
+  },
+  "PROYECTOS": {
+    "TITLE": "PROYECTOS",
+    "SUBTITLE": "Gestión centralizada del inventario técnico",
+    "NEW_PROJECT": "+ NUEVO PROYECTO",
+    "FILTERS": {
+      "SEARCH": "🔍 Buscar por nombre o alias...",
+      "COMPANY": "Empresa",
+      "ALL_COMPANIES": "Todas las empresas",
+      "TYPE": "Tipo",
+      "ALL_TYPES": "Todos",
+      "STATUS": "Estado",
+      "ALL_STATUS": "Todos",
+      "INACTIVE": "Inactivo",
+      "INACTIVE_ALL": "Todos",
+      "INACTIVE_ACTIVE": "Activos",
+      "INACTIVE_INACTIVE": "Inactivos",
+      "CLEAR": "Limpiar"
+    },
+    "TABLE": {
+      "PROJECT": "Proyecto",
+      "COMPANY": "Empresa",
+      "TYPE": "Tipo",
+      "STATUS": "Estado",
+      "VERSION": "Versión",
+      "ACTIONS": "Acciones"
+    },
+    "DRAWER": {
+      "NEW": "Nuevo proyecto",
+      "EDIT": "Editar proyecto",
+      "NAME": "Nombre del proyecto",
+      "DOMAIN": "URL del dominio",
+      "ALIAS": "Alias",
+      "ALT_IMAGE": "Alt imagen (opcional)",
+      "INACTIVE": "Proyecto inactivo",
+      "SAVE": "GUARDAR",
+      "CANCEL": "CANCELAR"
+    },
+    "DETAILS": {
+      "GENERAL": "DATOS GENERALES",
+      "REPO": "REPOSITORIO",
+      "COPY": "Copiar",
+      "LEGACY": "AJUSTES LEGACY",
+      "FILES": "FICHEROS",
+      "MATRIX": "MATRIZ DE ACCIONES"
+    }
   }
 }

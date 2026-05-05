@@ -116,6 +116,10 @@
       "ITERATION_PREFIX": "IT:",
       "BUILDS_LABEL": "Builds:",
       "DIAG_LABEL": "Diag:",
+      "VERSION_PREFIX": "v",
+      "SCORE_LABEL": "Punt:",
+      "RELATED_PREFIX": "Rel:",
+      "BUILD_RUNNING": "BUILD: EN EJECUCIÓN",
       "APPROVAL_STATUS": {
         "APPROVED": "Appr",
         "PENDING": "Pend",
@@ -387,6 +391,52 @@
     "TOAST": {
       "QUITAR": "You tried to remove {{nombre}}",
       "ELIMINAR": "You tried to delete the invitation for {{email}}"
+    }
+  },
+  "PROYECTOS": {
+    "TITLE": "PROJECTS",
+    "SUBTITLE": "Centralized technical inventory management",
+    "NEW_PROJECT": "+ NEW PROJECT",
+    "FILTERS": {
+      "SEARCH": "🔍 Search by name or alias...",
+      "COMPANY": "Company",
+      "ALL_COMPANIES": "All companies",
+      "TYPE": "Type",
+      "ALL_TYPES": "All",
+      "STATUS": "Status",
+      "ALL_STATUS": "All",
+      "INACTIVE": "Inactive",
+      "INACTIVE_ALL": "All",
+      "INACTIVE_ACTIVE": "Active",
+      "INACTIVE_INACTIVE": "Inactive",
+      "CLEAR": "Clear"
+    },
+    "TABLE": {
+      "PROJECT": "Project",
+      "COMPANY": "Company",
+      "TYPE": "Type",
+      "STATUS": "Status",
+      "VERSION": "Version",
+      "ACTIONS": "Actions"
+    },
+    "DRAWER": {
+      "NEW": "New project",
+      "EDIT": "Edit project",
+      "NAME": "Project name",
+      "DOMAIN": "Domain URL",
+      "ALIAS": "Alias",
+      "ALT_IMAGE": "Alt image (optional)",
+      "INACTIVE": "Inactive project",
+      "SAVE": "SAVE",
+      "CANCEL": "CANCEL"
+    },
+    "DETAILS": {
+      "GENERAL": "GENERAL DATA",
+      "REPO": "REPOSITORY",
+      "COPY": "Copy",
+      "LEGACY": "LEGACY SETTINGS",
+      "FILES": "FILES",
+      "MATRIX": "ACTION MATRIX"
     }
   }
 }
