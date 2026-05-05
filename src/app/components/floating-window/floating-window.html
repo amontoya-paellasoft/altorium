@@ -9,8 +9,8 @@
     <span class="title">
       {{
         agentId()
-          ? ('WINDOW_6001_TERMINAL_TITLE' | translate: { id: agentId() })
-          : ('WINDOW_6002_SYSTEM_TITLE' | translate)
+          ? ('MAP_AGENTS.WINDOW_6001_TERMINAL_TITLE' | translate: { id: agentId() })
+          : ('MAP_AGENTS.WINDOW_6002_SYSTEM_TITLE' | translate)
       }}
     </span>
     <button class="close-btn" (click)="ws.cerrar(agentId())">✕</button>
