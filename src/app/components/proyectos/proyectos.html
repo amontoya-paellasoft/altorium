@@ -25,14 +25,39 @@
           class="search-input"
         >
       </div>
-      <!-- Filtros -->
+      
+      <!-- Filtro Tipo -->
       <div class="select-group">
-        <label>{{ 'PROYECTOS.FILTERS.COMPANY' | translate }}</label>
-        <select [ngModel]="svc.companyFilter()" (ngModelChange)="svc.companyFilter.set($event)" class="filter-select">
-          <option value="">{{ 'PROYECTOS.FILTERS.ALL_COMPANIES' | translate }}</option>
-          <option value="31">Empresa 31</option>
+        <label>{{ 'PROYECTOS.FILTERS.TYPE' | translate }}</label>
+        <select [ngModel]="svc.typeFilter()" (ngModelChange)="svc.typeFilter.set($event)" class="filter-select">
+          <option value="">{{ 'PROYECTOS.FILTERS.ALL_TYPES' | translate }}</option>
+          <option value="SPRING_BOOT">Spring Boot</option>
+          <option value="ODOO">Odoo</option>
         </select>
       </div>
+
+      <!-- Filtro Estado -->
+      <div class="select-group">
+        <label>{{ 'PROYECTOS.FILTERS.STATUS' | translate }}</label>
+        <select [ngModel]="svc.statusFilter()" (ngModelChange)="svc.statusFilter.set($event)" class="filter-select">
+          <option value="">{{ 'PROYECTOS.FILTERS.ALL_STATUS' | translate }}</option>
+          <option value="READY">Ready</option>
+          <option value="PAUSED">Paused</option>
+          <option value="BLOCKED">Blocked</option>
+          <option value="ARCHIVED">Archived</option>
+        </select>
+      </div>
+
+      <!-- Filtro Inactivos -->
+      <div class="select-group">
+        <label>{{ 'PROYECTOS.FILTERS.INACTIVE' | translate }}</label>
+        <select [ngModel]="inactiveFilter()" (ngModelChange)="inactiveFilter.set($event)" class="filter-select">
+          <option value="all">{{ 'PROYECTOS.FILTERS.INACTIVE_ALL' | translate }}</option>
+          <option value="active">{{ 'PROYECTOS.FILTERS.INACTIVE_ACTIVE' | translate }}</option>
+          <option value="inactive">{{ 'PROYECTOS.FILTERS.INACTIVE_INACTIVE' | translate }}</option>
+        </select>
+      </div>
+
       <button class="btn-clear" (click)="clearFilters()">
         <fa-icon [icon]="faFilter"></fa-icon> {{ 'PROYECTOS.FILTERS.CLEAR' | translate }}
       </button>
@@ -49,6 +74,25 @@
         (edit)="openEditDrawer($any($event))"
         (delete)="openDeleteModal($any($event))"
       ></app-proyecto-table>
+    }
+
+    <!-- Empty States -->
+    @if (isEmpty()) {
+      <div class="empty-state">
+        <fa-icon [icon]="faFolderOpen" size="3x"></fa-icon>
+        <h3>{{ 'PROYECTOS.EMPTY.NO_PROJECTS' | translate }}</h3>
+        <p>{{ 'PROYECTOS.EMPTY.CREATE_DESC' | translate }}</p>
+        <button class="btn-primary-dark" (click)="openNewDrawer()">{{ 'PROYECTOS.NEW_PROJECT' | translate }}</button>
+      </div>
+    }
+
+    @if (isFilteredEmpty()) {
+      <div class="empty-state">
+        <fa-icon [icon]="faExclamationTriangle" size="3x"></fa-icon>
+        <h3>{{ 'PROYECTOS.EMPTY.NO_FILTER_RESULTS' | translate }}</h3>
+        <p>{{ 'PROYECTOS.EMPTY.FILTER_DESC' | translate }}</p>
+        <button class="btn-clear" (click)="clearFilters()">{{ 'PROYECTOS.FILTERS.CLEAR' | translate }}</button>
+      </div>
     }
   </div>
 

@@ -1,4 +1,5 @@
 <div class="table-wrapper">
+  <!-- Vista Tabla (Escritorio) -->
   <table class="premium-table">
     <thead>
       <tr>
@@ -74,9 +75,29 @@
               <fa-icon [icon]="faTrash"></fa-icon>
             </button>
           </td>
-
         </tr>
       }
     </tbody>
   </table>
+
+  <!-- Vista Tarjetas (Móvil) -->
+  <div class="mobile-cards">
+    @for (p of proyectos; track p.id) {
+      <div class="project-card">
+        <div class="card-header">
+          <span class="project-name">{{ p.domainName }}</span>
+          <span class="badge status" [ngClass]="p.projectStatus.toLowerCase()">{{ p.projectStatus }}</span>
+        </div>
+        <div class="card-body">
+          <p><strong>{{ 'PROYECTOS.TABLE.COMPANY' | translate }}:</strong> Empresa {{ p.companyId }}</p>
+          <p><strong>{{ 'PROYECTOS.TABLE.TYPE' | translate }}:</strong> {{ p.projectType }}</p>
+        </div>
+        <div class="card-footer">
+          <button class="btn-icon" (click)="view.emit(p)"><fa-icon [icon]="faEye"></fa-icon></button>
+          <button class="btn-icon" (click)="edit.emit(p)"><fa-icon [icon]="faEdit"></fa-icon></button>
+          <button class="btn-icon delete" (click)="delete.emit(p)"><fa-icon [icon]="faTrash"></fa-icon></button>
+        </div>
+      </div>
+    }
+  </div>
 </div>
