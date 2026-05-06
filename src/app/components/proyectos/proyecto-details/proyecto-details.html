@@ -1,0 +1,72 @@
+<div class="drawer-overlay" (click)="close.emit()">
+  <div class="drawer" (click)="$event.stopPropagation()">
+    <!-- 1. Cabecera -->
+    <header class="detail-header">
+      <div class="header-main">
+        <h1>{{p().domainName}} <fa-icon [icon]="faExternalLinkAlt"></fa-icon></h1>
+        <small>{{p().id}} | {{p().alias}}</small>
+
+        <div class="actions">
+          <button class="primary" (click)="openEdit()">EDITAR</button>
+          <button><fa-icon [icon]="faPause"></fa-icon> PAUSAR</button>
+          <button><fa-icon [icon]="faEllipsisV"></fa-icon></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Badges -->
+    <div class="status-pills">
+      <span class="badge status-ready">{{p().projectStatus}}</span>
+      <span class="badge">{{p().projectType}}</span>
+      <span class="badge">Inactivo: {{p().inactiveFlag ? 'Si' : 'No'}}</span>
+    </div>
+...
+
+    <!-- 2. Datos Generales -->
+    <section class="card">
+      <h3>DATOS GENERALES</h3>
+      <ul>
+        <li><strong>Empresa:</strong> {{p().companyId}}</li>
+        <li><strong>URL:</strong> <a [href]="p().domainUrl" target="_blank">{{p().domainUrl}}</a></li>
+      </ul>
+    </section>
+
+    <!-- 3. Repositorio -->
+    <section class="card">
+      <h3>REPOSITORIO</h3>
+      <p><strong>{{p().repositoryConfig.provider}}</strong></p>
+      <div class="repo-clone">
+        <code>{{p().repositoryConfig.cloneUrl}}</code>
+        <button (click)="copy(p().repositoryConfig.cloneUrl)"><fa-icon [icon]="faCopy"></fa-icon></button>
+      </div>
+    </section>
+
+    <!-- 4. Gestión (Legacy/Ficheros) -->
+    <div class="settings-grid">
+      <section class="card-inline">
+        <h3>AJUSTES LEGACY</h3>
+        <button class="secondary-btn">Ver JSON</button>
+      </section>
+      <section class="card-inline">
+        <h3>FICHEROS</h3>
+        <div class="file-info">
+          <span>0 adjuntos</span>
+          <button class="secondary-btn"><fa-icon [icon]="faPaperclip"></fa-icon> Gestionar</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- 5. Matriz de Acciones -->
+    <section class="matrix">
+      <h3>MATRIZ DE ACCIONES</h3>
+      <table>
+        @for (act of actions; track act) {
+          <tr>
+            <td>{{act}}</td>
+            <td><fa-icon [icon]="checkAction(act) ? faCheck : faMinus"></fa-icon></td>
+          </tr>
+        }
+      </table>
+    </section>
+  </div>
+</div>

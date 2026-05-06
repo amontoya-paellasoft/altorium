@@ -1,0 +1,58 @@
+<div class="drawer-overlay" (click)="close.emit()">
+  <div class="drawer-panel" (click)="$event.stopPropagation()">
+    <div class="drawer-header">
+      <h2>{{ (isEditing ? 'PROYECTOS.DRAWER.EDIT' : 'PROYECTOS.DRAWER.NEW') | translate }}</h2>
+      <button class="btn-close" (click)="close.emit()">
+        <fa-icon [icon]="faTimes"></fa-icon>
+      </button>
+    </div>
+
+    <div class="drawer-content">
+      <form (ngSubmit)="save()">
+        
+        <div class="form-row">
+          <div class="form-group company-group">
+            <label>{{ 'PROYECTOS.FILTERS.COMPANY' | translate }} <span class="required">*</span></label>
+            <select [(ngModel)]="model.companyId" name="companyId" required class="form-control">
+              <option value="31">Empresa 31</option>
+            </select>
+          </div>
+          
+          <div class="form-group alias-group">
+            <label>{{ 'PROYECTOS.DRAWER.ALIAS' | translate }}</label>
+            <input type="text" [(ngModel)]="model.alias" name="alias" class="form-control" [readonly]="isEditing" [placeholder]="isEditing ? '' : 'ej. portal-001'">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'PROYECTOS.DRAWER.NAME' | translate }} <span class="required">*</span></label>
+          <input type="text" [(ngModel)]="model.domainName" name="domainName" class="form-control" placeholder="Ej. Portal Cliente" required>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'PROYECTOS.DRAWER.DOMAIN' | translate }} <span class="required">*</span></label>
+          <input type="url" [(ngModel)]="model.domainUrl" name="domainUrl" class="form-control" placeholder="https://ejemplo.com" required>
+        </div>
+
+        <div class="form-group inline-group">
+          <label>{{ 'PROYECTOS.DRAWER.INACTIVE' | translate }}</label>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="model.inactiveFlag" name="inactiveFlag">
+            <span class="slider round"></span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'PROYECTOS.DRAWER.ALT_IMAGE' | translate }}</label>
+          <input type="text" [(ngModel)]="model.altImage" name="altImage" class="form-control" placeholder="banner.png" (input)="updateCharCount()">
+        </div>
+
+      </form>
+    </div>
+
+    <div class="drawer-footer">
+      <button type="button" class="btn-cancel" (click)="close.emit()">{{ 'PROYECTOS.DRAWER.CANCEL' | translate }}</button>
+      <button type="button" class="btn-save" (click)="save()">{{ 'PROYECTOS.DRAWER.SAVE' | translate }}</button>
+    </div>
+  </div>
+</div>
