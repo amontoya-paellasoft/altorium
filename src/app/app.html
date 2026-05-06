@@ -1,15 +1,26 @@
 <div class="app-contenedor">
-  <app-header />
-  <div class="contenido-principal">
-    <router-outlet />
-    @if (ws.statsAbierto()) {
-      <app-stats />
+
+  <app-sidebar-menu />
+
+  <div class="main-area">
+  
+
+    <div class="contenido-principal">
+      <router-outlet />
+
+      @if (isMapRoute && ws.consolaSistemaAbierta()) {
+        <app-consola-sistema />
+      }
+
+      @if (ws.statsAbierto()) {
+        <app-stats />
+      }
+    </div>
+
+    @if (isMapRoute) {
+      <app-control-panel />
     }
   </div>
-
-  @if (isMapRoute) {
-    <app-control-panel />
-  }
 
   @if (ws.agentSelec(); as agentId) {
     <app-agent-panel [agentId]="agentId" />
@@ -18,4 +29,5 @@
   @if (ws.logPanelTab() !== null) {
     <app-floating-log-panel />
   }
+
 </div>

@@ -1,0 +1,8 @@
+<div class="consola-header">
+  <span class="consola-title">{{ 'MAP_AGENTS.WINDOW_6002_SYSTEM_TITLE' | translate }}</span>
+  <button class="close-btn" (click)="ws.toggleConsolaSistema()" title="Cerrar consola">✕</button>
+</div>
+
+<div class="consola-body">
+  <app-chat [agentId]="''" />
+</div>

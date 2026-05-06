@@ -1,27 +1,32 @@
 {
-  "APP_1001_TITLE": "ALTORIUM",
-  "APP_1002_SUBTITLE": "Simulación de trabajo entre agentes IA",
-  "CTRL_2001_PANEL": "PANEL DE CONTROL",
-  "CTRL_2002_RESTART": "[ REINICIAR ]",
-  "CTRL_2003_CLOSE": "[ CERRAR VENTANAS ]",
-  "AGENT_4001_DETAIL_TITLE": "[ DETALLE DE AGENTE ::",
-  "AGENT_4002_INTERACT": "INTERACTÚA CON",
-  "AGENT_4003_EMPTY": "SIN DATOS",
-  "CONSOLE_5001_AGENT_TITLE": "CONSOLA DE AGENTE ::",
-  "CONSOLE_5002_SYSTEM_TITLE": "CONSOLA SISTEMA",
-  "CONSOLE_5003_LOG_COUNT": "MENSAJES REGISTRADOS",
-  "CONSOLE_5004_LOADING_AGENT": "CARGANDO LOG DEL AGENTE...",
-  "CONSOLE_5005_LOADING_PUBLIC": "CARGANDO CANAL PÚBLICO...",
-  "CONSOLE_5006_EMPTY": "SIN MENSAJES REGISTRADOS.",
-  "CONSOLE_5007_FILTER_ALL": "[TODO]",
-  "CONSOLE_5008_FILTER_PUBLIC": "[PUB]",
-  "CONSOLE_5009_FILTER_PRIVATE": "[PRIV]",
-  "INPUT_5010_PLACEHOLDER": "ESCRIBE UN MENSAJE...",
-  "INPUT_5011_SEND": "ENVIAR ↵",
-  "WINDOW_6001_TERMINAL_TITLE": "TERMINAL ::",
-  "WINDOW_6002_SYSTEM_TITLE": "CONSOLA SISTEMA",
+  "APP_TITLE": "ALTORIUM",
+  "MAP_AGENTS": {
+    "TITLE": "Mapa de agentes",
+    "AGENT_SHORT": "Agentes",
+    "TASKS_SHORT": "Tareas",
+    "APP_1002_SUBTITLE": "Simulación de trabajo entre agentes IA",
+    "CTRL_2001_PANEL": "PANEL DE CONTROL",
+    "CTRL_2002_RESTART": "[ REINICIAR ]",
+    "CTRL_2003_CLOSE": "[ CERRAR VENTANAS ]",
+    "AGENT_4001_DETAIL_TITLE": "[ DETALLE DE AGENTE ::",
+    "AGENT_4002_INTERACT": "INTERACTÚA CON",
+    "AGENT_4003_EMPTY": "SIN DATOS",
+    "CONSOLE_5001_AGENT_TITLE": "CONSOLA DE AGENTE ::",
+    "CONSOLE_5002_SYSTEM_TITLE": "CONSOLA SISTEMA",
+    "CONSOLE_5003_LOG_COUNT": "MENSAJES REGISTRADOS",
+    "CONSOLE_5004_LOADING_AGENT": "CARGANDO LOG DEL AGENTE...",
+    "CONSOLE_5005_LOADING_PUBLIC": "CARGANDO CANAL PÚBLICO...",
+    "CONSOLE_5006_EMPTY": "SIN MENSAJES REGISTRADOS.",
+    "CONSOLE_5007_FILTER_ALL": "[TODO]",
+    "CONSOLE_5008_FILTER_PUBLIC": "[PUB]",
+    "CONSOLE_5009_FILTER_PRIVATE": "[PRIV]",
+    "INPUT_5010_PLACEHOLDER": "ESCRIBE UN MENSAJE...",
+    "INPUT_5011_SEND": "ENVIAR ↵",
+    "WINDOW_6001_TERMINAL_TITLE": "TERMINAL ::",
+    "WINDOW_6002_SYSTEM_TITLE": "CONSOLA SISTEMA"
+  },
   "TODO": {
-    "TITLE": "Tablero de Tareas",
+    "TITLE": "Tablero",
     "NEW_TASK": "+ Nueva Tarea",
     "CLOSE": "✕ Cerrar",
     "MODAL_TITLE": "Nueva Tarea",
@@ -54,7 +59,8 @@
       "ADD": "Añadir Tarea",
       "VIEW": "Ver",
       "ALL": "Todas",
-      "VIEW_INFO": "Ver Info"
+      "VIEW_INFO": "Ver Info",
+      "RETRY": "Reintentar"
     },
     "DETAIL_PANEL": {
       "ORIGIN_LABEL": "ORIGEN DEL REQUERIMIENTO:",
@@ -201,6 +207,242 @@
     "CHARTS": {
       "MESSAGES_BY_AGENT": "MENSAJES POR AGENTE",
       "PUBLIC_VS_PRIVATE": "PÚBLICO VS PRIVADO"
+    }
+  },
+  "COMPANY": {
+    "LIST": {
+      "PAYMENT": "Pago",
+      "VALID_UNTIL": "Válido hasta",
+      "EDIT": "Editar",
+      "DELETE": "Eliminar",
+      "ALL_PLANS": "Todos los planes",
+      "SORT_BY_CREATED": "Ordenar por: Creado el",
+      "NO_COMPANIES": "No hay empresas",
+      "NO_COMPANIES_DESC": "No hay empresas creadas en el sistema aún.",
+      "NO_RESULTS": "Sin resultados",
+      "NO_RESULTS_DESC": "No se encontraron resultados para los filtros aplicados."
+    },
+    "DRAWER": {
+      "NEW_TITLE": "Nueva empresa",
+      "EDIT_TITLE": "Editar empresa",
+      "NAME_LABEL": "Nombre de empresa",
+      "NAME_PLACEHOLDER": "Escribe el nombre de la empresa",
+      "NIF_LABEL": "NIF (opcional)",
+      "NIF_PLACEHOLDER": "Escribe el NIF",
+      "NIF_FORMAT": "Formato de NIF: 9 caracteres",
+      "PLAN_LABEL": "Plan",
+      "EMAIL_INVOICE": "Factura por email",
+      "EMAIL_HINT": "La factura se enviará por correo electrónico."
+    },
+    "DETAILS": {
+      "FOUNDER": "Fundador (User ID)",
+      "BILLING": "Facturación",
+      "PAYMENT_PENDING": "Pago pendiente",
+      "PENDING_DATE": "Fecha pendiente",
+      "FILES": "Ficheros",
+      "UPLOAD": "Subir fichero",
+      "VISIBILITY": "Visibilidad",
+      "PRIVATE": "Privado",
+      "PUBLIC": "Público",
+      "UP_TO_DATE": "Al día",
+      "PENDING": "Pendiente",
+      "EMAIL": "Email",
+      "NO_EMAIL": "No email"
+    },
+    "DELETE": {
+      "TITLE": "Eliminar empresa",
+      "WARNING": "Se borrará lógicamente la empresa y todos sus proyectos asociados.",
+      "CONFIRM_LABEL": "Escribe el alias de la empresa para confirmar",
+      "INSTRUCTION": "Escribe '{{alias}}' para continuar",
+      "PLACEHOLDER": "Escribe el alias"
+    },
+    "FORM": {
+      "TITLE": "Formulario de Compañía",
+      "SUBTITLE": "Gestione la información corporativa y de contacto",
+      "SECTIONS": {
+        "BASIC": "Información Básica",
+        "CONTACT": "Datos de Contacto",
+        "ADDRESS": "Dirección Fiscal"
+      },
+      "FIELDS": {
+        "NAME": "Nombre Comercial",
+        "LEGAL_NAME": "Razón Social",
+        "TAX_ID": "CIF / NIF",
+        "SECTOR": "Sector de Actividad",
+        "EMAIL": "Correo Electrónico",
+        "PHONE": "Teléfono",
+        "WEBSITE": "Sitio Web",
+        "STREET": "Calle y Número",
+        "CITY": "Ciudad",
+        "STATE": "Provincia / Estado",
+        "ZIP": "Código Postal",
+        "COUNTRY": "País"
+      },
+      "ERRORS": {
+        "NAME_REQUIRED": "El nombre comercial es obligatorio"
+      }
+    }
+  },
+  "COMMON": {
+    "SAVE": "Guardar",
+    "RESET": "Restablecer",
+    "CANCEL": "Cancelar",
+    "ACTIONS": "Acciones",
+    "LOADING": "Cargando"
+  },
+  "USERS": {
+    "TITLE": "USUARIOS",
+    "BTN_BACK": "ATRÁS",
+    "BTN_INVITE": "+ Invitar usuario",
+    "EMPRESA_LABEL": "Empresa",
+    "TABS": {
+      "USUARIOS": "Usuarios",
+      "INVITACIONES": "Invitaciones",
+      "ACTIVIDAD": "Actividad",
+      "ROLES": "Roles"
+    },
+    "FILTERS": {
+      "SEARCH_USERS": "Buscar usuarios por nombre o email...",
+      "SEARCH_INVITES": "Buscar por email...",
+      "ROL": "Rol",
+      "ALL_ROLES": "Todos los roles",
+      "ALL_ROLES_SHORT": "Todos",
+      "ESTADO": "Estado",
+      "ALL_ESTADOS": "Todas",
+      "CLEAR": "Limpiar",
+      "USUARIO": "Usuario"
+    },
+    "TABLE": {
+      "USUARIO": "Usuario",
+      "EXT_ID": "Identificador externo",
+      "AUTH_PROJECT": "Auth Project",
+      "EMPRESAS": "Empresas",
+      "CREADO": "Creado",
+      "ROL_EMPRESA": "Rol en empresa",
+      "ACCIONES": "Acciones",
+      "EMAIL": "Email",
+      "EMPRESA": "Empresa",
+      "ROL": "Rol",
+      "ESTADO": "Estado",
+      "ULTIMO_ENVIO": "Último envío",
+      "REINTENTOS": "Reintentos",
+      "ERROR": "Error",
+      "CREADA": "Creada",
+      "NUM": "#",
+      "TITULO": "Título",
+      "ESTIMACION": "Estimación",
+      "ITERACION": "Iteración",
+      "ACTUALIZADA": "Actualizada",
+      "TAREA": "Tarea",
+      "HORAS_EXTRA": "Horas extra",
+      "APROBADO_EL": "Aprobado el",
+      "ID_ASIGNACION": "ID Asignación",
+      "ACTIVO": "Activo"
+    },
+    "ACTIONS": {
+      "VER": "Ver",
+      "GESTIONAR_ROLES": "Gestionar roles",
+      "QUITAR": "Quitar",
+      "REENVIAR": "Reenviar",
+      "ELIMINAR": "Eliminar",
+      "ASIGNAR_ROL": "Asignar rol",
+      "ENVIAR_INVITACION": "Enviar invitación"
+    },
+    "EMPTY": {
+      "USUARIOS": "No se encontraron usuarios",
+      "INVITACIONES": "No se encontraron invitaciones",
+      "TAREAS": "Sin tareas asignadas",
+      "APROBACIONES": "Sin aprobaciones",
+      "EVENTOS": "Sin eventos recientes",
+      "COMENTARIOS": "Sin comentarios"
+    },
+    "ACTIVIDAD": {
+      "TAREAS": "Tareas asignadas",
+      "APROBACIONES": "Aprobaciones realizadas",
+      "EVENTOS": "Eventos recientes",
+      "COMENTARIOS": "Comentarios"
+    },
+    "ROLES": {
+      "SELECT_USER": "Seleccionar usuario",
+      "ASSIGN_SECTION": "ASIGNAR ROL EN EMPRESA",
+      "SELECT_ROL": "Selecciona rol",
+      "CURRENT_SECTION": "ROLES ACTUALES EN LA EMPRESA",
+      "ROL_LABEL": "Rol"
+    },
+    "MODAL": {
+      "TITULO": "Invitar usuario",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_PLACEHOLDER": "usuario@empresa.com",
+      "EMAIL_ERROR": "Introduce un email válido.",
+      "ROL_LABEL": "Rol"
+    },
+    "VALUES": {
+      "SI": "Sí",
+      "NO": "No",
+      "STATE_BACKLOG": "Backlog",
+      "STATE_TODO": "Por hacer",
+      "STATE_DOING": "En progreso",
+      "STATE_TEST": "En pruebas",
+      "STATE_DONE": "Hecho",
+      "APPROVAL_APPROVED": "Aprobado",
+      "APPROVAL_REJECTED": "Rechazado",
+      "APPROVAL_PENDING": "Pendiente"
+    },
+    "TOAST": {
+      "QUITAR": "Has intentado quitar a {{nombre}}",
+      "ELIMINAR": "Has intentado eliminar la invitación de {{email}}"
+    }
+  },
+  "PROYECTOS": {
+    "TITLE": "PROYECTOS",
+    "SUBTITLE": "Gestión centralizada del inventario técnico",
+    "NEW_PROJECT": "+ NUEVO PROYECTO",
+    "FILTERS": {
+      "SEARCH": "🔍 Buscar por nombre o alias...",
+      "COMPANY": "Empresa",
+      "ALL_COMPANIES": "Todas las empresas",
+      "TYPE": "Tipo",
+      "ALL_TYPES": "Todos",
+      "STATUS": "Estado",
+      "ALL_STATUS": "Todos",
+      "INACTIVE": "Inactivo",
+      "INACTIVE_ALL": "Todos",
+      "INACTIVE_ACTIVE": "Activos",
+      "INACTIVE_INACTIVE": "Inactivos",
+      "CLEAR": "Limpiar"
+    },
+    "TABLE": {
+      "PROJECT": "Proyecto",
+      "COMPANY": "Empresa",
+      "TYPE": "Tipo",
+      "STATUS": "Estado",
+      "VERSION": "Versión",
+      "ACTIONS": "Acciones"
+    },
+    "DRAWER": {
+      "NEW": "Nuevo proyecto",
+      "EDIT": "Editar proyecto",
+      "NAME": "Nombre del proyecto",
+      "DOMAIN": "URL del dominio",
+      "ALIAS": "Alias",
+      "ALT_IMAGE": "Alt imagen (opcional)",
+      "INACTIVE": "Proyecto inactivo",
+      "SAVE": "GUARDAR",
+      "CANCEL": "CANCELAR"
+    },
+    "DETAILS": {
+      "GENERAL": "DATOS GENERALES",
+      "REPO": "REPOSITORIO",
+      "COPY": "Copiar",
+      "LEGACY": "AJUSTES LEGACY",
+      "FILES": "FICHEROS",
+      "MATRIX": "MATRIZ DE ACCIONES"
+    },
+    "EMPTY": {
+      "NO_PROJECTS": "No hay proyectos visibles",
+      "CREATE_DESC": "Crea un nuevo proyecto para comenzar.",
+      "NO_FILTER_RESULTS": "No hay proyectos con estos filtros",
+      "FILTER_DESC": "Intenta ajustar los filtros de búsqueda."
     }
   }
 }

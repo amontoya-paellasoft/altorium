@@ -1,0 +1,45 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 420px;
+  flex-shrink: 0;
+  height: 100%;
+  background: #0d0d0d;
+  border-left: 1px solid #1a2e1a;
+  overflow: hidden;
+}
+
+.consola-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: #060c06;
+  border-bottom: 1px solid #1a2e1a;
+  flex-shrink: 0;
+}
+
+.consola-title {
+  font-size: 11px;
+  color: #41ff00;
+  letter-spacing: 0.1em;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: #ff3333;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  text-shadow: 0 0 8px #ff3333;
+}
+
+.consola-body {
+  flex: 1;
+  overflow: hidden;
+}

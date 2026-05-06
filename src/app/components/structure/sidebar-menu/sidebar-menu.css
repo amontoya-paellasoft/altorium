@@ -1,0 +1,249 @@
+:host {
+  display: block;
+  flex-shrink: 0;
+  height: 100%;
+}
+
+.sidebar {
+  width: 14rem;
+  height: 100%;
+  background: #0f1923;
+  border-right: 1px solid #1a2e3d;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.25s ease;
+  overflow: hidden;
+}
+
+.sidebar.colapsado {
+  width: 5.5rem;
+}
+
+/* CABECERA */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 12px;
+  border-bottom: 1px solid #1a2e3d;
+  flex-shrink: 0;
+  min-height: 52px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.brand-logo {
+  height: 2.5rem;
+  width: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.brand-name {
+  font-size: 12px;
+  font-weight: bold;
+  color: #d4af37;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.sidebar-toggle {
+  background: none;
+  border: 1px solid #1a2e3d;
+  color: #64748b;
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  flex-shrink: 0;
+  font-size: 14px;
+  transition: all 0.15s;
+}
+
+.sidebar-toggle:hover {
+  border-color: #d4af37;
+  color: #d4af37;
+}
+
+/* NAV PRINCIPAL */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: #aabacf;
+  font-size: 13px;
+  border-left: 3px solid transparent;
+  transition: all 0.15s;
+}
+
+.nav-item:hover {
+  color: #e2e8f0;
+  background: #1a2e3d;
+  border-left-color: #475569;
+}
+
+.nav-item.activo {
+  color: #ffffff;
+  background: #1e3a5f;
+  border-left-color: #d4af37;
+}
+
+.nav-icon {
+  font-size: 15px;
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
+.nav-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* SECCIÓN PROYECTOS */
+.sidebar-section {
+  padding: 16px 14px 6px;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: #475569;
+}
+
+/* CARPETAS DE PROYECTO */
+.proyectos-lista {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #1a2e3d transparent;
+}
+
+.proyecto-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  font-size: 12px;
+  text-align: left;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.proyecto-header:hover {
+  color: #e2e8f0;
+  background: #1a2e3d;
+}
+
+.proyecto-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.proyecto-nombre {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.proyecto-chevron {
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.proyecto-subitems {
+  display: flex;
+  flex-direction: column;
+  padding-left: 14px;
+}
+
+.subitem {
+  padding: 6px 14px;
+  color: #64748b;
+  font-size: 12px;
+  text-decoration: none;
+  border-left: 1px solid #1a2e3d;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.subitem:hover {
+  color: #94a3b8;
+  border-left-color: #475569;
+}
+
+.subitem.activo {
+  color: #e2e8f0;
+  border-left-color: #d4af37;
+}
+
+/* COLAPSADO: ocultar texto */
+.sidebar.colapsado .brand-name,
+.sidebar.colapsado .sidebar-section,
+.sidebar.colapsado .nav-label,
+.sidebar.colapsado .proyecto-nombre,
+.sidebar.colapsado .proyecto-chevron {
+  display: none;
+}
+
+/* Footer */
+.sidebar-footer {
+  margin-top: auto;
+  padding: 1rem;
+  border-top: 1px solid #1a2e3d;
+}
+
+.lang-selector {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.lang-btn {
+  background: #1a2e3d;
+  color: #94a3b8;
+  border: 1px solid #2d455c;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.lang-btn.active {
+  background: #d4af37;
+  color: #0f172a;
+  border-color: #d4af37;
+}
+
+.lang-btn:hover {
+  border-color: #d4af37;
+  color: #ffffff;
+}

@@ -1,0 +1,42 @@
+<div class="modal-overlay" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="btn-close-top" (click)="close.emit()" [attr.aria-label]="'TODO.CLOSE' | translate">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <div class="modal-body">
+      <div class="alert-icon">
+        <div class="icon-circle">
+          <i class="fas fa-trash-alt"></i>
+        </div>
+      </div>
+
+      <h2>{{ 'COMPANY.DELETE.TITLE' | translate }}</h2>
+      <p class="warning-text">{{ 'COMPANY.DELETE.WARNING' | translate }}</p>
+
+      <div class="confirm-section">
+        <label>{{ 'COMPANY.DELETE.CONFIRM_LABEL' | translate }}</label>
+        <p class="instruction">
+          {{ 'COMPANY.DELETE.INSTRUCTION' | translate:{ alias: empresa.alias } }}
+        </p>
+        <input 
+          type="text" 
+          [(ngModel)]="confirmInput" 
+          [placeholder]="'COMPANY.DELETE.PLACEHOLDER' | translate"
+          class="confirm-input"
+        >
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="close.emit()">{{ 'COMMON.CANCEL' | translate }}</button>
+      <button 
+        class="btn-delete" 
+        [disabled]="!isConfirmed"
+        (click)="onConfirm()"
+      >
+        {{ 'COMPANY.DELETE.TITLE' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

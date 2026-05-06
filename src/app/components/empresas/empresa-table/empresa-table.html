@@ -1,0 +1,58 @@
+<div class="table-wrapper">
+  <table class="premium-table">
+    <thead>
+      <tr>
+        <th (click)="toggleSort('nombre')" class="sortable-header">{{ 'TASK_DETAIL.META.COMPANY' | translate }} <fa-icon [icon]="getSortIcon('nombre')"></fa-icon></th>
+        <th (click)="toggleSort('nif')" class="sortable-header">{{ 'COMPANY.FORM.FIELDS.TAX_ID' | translate }} <fa-icon [icon]="getSortIcon('nif')"></fa-icon></th>
+        <th (click)="toggleSort('plan')" class="sortable-header">{{ 'COMPANY.DRAWER.PLAN_LABEL' | translate }} <fa-icon [icon]="getSortIcon('plan')"></fa-icon></th>
+        <th (click)="toggleSort('facturaEmail')" class="sortable-header">{{ 'COMPANY.DRAWER.EMAIL_INVOICE' | translate }} <fa-icon [icon]="getSortIcon('facturaEmail')"></fa-icon></th>
+        <th (click)="toggleSort('pagoEstado')" class="sortable-header">{{ 'COMPANY.LIST.PAYMENT' | translate }} <fa-icon [icon]="getSortIcon('pagoEstado')"></fa-icon></th>
+        <th (click)="toggleSort('validoHasta')" class="sortable-header">{{ 'COMPANY.LIST.VALID_UNTIL' | translate }} <fa-icon [icon]="getSortIcon('validoHasta')"></fa-icon></th>
+        <th (click)="toggleSort('creadoEn')" class="sortable-header">{{ 'TODO.LABELS.CREATED' | translate }} <fa-icon [icon]="getSortIcon('creadoEn')"></fa-icon></th>
+        <th>{{ 'COMMON.ACTIONS' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (empresa of empresas; track empresa.id) {
+        <tr>
+          <td class="company-cell">
+            <div class="company-info">
+              <span class="company-name">{{ empresa.nombre }}</span>
+              <div class="company-meta">
+                <span class="alias">{{ empresa.alias }}</span>
+                <span class="id">ID: {{ empresa.id.substring(0, 8) }}...</span>
+              </div>
+            </div>
+          </td>
+          <td>{{ empresa.nif || '-' }}</td>
+          <td>
+            <span class="badge" [ngClass]="getPlanClass(empresa.plan)">{{ empresa.plan }}</span>
+          </td>
+          <td>
+            <span class="badge-pill" [class.email]="empresa.facturaEmail" [class.no-email]="!empresa.facturaEmail">
+              {{ (empresa.facturaEmail ? 'COMPANY.DETAILS.EMAIL' : 'COMPANY.DETAILS.NO_EMAIL') | translate }}
+            </span>
+          </td>
+          <td>
+            <span class="badge" [ngClass]="getPagoClass(empresa.pagoEstado)">
+              {{ (empresa.pagoEstado === 'Al día' ? 'COMPANY.DETAILS.UP_TO_DATE' : 'COMPANY.DETAILS.PENDING') | translate }}
+            </span>
+          </td>
+          <td>{{ empresa.validoHasta ? (empresa.validoHasta | date:'dd/MM/yyyy') : '-' }}</td>
+          <td>{{ empresa.creadoEn | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td class="actions-cell">
+            <button class="btn-text" (click)="view.emit(empresa)" title="{{ 'TODO.BUTTONS.VIEW' | translate }}">
+              <fa-icon [icon]="faEye"></fa-icon> {{ 'TODO.BUTTONS.VIEW' | translate }}
+            </button>
+            <button class="btn-text" (click)="edit.emit(empresa)" title="{{ 'COMPANY.LIST.EDIT' | translate }}">
+              <fa-icon [icon]="faEdit"></fa-icon> {{ 'COMPANY.LIST.EDIT' | translate }}
+            </button>
+            <button class="btn-text delete" (click)="delete.emit(empresa)" title="{{ 'COMPANY.LIST.DELETE' | translate }}">
+              <fa-icon [icon]="faTrash"></fa-icon> {{ 'COMPANY.LIST.DELETE' | translate }}
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

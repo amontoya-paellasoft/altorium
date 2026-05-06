@@ -1,0 +1,32 @@
+<div class="mobile-card" (click)="onView($event)">
+  <div class="card-header">
+    <div class="title-area">
+      <h3 class="project-name">{{ proyecto.domainName }}</h3>
+      <span class="alias" *ngIf="proyecto.alias">{{ proyecto.alias }}</span>
+    </div>
+    <div class="actions-menu-container">
+      <button class="btn-icon" (click)="toggleMenu($event)">
+        <fa-icon [icon]="faEllipsisH"></fa-icon>
+      </button>
+      <div class="dropdown-menu" *ngIf="menuOpen" (click)="$event.stopPropagation()">
+        <button class="menu-item" (click)="onView($event)">Ver detalle</button>
+        <button class="menu-item" (click)="onEdit($event)">Editar proyecto</button>
+        <button class="menu-item delete" (click)="onDelete($event)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card-body">
+    <div class="links-area">
+      <span class="company-text">Empresa {{ proyecto.companyId }}</span>
+      <span class="separator">-</span>
+      <a [href]="proyecto.domainUrl" target="_blank" class="url-link" (click)="$event.stopPropagation()">{{ proyecto.domainUrl }}</a>
+    </div>
+    
+    <div class="badges-area">
+      <span class="badge type" [ngClass]="proyecto.projectType.toLowerCase()">{{ proyecto.projectType }}</span>
+      <span class="badge status" [ngClass]="proyecto.projectStatus.toLowerCase()">{{ proyecto.projectStatus }}</span>
+      <span class="version">v{{ proyecto.activeVersionId }}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<aside class="sidebar" [class.colapsado]="!ws.sidebarExpandido()">
+
+  <!-- Cabecera del sidebar -->
+  <div class="sidebar-header">
+    <div class="brand">
+      <img src="assets/imgs/altorium_logo.png" class="brand-logo" alt="Altorium">
+    </div>
+    <button class="sidebar-toggle" (click)="ws.toggleSidebar()"
+            [title]="ws.sidebarExpandido() ? 'Colapsar' : 'Expandir'">
+      {{ ws.sidebarExpandido() ? '‹' : '›' }}
+    </button>
+  </div>
+
+  <!-- Navegación principal -->
+  <nav class="sidebar-nav">
+    @for (item of navItems; track item.ruta) {
+      <a class="nav-item"
+         [routerLink]="item.ruta"
+         routerLinkActive="activo"
+         [routerLinkActiveOptions]="{ exact: item.exact }"
+         [title]="item.label">
+        <span class="nav-icon">{{ item.icon }}</span>
+        <span class="nav-label">{{ item.label }}</span>
+      </a>
+    }
+  </nav>
+
+  <!-- Sección proyectos -->
+  <div class="sidebar-section">
+    <span class="section-title">PROYECTOS</span>
+  </div>
+
+  <div class="proyectos-lista">
+    @for (proyecto of proyectos(); track proyecto.id) {
+
+      <!-- Cabecera de la carpeta -->
+      <button class="proyecto-header" (click)="toggleProyecto(proyecto.id)"
+              [title]="proyecto.nombre">
+        <span class="proyecto-dot" [style.background]="proyecto.color"></span>
+        <span class="proyecto-nombre">{{ proyecto.nombre }}</span>
+        <span class="proyecto-chevron">{{ proyecto.expandido ? '▾' : '›' }}</span>
+      </button>
+
+      <!-- Subitems de la carpeta: lógica dependiente de los datos de la api -->
+      @if (proyecto.expandido && ws.sidebarExpandido()) {
+        <div class="proyecto-subitems">
+          <a class="subitem" routerLink="/to-do" routerLinkActive="activo">✓ Tablero</a>
+          <a class="subitem" routerLink="/configuracion" routerLinkActive="activo">⊞ Configuración</a>
+        </div>
+      }
+    }
+    <!-- Footer: Selección de Idioma -->
+    <div class="sidebar-footer">
+      <div class="lang-selector">
+        @for (lang of ['es', 'en']; track lang) {
+          <button
+            class="lang-btn"
+            [class.active]="idiomaActual === lang"
+            (click)="selectLanguage(lang)">
+            {{ lang | uppercase }}
+          </button>
+        }
+      </div>
+    </div>
+
+  </div>
+
+</aside>

@@ -1,33 +1,31 @@
-import { Component, inject, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, inject, OnInit, ViewChildren, QueryList, HostListener, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TodoService } from '../../services/todo-service';
 import { TareaService } from '../../services/tarea-service';
 import { ToDoTask, MiseEnPlaceItem, Column } from '../../models/to-do-interface';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { Busqueda } from '../busqueda/busqueda';
-
-import { TarjetasToDo } from '../tarjetas-to-do/tarjetas-to-do';
 import { TaskDetail } from '../task-detail/task-detail';
+import { TarjetasToDo } from '../tarjetas-to-do/tarjetas-to-do';
 
 @Component({
   selector: 'app-to-do',
   standalone: true,
   imports: [
-    CommonModule, 
-    FormsModule, 
-    ReactiveFormsModule, 
-    RouterLink, 
-    TranslateModule, 
-    DragDropModule, 
-    Busqueda, 
-    TarjetasToDo, 
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    DragDropModule,
+    Busqueda,
+    TarjetasToDo,
     TaskDetail
   ],
   templateUrl: './to-do.html',
-  styleUrls: ['./to-do.css']
+  styleUrls: ['./to-do.css', './to-do-mobile.css']
 })
 export class TodoComponent implements OnInit {
   @ViewChildren(TarjetasToDo) tarjetas!: QueryList<TarjetasToDo>;
@@ -35,7 +33,8 @@ export class TodoComponent implements OnInit {
   private todoService = inject(TodoService);
   private tareaService = inject(TareaService);
   private translate = inject(TranslateService);
-  
+  private route = inject(ActivatedRoute);
+
   get columns() {
     return this.todoService.filteredColumns();
   }
@@ -46,7 +45,24 @@ export class TodoComponent implements OnInit {
 
   columnExpandedState: Record<string, boolean> = {};
 
-  ngOnInit() {}
+  isMobile = signal(window.innerWidth < 1250);
+
+  @HostListener('window:resize')
+  onResize() {
+    this.isMobile.set(window.innerWidth < 1250);
+  }
+
+  ngOnInit() {
+    const userIdParam = this.route.snapshot.paramMap.get('userId');
+    if (userIdParam) {
+      const userId = parseInt(userIdParam, 10);
+      if (!isNaN(userId)) {
+        this.todoService.setUsuarioIdFilter(userId);
+      }
+    } else {
+      this.todoService.setUsuarioIdFilter(null);
+    }
+  }
 
   toggleColumn(columnId: string) {
     const isCurrentlyExpanded = !!this.columnExpandedState[columnId];
@@ -104,12 +120,12 @@ export class TodoComponent implements OnInit {
     if (!relatedTaskId) {
       return this.translate.instant('TODO.DETAIL_PANEL.VALUES.NONE');
     }
-    
+
     for (const col of this.todoService.getColumns()) {
       const task = col.tasks.find(t => (t as ToDoTask).taskId === relatedTaskId);
       if (task) return (task as ToDoTask).title;
     }
-    
+
     return `#${relatedTaskId}`;
   }
 

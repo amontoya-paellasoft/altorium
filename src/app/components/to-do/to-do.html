@@ -2,9 +2,6 @@
   <!-- Header: Título y Acciones -->
   <div class="header-container">
     <div class="header-left">
-      <button routerLink="/" class="btn-retro">
-        <i class="fa-solid fa-square-caret-left"></i> ATRÁS
-      </button>
       <h2 class="todo-page-title">
         {{ 'TODO.TITLE' | translate }}
       </h2>
@@ -83,7 +80,12 @@
             <span class="column-counter">({{ column.tasks.length }})</span>
           </div>
 
-          <div class="task-list" cdkDropList [id]="column.id" [cdkDropListData]="column.tasks" (cdkDropListDropped)="onDrop($event)">
+          <div class="task-list" 
+               cdkDropList 
+               [id]="column.id" 
+               [cdkDropListData]="column.tasks" 
+               (cdkDropListDropped)="onDrop($event)"
+               [cdkDropListDisabled]="isMobile()">
 
             @if (column.tasks.length === 0) {
               <div class="empty-state-container">

@@ -3,7 +3,6 @@
   height: 100%;
   width: 100%;
   background: #f8fafc;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
   overflow-y: auto;
 }
 
@@ -105,10 +104,10 @@
 }
 
 .column-container {
-  /* Calculamos el ancho para que quepan las 6 columnas exactamente en el viewport */
-  /* (100vw - padding total - gaps totales) / 6 */
-  flex: 0 0 calc((100vw - 7.5rem) / 6); 
-  min-width: calc((100vw - 7.5rem) / 6);
+  /* Flex 1 allows columns to shrink/expand to fit container when space allows */
+  flex: 1; 
+  /* Minimum width before it forces scroll */
+  min-width: 150px; 
   background: #ffffff;
   border: 1px solid #cbd5e1;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -571,7 +570,7 @@
 }
 
 .detail-title {
-  font-family: 'IBMPlex', monospace;
+  font-family: 'Courier New', monospace;
   font-size: 1.25rem;
   font-weight: 800;
   color: #1e293b;
@@ -630,7 +629,7 @@
 }
 
 .origin-value {
-  font-family: 'IBMPlex', monospace;
+  font-family: 'Courier New', monospace;
   font-size: 12px;
   font-weight: 800;
   display: flex;
@@ -682,7 +681,7 @@
 }
 
 .info-content {
-  font-family: 'IBMPlex', monospace;
+  font-family: 'Courier New', monospace;
   font-size: 1rem;
   color: #334155;
   /* Texto principal oscuro */
@@ -750,7 +749,7 @@
   padding: 0.75rem;
   border: 2px solid #e2e8f0;
   background: #ffffff;
-  font-family: 'IBMPlex', monospace;
+  font-family: 'Courier New', monospace;
   font-size: 14px;
   color: #0f172a;
 }

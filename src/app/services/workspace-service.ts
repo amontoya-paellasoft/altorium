@@ -43,7 +43,6 @@ export class WorkspaceService {
   reiniciar(): void {
     this.cerrarTodas();
     this.cerrarPanel();
-    this.abrir({ agentId: '' });
   }
 
   // ECHARTS
@@ -68,5 +67,19 @@ export class WorkspaceService {
 
   cerrarLogPanel(): void {
     this.logPanelTab.set(null);
+  }
+
+  // CONSOLA SISTEMA — panel fijo en el layout (no flotante)
+  consolaSistemaAbierta = signal(true);
+
+  toggleConsolaSistema(): void {
+    this.consolaSistemaAbierta.update(v => !v);
+  }
+
+  // SIDEBAR
+  sidebarExpandido = signal(true);
+
+  toggleSidebar(): void {
+    this.sidebarExpandido.update(v => !v);
   }
 }

@@ -1,6 +1,11 @@
 <div class="panel">
-  <span class="panel-title">{{'CTRL_2001_PANEL' | translate}}</span>
-  <button class="btn-action" (click)="ws.abrirStats()">[ STATS ]</button>
-  <button class="btn-action" (click)="reiniciar()">{{'CTRL_2002_RESTART' | translate}}</button>
-  <button class="btn-kill" (click)="ws.cerrarTodas()">{{'CTRL_2003_CLOSE' | translate}}</button>
+  <span class="panel-title">{{'MAP_AGENTS.CTRL_2001_PANEL' | translate}}</span>
+  <div class="panel-actions">
+    <button class="btn-action" (click)="ws.abrirStats()">[ STATS ]</button>
+    <button class="btn-action btn-consola-mobile" (click)="ws.toggleConsolaSistema()">
+      [ {{ ws.consolaSistemaAbierta() ? 'CERRAR' : 'CONSOLA' }} ]
+    </button>
+    <button class="btn-action btn-reiniciar-desktop" (click)="reiniciar()">{{'MAP_AGENTS.CTRL_2002_RESTART' | translate}}</button>
+    <button class="btn-kill" (click)="ws.cerrarTodas()">{{'MAP_AGENTS.CTRL_2003_CLOSE' | translate}}</button>
+  </div>
 </div>

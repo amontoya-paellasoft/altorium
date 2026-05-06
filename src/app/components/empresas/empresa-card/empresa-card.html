@@ -1,0 +1,43 @@
+<div class="company-card">
+  <div class="card-header">
+    <h3 class="company-name">{{ empresa.nombre }}</h3>
+    <div class="menu-container">
+      <button class="btn-kebab" (click)="toggleMenu($event)">
+        <i class="fas fa-ellipsis-v"></i>
+      </button>
+      <div class="kebab-menu" *ngIf="menuOpen">
+        <button (click)="view.emit(); menuOpen = false">
+          <i class="fas fa-eye"></i> {{ 'TODO.BUTTONS.VIEW' | translate }}
+        </button>
+        <button (click)="edit.emit(); menuOpen = false">
+          <i class="fas fa-edit"></i> {{ 'COMPANY.LIST.EDIT' | translate }}
+        </button>
+        <button class="delete" (click)="delete.emit(); menuOpen = false">
+          <i class="fas fa-trash-alt"></i> {{ 'COMPANY.LIST.DELETE' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="badges-row">
+    <span class="badge alias">{{ empresa.alias }}</span>
+    <span class="badge plan" [ngClass]="empresa.plan.toLowerCase()">{{ empresa.plan }}</span>
+    <span class="badge email" [class.no]="!empresa.facturaEmail">
+      {{ (empresa.facturaEmail ? 'COMPANY.DETAILS.EMAIL' : 'COMPANY.DETAILS.NO_EMAIL') | translate }}
+    </span>
+    <span class="badge status" [class.pending]="empresa.pagoEstado === 'Pendiente'">
+      {{ (empresa.pagoEstado === 'Al día' ? 'COMPANY.DETAILS.UP_TO_DATE' : 'COMPANY.DETAILS.PENDING') | translate }}
+    </span>
+  </div>
+
+  <div class="card-details">
+    <div class="detail-item">
+      <span class="label">{{ 'COMPANY.FORM.FIELDS.TAX_ID' | translate }}</span>
+      <span class="value">{{ empresa.nif || '-' }}</span>
+    </div>
+    <div class="detail-item">
+      <span class="label">{{ 'COMPANY.LIST.VALID_UNTIL' | translate }}</span>
+      <span class="value">{{ empresa.validoHasta ? (empresa.validoHasta | date:'dd/MM/yyyy') : '-' }}</span>
+    </div>
+  </div>
+</div>
