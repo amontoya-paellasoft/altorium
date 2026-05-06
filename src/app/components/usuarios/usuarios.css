@@ -800,6 +800,43 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@media (max-width: 1250px) {
+  .page {
+    padding: 14px 16px;
+  }
+
+  .page-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .page-header-left {
+    flex: 1 1 100%;
+  }
+
+  .empresa-wrap {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .empresa-select {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .btn-invite {
+    margin-left: 0;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  .roles-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* MODAL */
 .modal-overlay {
   position: fixed;
