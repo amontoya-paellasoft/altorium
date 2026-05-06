@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -30,10 +30,8 @@ export class Usuarios {
   private location = inject(Location);
   private translate = inject(TranslateService);
 
-  constructor() {}
-
   companyUsers = [...MOCK_COMPANY_USERS];
-  invitaciones = [...MOCK_INVITES];
+  invitaciones = signal([...MOCK_INVITES]);
   activeTab = 'usuarios';
 
   volver() {
@@ -45,46 +43,26 @@ export class Usuarios {
   }
 
   // Tab Usuarios
-  userSearch = '';
-  userRoleFilter = 'Todos';
+  userSearch = signal('');
+  userRoleFilter = signal('Todos');
 
-  usuariosFiltrados(): CompanyUser[] {
-    let resultado: CompanyUser[] = [];
-    for (let u of this.companyUsers) {
-      let passSearch = true;
-      let passRole = true;
-
-      if (this.userSearch.trim() !== '') {
-        const texto = (u.name + ' ' + u.surname + ' ' + u.email).toLowerCase();
-        if (!texto.includes(this.userSearch.toLowerCase())) {
-          passSearch = false;
-        }
-      }
-
-      if (this.userRoleFilter !== 'Todos') {
-        if (u.roleInCompany !== this.userRoleFilter) {
-          passRole = false;
-        }
-      }
-
-      if (passSearch && passRole) {
-        resultado.push(u);
-      }
-    }
-    return resultado;
-  }
+  usuariosFiltrados = computed(() => {
+    const term = this.userSearch().toLowerCase().trim();
+    const role = this.userRoleFilter();
+    return this.companyUsers.filter(u => {
+      const matchesSearch = !term || (u.name + ' ' + u.surname + ' ' + u.email).toLowerCase().includes(term);
+      const matchesRole = role === 'Todos' || u.roleInCompany === role;
+      return matchesSearch && matchesRole;
+    });
+  });
 
   alternarRolUsuario(role: string) {
-    if (this.userRoleFilter === role) {
-      this.userRoleFilter = 'Todos';
-    } else {
-      this.userRoleFilter = role;
-    }
+    this.userRoleFilter.set(this.userRoleFilter() === role ? 'Todos' : role);
   }
 
   limpiarFiltrosUsuarios() {
-    this.userSearch = '';
-    this.userRoleFilter = 'Todos';
+    this.userSearch.set('');
+    this.userRoleFilter.set('Todos');
   }
 
   iniciales(name: string, surname: string): string {
@@ -97,63 +75,34 @@ export class Usuarios {
   }
 
   // Tab Invitaciones
+  inviteSearch = signal('');
+  inviteStatusFilter = signal('Todas');
+  inviteRoleFilter = signal('Todos');
 
-  inviteSearch = '';
-  inviteStatusFilter = 'Todas';
-  inviteRoleFilter = 'Todos';
-
-  invitacionesFiltradas(): InviteDTO[] {
-    let resultado: InviteDTO[] = [];
-    for (let inv of this.invitaciones) {
-      let passSearch = true;
-      let passStatus = true;
-      let passRole = true;
-
-      if (this.inviteSearch.trim() !== '') {
-        if (!inv.email.toLowerCase().includes(this.inviteSearch.toLowerCase())) {
-          passSearch = false;
-        }
-      }
-
-      if (this.inviteStatusFilter !== 'Todas') {
-        if (inv.status !== this.inviteStatusFilter) {
-          passStatus = false;
-        }
-      }
-
-      if (this.inviteRoleFilter !== 'Todos') {
-        if (inv.role !== this.inviteRoleFilter) {
-          passRole = false;
-        }
-      }
-
-      if (passSearch && passStatus && passRole) {
-        resultado.push(inv);
-      }
-    }
-    return resultado;
-  }
+  invitacionesFiltradas = computed(() => {
+    const term = this.inviteSearch().toLowerCase().trim();
+    const status = this.inviteStatusFilter();
+    const role = this.inviteRoleFilter();
+    return this.invitaciones().filter(inv => {
+      const matchesSearch = !term || inv.email.toLowerCase().includes(term);
+      const matchesStatus = status === 'Todas' || inv.status === status;
+      const matchesRole = role === 'Todos' || inv.role === role;
+      return matchesSearch && matchesStatus && matchesRole;
+    });
+  });
 
   alternarEstadoInvitacion(status: string) {
-    if (this.inviteStatusFilter === status) {
-      this.inviteStatusFilter = 'Todas';
-    } else {
-      this.inviteStatusFilter = status;
-    }
+    this.inviteStatusFilter.set(this.inviteStatusFilter() === status ? 'Todas' : status);
   }
 
   alternarRolInvitacion(role: string) {
-    if (this.inviteRoleFilter === role) {
-      this.inviteRoleFilter = 'Todos';
-    } else {
-      this.inviteRoleFilter = role;
-    }
+    this.inviteRoleFilter.set(this.inviteRoleFilter() === role ? 'Todos' : role);
   }
 
   limpiarFiltrosInvitaciones() {
-    this.inviteSearch = '';
-    this.inviteStatusFilter = 'Todas';
-    this.inviteRoleFilter = 'Todos';
+    this.inviteSearch.set('');
+    this.inviteStatusFilter.set('Todas');
+    this.inviteRoleFilter.set('Todos');
   }
 
   nombreEmpresa(company: CompanyDTO): string {
@@ -161,7 +110,6 @@ export class Usuarios {
   }
 
   // Tab Actividad
-
   actividadUserId = MOCK_COMPANY_USERS[0].userId;
 
   tareasDelUsuario(): TaskDTO[] {
@@ -170,9 +118,7 @@ export class Usuarios {
 
   estimacionTarea(taskId: number): TaskEstimateDTO | null {
     for (let e of MOCK_ESTIMATES) {
-      if (e.taskId === taskId) {
-        return e;
-      }
+      if (e.taskId === taskId) return e;
     }
     return null;
   }
@@ -210,7 +156,6 @@ export class Usuarios {
   }
 
   // Tab Roles
-
   selectedUserId = MOCK_COMPANY_USERS[0].userId;
   rolSelecAsignr = '';
   rolesAsignados: RoleAssignment[] = [...MOCK_ROLE_ASSIGNMENTS];
@@ -220,9 +165,7 @@ export class Usuarios {
   }
 
   asignarRol() {
-    if (this.rolSelecAsignr === '') {
-      return;
-    }
+    if (this.rolSelecAsignr === '') return;
     const nuevaAsignacion: RoleAssignment = {
       roleAssignmentId: Date.now(),
       userId: this.selectedUserId,
@@ -256,10 +199,12 @@ export class Usuarios {
 
   // Acciones Tab Invitaciones
   reenviarInvitacion(inv: InviteDTO) {
-    this.invitaciones = this.invitaciones.map((i) =>
-      i.id === inv.id
-        ? { ...i, status: 'SENT' as const, lastSentAt: new Date().toISOString(), retries: i.retries + 1, errorDesc: null }
-        : i
+    this.invitaciones.update(list =>
+      list.map(i =>
+        i.id === inv.id
+          ? { ...i, status: 'SENT' as const, lastSentAt: new Date().toISOString(), retries: i.retries + 1, errorDesc: null }
+          : i
+      )
     );
   }
 
@@ -301,9 +246,9 @@ export class Usuarios {
       user: null,
       userId: 0,
       companyId: 81,
-      company: this.invitaciones[0].company,
+      company: this.invitaciones()[0].company,
     };
-    this.invitaciones = [...this.invitaciones, nueva];
+    this.invitaciones.update(list => [...list, nueva]);
     this.cerrarModalInvitar();
     this.cambiarTab('invitaciones');
   }

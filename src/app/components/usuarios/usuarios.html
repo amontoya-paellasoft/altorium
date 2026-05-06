@@ -44,20 +44,21 @@
           type="text"
           class="search-input"
           [placeholder]="'USERS.FILTERS.SEARCH_USERS' | translate"
-          [(ngModel)]="userSearch"
+          [ngModel]="userSearch()"
+          (ngModelChange)="userSearch.set($event)"
         />
       </div>
       <div class="filter-group">
         <span class="filter-label">{{ 'USERS.FILTERS.ROL' | translate }}</span>
-        <select class="filter-select" [(ngModel)]="userRoleFilter">
+        <select class="filter-select" [ngModel]="userRoleFilter()" (ngModelChange)="userRoleFilter.set($event)">
           <option value="Todos">{{ 'USERS.FILTERS.ALL_ROLES' | translate }}</option>
           <option value="ADMIN">ADMIN</option>
           <option value="DEVELOPER">DEVELOPER</option>
         </select>
       </div>
       <div class="badge-filters">
-        <span class="badge-toggle admin" [class.active]="userRoleFilter === 'ADMIN'" (click)="alternarRolUsuario('ADMIN')">ADMIN</span>
-        <span class="badge-toggle developer" [class.active]="userRoleFilter === 'DEVELOPER'" (click)="alternarRolUsuario('DEVELOPER')">DEVELOPER</span>
+        <span class="badge-toggle admin" [class.active]="userRoleFilter() === 'ADMIN'" (click)="alternarRolUsuario('ADMIN')">ADMIN</span>
+        <span class="badge-toggle developer" [class.active]="userRoleFilter() === 'DEVELOPER'" (click)="alternarRolUsuario('DEVELOPER')">DEVELOPER</span>
       </div>
       <button class="btn-clear" (click)="limpiarFiltrosUsuarios()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
@@ -149,12 +150,13 @@
           type="text"
           class="search-input"
           [placeholder]="'USERS.FILTERS.SEARCH_INVITES' | translate"
-          [(ngModel)]="inviteSearch"
+          [ngModel]="inviteSearch()"
+          (ngModelChange)="inviteSearch.set($event)"
         />
       </div>
       <div class="filter-group">
         <span class="filter-label">{{ 'USERS.FILTERS.ESTADO' | translate }}</span>
-        <select class="filter-select" [(ngModel)]="inviteStatusFilter">
+        <select class="filter-select" [ngModel]="inviteStatusFilter()" (ngModelChange)="inviteStatusFilter.set($event)">
           <option value="Todas">{{ 'USERS.FILTERS.ALL_ESTADOS' | translate }}</option>
           <option value="SENT">SENT</option>
           <option value="ERROR">ERROR</option>
@@ -162,21 +164,21 @@
         </select>
       </div>
       <div class="badge-filters">
-        <span class="badge-toggle draft" [class.active]="inviteStatusFilter === 'DRAFT'" (click)="alternarEstadoInvitacion('DRAFT')">DRAFT</span>
-        <span class="badge-toggle sent" [class.active]="inviteStatusFilter === 'SENT'" (click)="alternarEstadoInvitacion('SENT')">SENT</span>
-        <span class="badge-toggle error" [class.active]="inviteStatusFilter === 'ERROR'" (click)="alternarEstadoInvitacion('ERROR')">ERROR</span>
+        <span class="badge-toggle draft" [class.active]="inviteStatusFilter() === 'DRAFT'" (click)="alternarEstadoInvitacion('DRAFT')">DRAFT</span>
+        <span class="badge-toggle sent" [class.active]="inviteStatusFilter() === 'SENT'" (click)="alternarEstadoInvitacion('SENT')">SENT</span>
+        <span class="badge-toggle error" [class.active]="inviteStatusFilter() === 'ERROR'" (click)="alternarEstadoInvitacion('ERROR')">ERROR</span>
       </div>
       <div class="filter-group">
         <span class="filter-label">{{ 'USERS.FILTERS.ROL' | translate }}</span>
-        <select class="filter-select" [(ngModel)]="inviteRoleFilter">
+        <select class="filter-select" [ngModel]="inviteRoleFilter()" (ngModelChange)="inviteRoleFilter.set($event)">
           <option value="Todos">{{ 'USERS.FILTERS.ALL_ROLES_SHORT' | translate }}</option>
           <option value="ADMIN">ADMIN</option>
           <option value="DEVELOPER">DEVELOPER</option>
         </select>
       </div>
       <div class="badge-filters">
-        <span class="badge-toggle admin" [class.active]="inviteRoleFilter === 'ADMIN'" (click)="alternarRolInvitacion('ADMIN')">ADMIN</span>
-        <span class="badge-toggle developer" [class.active]="inviteRoleFilter === 'DEVELOPER'" (click)="alternarRolInvitacion('DEVELOPER')">DEVELOPER</span>
+        <span class="badge-toggle admin" [class.active]="inviteRoleFilter() === 'ADMIN'" (click)="alternarRolInvitacion('ADMIN')">ADMIN</span>
+        <span class="badge-toggle developer" [class.active]="inviteRoleFilter() === 'DEVELOPER'" (click)="alternarRolInvitacion('DEVELOPER')">DEVELOPER</span>
       </div>
       <button class="btn-clear" (click)="limpiarFiltrosInvitaciones()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">

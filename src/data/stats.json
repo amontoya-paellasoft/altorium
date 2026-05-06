@@ -1,0 +1,65 @@
+{
+  "status": "DOWN",
+  "groups": [
+    "liveness",
+    "readiness"
+  ],
+  "components": {
+    "altoriumWorker": {
+      "status": "UP",
+      "details": {
+        "executionWorkerEnabled": false,
+        "deliveryReleaseWorkerEnabled": false,
+        "role": "api"
+      }
+    },
+    "bitbucket": {
+      "status": "UNKNOWN",
+      "details": {
+        "endpointConfigured": true,
+        "credentialsConfigured": false,
+        "mode": "configuration-only"
+      }
+    },
+    "db": {
+      "status": "UP",
+      "details": {
+        "database": "PostgreSQL",
+        "validationQuery": "isValid()"
+      }
+    },
+    "diskSpace": {
+      "status": "UP",
+      "details": {
+        "total": 234046353408,
+        "free": 206024736768,
+        "threshold": 10485760,
+        "path": "E:\\Altorium\\altorium-daas\\ms-altorium-DAAS\\altorium-api\\.",
+        "exists": true
+      }
+    },
+    "livenessState": {
+      "status": "UP"
+    },
+    "mail": {
+      "status": "DOWN",
+      "details": {
+        "location": "smtp.serviciodecorreo.es:465",
+        "error": "jakarta.mail.AuthenticationFailedException: 535 5.7.0 Invalid username or password\n"
+      }
+    },
+    "ping": {
+      "status": "UP"
+    },
+    "readinessState": {
+      "status": "UP"
+    },
+    "ssl": {
+      "status": "UP",
+      "details": {
+        "validChains": [],
+        "invalidChains": []
+      }
+    }
+  }
+}
